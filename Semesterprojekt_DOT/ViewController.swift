@@ -11,6 +11,8 @@ import MultipeerConnectivity
 
 class ViewController: UIViewController, MCBrowserViewControllerDelegate {
 
+    @IBOutlet weak var label_pairedpartner: UILabel!
+    
     var test = 0; //Testvariable
     var appDelegate: AppDelegate!
     
@@ -21,6 +23,10 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         appDelegate.mpcHandler.setupPeerWithDisplayName(UIDevice.currentDevice().name)
         appDelegate.mpcHandler.setupSession()
         appDelegate.mpcHandler.advertiseSelf(true)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "peerChangedStateWithNotification:", name: "MPC_DidChangeStateNotification", object: nil)
+        
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReceivedDataWithNotification:", name: "MPC_DidReceiveDataNotification", object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,6 +34,20 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    func peerChangedStateWithNotification(notification:NSNotification){
+        let userInfo = NSDictionary(dictionary: notification.userInfo!)
+        
+        let state = userInfo.objectForKey("state") as! Int
+        let peerid = userInfo.objectForKey("peerID") as! MCPeerID
+        
+        println("state: \(state) peerID: \(peerid)")
+        if state != MCSessionState.Connecting.rawValue{ //toRaw was replaced with rawValue
+            self.label_pairedpartner.text = "Connected with \(peerid.displayName)"
+        }
+        
+    }
     
     @IBAction func connectWithOpponentPlayer(sender: AnyObject) {
         if appDelegate.mpcHandler.session != nil{

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -29,13 +28,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are not paired!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSl-KV-Tcz">
-                                <rect key="frame" x="228" y="106" width="144" height="21"/>
+                                <rect key="frame" x="228" y="106" width="144" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-Ut-XRr">
-                                <rect key="frame" x="16" y="177" width="568" height="383"/>
+                                <rect key="frame" x="16" y="176.5" width="568" height="383.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njy-TG-AWt">
                                         <rect key="frame" x="8" y="8" width="552" height="30"/>
@@ -86,7 +85,7 @@
                                     <constraint firstAttribute="trailing" secondItem="njy-TG-AWt" secondAttribute="trailing" constant="8" id="WYK-Tu-APK"/>
                                     <constraint firstItem="Oo6-bu-4Yp" firstAttribute="centerX" secondItem="4aU-Ut-XRr" secondAttribute="centerX" id="bGi-HT-WOA"/>
                                     <constraint firstItem="Oo6-bu-4Yp" firstAttribute="top" secondItem="qfR-W7-z57" secondAttribute="bottom" constant="40" id="bVg-AC-Ahk"/>
-                                    <constraint firstAttribute="centerX" secondItem="qfR-W7-z57" secondAttribute="centerX" constant="-0.5" id="bdz-ub-Jwd"/>
+                                    <constraint firstAttribute="centerX" secondItem="qfR-W7-z57" secondAttribute="centerX" id="bdz-ub-Jwd"/>
                                     <constraint firstAttribute="trailing" secondItem="qfR-W7-z57" secondAttribute="trailing" constant="8" id="cev-pv-peE"/>
                                     <constraint firstItem="qfR-W7-z57" firstAttribute="leading" secondItem="Oo6-bu-4Yp" secondAttribute="leading" id="cgi-m9-zbG"/>
                                     <constraint firstAttribute="height" constant="300" id="dSB-fq-Z5c"/>
@@ -94,7 +93,7 @@
                                     <constraint firstItem="njy-TG-AWt" firstAttribute="top" secondItem="4aU-Ut-XRr" secondAttribute="top" constant="8" id="eKb-n8-AHf"/>
                                     <constraint firstAttribute="bottom" secondItem="dPL-wm-9au" secondAttribute="bottom" constant="8" id="g9m-YJ-0ve"/>
                                     <constraint firstItem="Oo6-bu-4Yp" firstAttribute="leading" secondItem="4aU-Ut-XRr" secondAttribute="leading" constant="8" id="hxY-B2-3KF"/>
-                                    <constraint firstAttribute="centerX" secondItem="Oo6-bu-4Yp" secondAttribute="centerX" constant="-0.5" id="jWF-8b-4Dd"/>
+                                    <constraint firstAttribute="centerX" secondItem="Oo6-bu-4Yp" secondAttribute="centerX" id="jWF-8b-4Dd"/>
                                     <constraint firstItem="qfR-W7-z57" firstAttribute="top" secondItem="njy-TG-AWt" secondAttribute="bottom" constant="79" id="jz8-TM-ufl"/>
                                     <constraint firstAttribute="height" constant="300" id="piY-8t-Kla"/>
                                     <constraint firstItem="Oo6-bu-4Yp" firstAttribute="top" secondItem="qfR-W7-z57" secondAttribute="bottom" constant="8" symbolic="YES" id="rnx-60-TSU"/>
@@ -143,6 +142,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="label_pairedpartner" destination="QSl-KV-Tcz" id="fk5-qf-c6A"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
