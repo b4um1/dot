@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class ViewController: UIViewController {
     
@@ -20,6 +21,40 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    
+    func peerChangedStateWithNotification(notification:NSNotification){
+        let userInfo = NSDictionary(dictionary: notification.userInfo!)
+        
+        let state = userInfo.objectForKey("state") as! Int
+        let peerid = userInfo.objectForKey("peerID") as! MCPeerID
+        
+        println("state: \(state) peerID: \(peerid)")
+        if state != MCSessionState.Connecting.rawValue{ //toRaw was replaced with rawValue
+            self.label_pairedpartner.text = "Connected with \(peerid.displayName)"
+        }
+        
+    }
+    
+    @IBAction func connectWithOpponentPlayer(sender: AnyObject) {
+        if appDelegate.mpcHandler.session != nil{
+            appDelegate.mpcHandler.setupBrowser()
+            appDelegate.mpcHandler.browser.delegate = self
+            
+            self.presentViewController(appDelegate.mpcHandler.browser, animated: true, completion: nil)
+            
+        }
+
+    }
+    
+    func browserViewControllerDidFinish(browserViewController: MCBrowserViewController!) {
+        appDelegate.mpcHandler.browser.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func browserViewControllerWasCancelled(browserViewController: MCBrowserViewController!) {
+        appDelegate.mpcHandler.browser.dismissViewControllerAnimated(true, completion: nil)
     }
 
 
