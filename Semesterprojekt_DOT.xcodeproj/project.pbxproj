@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E8462A9C1B19AA2F00C31878 /* MPCHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8462A9B1B19AA2F00C31878 /* MPCHandler.swift */; };
+		E8462A9E1B19AAF300C31878 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8462A9D1B19AAF300C31878 /* MultipeerConnectivity.framework */; };
 		E8638C281B19965300CC74E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8638C271B19965300CC74E2 /* AppDelegate.swift */; };
 		E8638C2B1B19965300CC74E2 /* Semesterprojekt_DOT.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E8638C291B19965300CC74E2 /* Semesterprojekt_DOT.xcdatamodeld */; };
 		E8638C2D1B19965300CC74E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8638C2C1B19965300CC74E2 /* ViewController.swift */; };
@@ -27,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E8462A9B1B19AA2F00C31878 /* MPCHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCHandler.swift; sourceTree = "<group>"; };
+		E8462A9D1B19AAF300C31878 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
 		E8638C221B19965300CC74E2 /* Semesterprojekt_DOT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semesterprojekt_DOT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8638C261B19965300CC74E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8638C271B19965300CC74E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8462A9E1B19AAF300C31878 /* MultipeerConnectivity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,9 +63,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E8462A9A1B19AA1100C31878 /* Multipeerhandler */ = {
+			isa = PBXGroup;
+			children = (
+				E8462A9B1B19AA2F00C31878 /* MPCHandler.swift */,
+			);
+			name = Multipeerhandler;
+			sourceTree = "<group>";
+		};
 		E8638C191B19965300CC74E2 = {
 			isa = PBXGroup;
 			children = (
+				E8462A9D1B19AAF300C31878 /* MultipeerConnectivity.framework */,
 				E8638C241B19965300CC74E2 /* Semesterprojekt_DOT */,
 				E8638C3D1B19965300CC74E2 /* Semesterprojekt_DOTTests */,
 				E8638C231B19965300CC74E2 /* Products */,
@@ -79,6 +93,7 @@
 		E8638C241B19965300CC74E2 /* Semesterprojekt_DOT */ = {
 			isa = PBXGroup;
 			children = (
+				E8462A9A1B19AA1100C31878 /* Multipeerhandler */,
 				E8638C271B19965300CC74E2 /* AppDelegate.swift */,
 				E8638C2C1B19965300CC74E2 /* ViewController.swift */,
 				E8638C2E1B19965300CC74E2 /* Main.storyboard */,
@@ -216,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8638C2D1B19965300CC74E2 /* ViewController.swift in Sources */,
+				E8462A9C1B19AA2F00C31878 /* MPCHandler.swift in Sources */,
 				E8638C2B1B19965300CC74E2 /* Semesterprojekt_DOT.xcdatamodeld in Sources */,
 				E8638C281B19965300CC74E2 /* AppDelegate.swift in Sources */,
 			);
@@ -295,7 +311,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -334,7 +350,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -415,6 +431,7 @@
 				E8638C461B19965300CC74E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E8638C471B19965300CC74E2 /* Build configuration list for PBXNativeTarget "Semesterprojekt_DOTTests" */ = {
 			isa = XCConfigurationList;
@@ -423,6 +440,7 @@
 				E8638C491B19965300CC74E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
