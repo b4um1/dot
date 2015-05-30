@@ -25,7 +25,6 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
         //storeDummyData("Thomas")
         //storeDummyData("Mario")
         
-        
         loadFromCoreData()
         println(players)
         
@@ -47,7 +46,6 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")
         }
-
     }
     
     func storeDummyData(name: String) {
