@@ -13,8 +13,11 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
 
     @IBOutlet weak var label_pairedpartner: UILabel!
     
+    let segueStartGame = "startGame"
     var test = 0; //Testvariable
     var appDelegate: AppDelegate!
+    
+    var oppenentname = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +38,13 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         let state = userInfo.objectForKey("state") as! Int
         let peerid = userInfo.objectForKey("peerID") as! MCPeerID
         
+        oppenentname = peerid.displayName
+        
         if state == MCSessionState.Connecting.rawValue{
-            self.label_pairedpartner.text = "Connecting with \(peerid.displayName)..."
+            self.label_pairedpartner.text = "Connecting with \(oppenentname)..."
         }
         if state == MCSessionState.Connected.rawValue{ //toRaw was replaced with rawValue
-            self.label_pairedpartner.text = "Connected with \(peerid.displayName)"
+            self.label_pairedpartner.text = "Connected with \(oppenentname)"
         }else{
             self.label_pairedpartner.text = "Disconnected"
         }
@@ -65,10 +70,10 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         
         let message = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
         let senderPeerId:MCPeerID = userInfo["peerID"] as! MCPeerID
-        let senderDisplayName = senderPeerId.displayName
+        oppenentname = senderPeerId.displayName
         
         if message.objectForKey("string")?.isEqualToString("New Game") == true{
-            let alert = UIAlertController(title: "TicTacToe", message: "\(senderDisplayName) has started a new Game", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Multi Dot", message: "\(oppenentname) has started a new Game", preferredStyle: UIAlertControllerStyle.Alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             
@@ -95,14 +100,16 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     }
     
     @IBAction func connectWithOpponentPlayer(sender: AnyObject) {
+        startConnectionBrowser()
+    }
+    
+    func startConnectionBrowser(){
         if appDelegate.mpcHandler.session != nil{
             appDelegate.mpcHandler.setupBrowser()
             appDelegate.mpcHandler.browser.delegate = self
             
             self.presentViewController(appDelegate.mpcHandler.browser, animated: true, completion: nil)
-            
         }
-
     }
     
     func browserViewControllerDidFinish(browserViewController: MCBrowserViewController!) {
@@ -111,6 +118,18 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     
     func browserViewControllerWasCancelled(browserViewController: MCBrowserViewController!) {
         appDelegate.mpcHandler.browser.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == segueStartGame{
+            
+            // only if there is a connection to another device
+            
+            let controller = segue.destinationViewController as! GameScreenController
+            controller.oppenentname = self.oppenentname
+            controller.stepcounter = 0
+            controller.playernr = 1
+        }
     }
 
 

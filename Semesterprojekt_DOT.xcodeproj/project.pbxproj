@@ -22,6 +22,7 @@
 		E8638C321B19965300CC74E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8638C311B19965300CC74E2 /* Images.xcassets */; };
 		E8638C351B19965300CC74E2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8638C331B19965300CC74E2 /* LaunchScreen.xib */; };
 		E8638C411B19965300CC74E2 /* Semesterprojekt_DOTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8638C401B19965300CC74E2 /* Semesterprojekt_DOTTests.swift */; };
+		E8FBEC231B19F617004C7311 /* GameScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FBEC221B19F617004C7311 /* GameScreenController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		E8638C3A1B19965300CC74E2 /* Semesterprojekt_DOTTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Semesterprojekt_DOTTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8638C3F1B19965300CC74E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8638C401B19965300CC74E2 /* Semesterprojekt_DOTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Semesterprojekt_DOTTests.swift; sourceTree = "<group>"; };
+		E8FBEC221B19F617004C7311 /* GameScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScreenController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		CEEA1C041B19D632007B0320 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				E8638C291B19965300CC74E2 /* Semesterprojekt_DOT.xcdatamodeld */,
 				CEEA1C0A1B19D7C4007B0320 /* Player.swift */,
 				CEEA1C051B19D68D007B0320 /* PlayerModel.xcdatamodeld */,
 			);
@@ -137,16 +140,13 @@
 		E8638C241B19965300CC74E2 /* Semesterprojekt_DOT */ = {
 			isa = PBXGroup;
 			children = (
-				CEEA1C041B19D632007B0320 /* CoreData */,
-				CE94C1631B19CB6000B2CBB6 /* HallOfFameViewController.swift */,
-				CE94C1651B19D15700B2CBB6 /* PageItemController.swift */,
-				E8462A9A1B19AA1100C31878 /* Multipeerhandler */,
-				E8638C271B19965300CC74E2 /* AppDelegate.swift */,
-				E8638C2C1B19965300CC74E2 /* ViewController.swift */,
-				E8638C2E1B19965300CC74E2 /* Main.storyboard */,
-				E8638C311B19965300CC74E2 /* Images.xcassets */,
 				E8638C331B19965300CC74E2 /* LaunchScreen.xib */,
-				E8638C291B19965300CC74E2 /* Semesterprojekt_DOT.xcdatamodeld */,
+				E8638C311B19965300CC74E2 /* Images.xcassets */,
+				E8638C271B19965300CC74E2 /* AppDelegate.swift */,
+				E8FBEC211B19F585004C7311 /* VController */,
+				CEEA1C041B19D632007B0320 /* CoreData */,
+				E8462A9A1B19AA1100C31878 /* Multipeerhandler */,
+				E8638C2E1B19965300CC74E2 /* Main.storyboard */,
 				E8638C251B19965300CC74E2 /* Supporting Files */,
 			);
 			path = Semesterprojekt_DOT;
@@ -175,6 +175,17 @@
 				E8638C3F1B19965300CC74E2 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E8FBEC211B19F585004C7311 /* VController */ = {
+			isa = PBXGroup;
+			children = (
+				E8638C2C1B19965300CC74E2 /* ViewController.swift */,
+				CE94C1651B19D15700B2CBB6 /* PageItemController.swift */,
+				CE94C1631B19CB6000B2CBB6 /* HallOfFameViewController.swift */,
+				E8FBEC221B19F617004C7311 /* GameScreenController.swift */,
+			);
+			name = VController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,6 +343,7 @@
 				E8638C2D1B19965300CC74E2 /* ViewController.swift in Sources */,
 				E8462A9C1B19AA2F00C31878 /* MPCHandler.swift in Sources */,
 				CE94C1641B19CB6000B2CBB6 /* HallOfFameViewController.swift in Sources */,
+				E8FBEC231B19F617004C7311 /* GameScreenController.swift in Sources */,
 				CE94C1661B19D15700B2CBB6 /* PageItemController.swift in Sources */,
 				CEEA1C0B1B19D7C4007B0320 /* Player.swift in Sources */,
 				CEEA1C071B19D68D007B0320 /* PlayerModel.xcdatamodeld in Sources */,
