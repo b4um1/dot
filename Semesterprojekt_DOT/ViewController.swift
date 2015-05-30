@@ -16,9 +16,9 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     var test = 0; //Testvariable
     var appDelegate: AppDelegate!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.mpcHandler.setupPeerWithDisplayName(UIDevice.currentDevice().name)
         appDelegate.mpcHandler.setupSession()
