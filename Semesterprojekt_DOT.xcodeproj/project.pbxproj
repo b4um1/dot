@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		348E73A95E87F71778A5E238 /* Pods_Semesterprojekt_DOT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A7B94F45523BAF42EF8B94 /* Pods_Semesterprojekt_DOT.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		CE94C1641B19CB6000B2CBB6 /* HallOfFameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94C1631B19CB6000B2CBB6 /* HallOfFameViewController.swift */; };
+		CE94C1661B19D15700B2CBB6 /* PageItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94C1651B19D15700B2CBB6 /* PageItemController.swift */; };
+		CEEA1C071B19D68D007B0320 /* PlayerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEEA1C051B19D68D007B0320 /* PlayerModel.xcdatamodeld */; };
+		CEEA1C0B1B19D7C4007B0320 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEA1C0A1B19D7C4007B0320 /* Player.swift */; };
+		CEEA1C0D1B19E18D007B0320 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = CEEA1C0C1B19E18D007B0320 /* Podfile */; };
 		E8462A9C1B19AA2F00C31878 /* MPCHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8462A9B1B19AA2F00C31878 /* MPCHandler.swift */; };
 		E8462A9E1B19AAF300C31878 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8462A9D1B19AAF300C31878 /* MultipeerConnectivity.framework */; };
 		E8638C281B19965300CC74E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8638C271B19965300CC74E2 /* AppDelegate.swift */; };
@@ -29,6 +35,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07A7B94F45523BAF42EF8B94 /* Pods_Semesterprojekt_DOT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Semesterprojekt_DOT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		23DC3A169E02A79BAF7F5324 /* Pods-Semesterprojekt_DOT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Semesterprojekt_DOT.release.xcconfig"; path = "Pods/Target Support Files/Pods-Semesterprojekt_DOT/Pods-Semesterprojekt_DOT.release.xcconfig"; sourceTree = "<group>"; };
+		2DD9B393BCB40EB391A1CBDA /* Pods-Semesterprojekt_DOT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Semesterprojekt_DOT.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Semesterprojekt_DOT/Pods-Semesterprojekt_DOT.debug.xcconfig"; sourceTree = "<group>"; };
+		CE94C1631B19CB6000B2CBB6 /* HallOfFameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HallOfFameViewController.swift; sourceTree = "<group>"; };
+		CE94C1651B19D15700B2CBB6 /* PageItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageItemController.swift; sourceTree = "<group>"; };
+		CEEA1C061B19D68D007B0320 /* PlayerModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlayerModel.xcdatamodel; sourceTree = "<group>"; };
+		CEEA1C0A1B19D7C4007B0320 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Player.swift; path = ../Player.swift; sourceTree = "<group>"; };
+		CEEA1C0C1B19E18D007B0320 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		E8462A9B1B19AA2F00C31878 /* MPCHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCHandler.swift; sourceTree = "<group>"; };
 		E8462A9D1B19AAF300C31878 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
 		E8638C221B19965300CC74E2 /* Semesterprojekt_DOT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semesterprojekt_DOT.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,6 +64,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8462A9E1B19AAF300C31878 /* MultipeerConnectivity.framework in Frameworks */,
+				348E73A95E87F71778A5E238 /* Pods_Semesterprojekt_DOT.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +78,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6414869EE10710CCEED33816 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2DD9B393BCB40EB391A1CBDA /* Pods-Semesterprojekt_DOT.debug.xcconfig */,
+				23DC3A169E02A79BAF7F5324 /* Pods-Semesterprojekt_DOT.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		68D4A38B1C18A3C28FAE53D5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				07A7B94F45523BAF42EF8B94 /* Pods_Semesterprojekt_DOT.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CEEA1C041B19D632007B0320 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				CEEA1C0A1B19D7C4007B0320 /* Player.swift */,
+				CEEA1C051B19D68D007B0320 /* PlayerModel.xcdatamodeld */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
 		E8462A9A1B19AA1100C31878 /* Multipeerhandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,10 +115,13 @@
 		E8638C191B19965300CC74E2 = {
 			isa = PBXGroup;
 			children = (
+				CEEA1C0C1B19E18D007B0320 /* Podfile */,
 				E8462A9D1B19AAF300C31878 /* MultipeerConnectivity.framework */,
 				E8638C241B19965300CC74E2 /* Semesterprojekt_DOT */,
 				E8638C3D1B19965300CC74E2 /* Semesterprojekt_DOTTests */,
 				E8638C231B19965300CC74E2 /* Products */,
+				6414869EE10710CCEED33816 /* Pods */,
+				68D4A38B1C18A3C28FAE53D5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,6 +137,9 @@
 		E8638C241B19965300CC74E2 /* Semesterprojekt_DOT */ = {
 			isa = PBXGroup;
 			children = (
+				CEEA1C041B19D632007B0320 /* CoreData */,
+				CE94C1631B19CB6000B2CBB6 /* HallOfFameViewController.swift */,
+				CE94C1651B19D15700B2CBB6 /* PageItemController.swift */,
 				E8462A9A1B19AA1100C31878 /* Multipeerhandler */,
 				E8638C271B19965300CC74E2 /* AppDelegate.swift */,
 				E8638C2C1B19965300CC74E2 /* ViewController.swift */,
@@ -137,9 +184,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E8638C441B19965300CC74E2 /* Build configuration list for PBXNativeTarget "Semesterprojekt_DOT" */;
 			buildPhases = (
+				2BC2191ED26992B93AC8D462 /* Check Pods Manifest.lock */,
 				E8638C1E1B19965300CC74E2 /* Sources */,
 				E8638C1F1B19965300CC74E2 /* Frameworks */,
 				E8638C201B19965300CC74E2 /* Resources */,
+				E9D39D7E1C5497A4AB60D8D8 /* Embed Pods Frameworks */,
+				03A8133698ABEA762FAA9D9C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -212,6 +262,7 @@
 			files = (
 				E8638C301B19965300CC74E2 /* Main.storyboard in Resources */,
 				E8638C351B19965300CC74E2 /* LaunchScreen.xib in Resources */,
+				CEEA1C0D1B19E18D007B0320 /* Podfile in Resources */,
 				E8638C321B19965300CC74E2 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -225,6 +276,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		03A8133698ABEA762FAA9D9C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Semesterprojekt_DOT/Pods-Semesterprojekt_DOT-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2BC2191ED26992B93AC8D462 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E9D39D7E1C5497A4AB60D8D8 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Semesterprojekt_DOT/Pods-Semesterprojekt_DOT-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E8638C1E1B19965300CC74E2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -232,6 +331,10 @@
 			files = (
 				E8638C2D1B19965300CC74E2 /* ViewController.swift in Sources */,
 				E8462A9C1B19AA2F00C31878 /* MPCHandler.swift in Sources */,
+				CE94C1641B19CB6000B2CBB6 /* HallOfFameViewController.swift in Sources */,
+				CE94C1661B19D15700B2CBB6 /* PageItemController.swift in Sources */,
+				CEEA1C0B1B19D7C4007B0320 /* Player.swift in Sources */,
+				CEEA1C071B19D68D007B0320 /* PlayerModel.xcdatamodeld in Sources */,
 				E8638C2B1B19965300CC74E2 /* Semesterprojekt_DOT.xcdatamodeld in Sources */,
 				E8638C281B19965300CC74E2 /* AppDelegate.swift in Sources */,
 			);
@@ -360,6 +463,7 @@
 		};
 		E8638C451B19965300CC74E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2DD9B393BCB40EB391A1CBDA /* Pods-Semesterprojekt_DOT.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Semesterprojekt_DOT/Info.plist;
@@ -371,6 +475,7 @@
 		};
 		E8638C461B19965300CC74E2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 23DC3A169E02A79BAF7F5324 /* Pods-Semesterprojekt_DOT.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Semesterprojekt_DOT/Info.plist;
@@ -447,6 +552,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		CEEA1C051B19D68D007B0320 /* PlayerModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CEEA1C061B19D68D007B0320 /* PlayerModel.xcdatamodel */,
+			);
+			currentVersion = CEEA1C061B19D68D007B0320 /* PlayerModel.xcdatamodel */;
+			path = PlayerModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		E8638C291B19965300CC74E2 /* Semesterprojekt_DOT.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

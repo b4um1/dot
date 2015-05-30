@@ -16,9 +16,9 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     var test = 0; //Testvariable
     var appDelegate: AppDelegate!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.mpcHandler.setupPeerWithDisplayName(UIDevice.currentDevice().name)
         appDelegate.mpcHandler.setupSession()
@@ -28,13 +28,15 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         
         //NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReceivedDataWithNotification:", name: "MPC_DidReceiveDataNotification", object: nil)
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController!.navigationBar.hidden = true
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
     
     func peerChangedStateWithNotification(notification:NSNotification){
         let userInfo = NSDictionary(dictionary: notification.userInfo!)

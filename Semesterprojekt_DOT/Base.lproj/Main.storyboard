@@ -177,10 +177,10 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
-        <!--View Controller-->
+        <!--Hall Of Fame View Controller-->
         <scene sceneID="JsB-nA-hfd">
             <objects>
-                <viewController id="PPU-Z9-P1A" sceneMemberID="viewController">
+                <viewController id="PPU-Z9-P1A" customClass="HallOfFameViewController" customModule="Semesterprojekt_DOT" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="l2h-YH-jD5"/>
                         <viewControllerLayoutGuide type="bottom" id="ztf-Pu-dGV"/>
@@ -206,6 +206,47 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CrX-KZ-hUG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="988" y="304"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="Hh5-Dp-mG0">
+            <objects>
+                <pageViewController storyboardIdentifier="PageController" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="jbb-fN-aiY" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="71x-9V-xM1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1684" y="296"/>
+        </scene>
+        <!--Page Item Controller-->
+        <scene sceneID="B1b-0F-j1V">
+            <objects>
+                <viewController storyboardIdentifier="ItemController" id="V45-LP-sJ1" customClass="PageItemController" customModule="Semesterprojekt_DOT" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PHH-iL-Qq9"/>
+                        <viewControllerLayoutGuide type="bottom" id="Sat-Mf-u7y"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Cly-SN-RFN">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3jF-72-gdT">
+                                <rect key="frame" x="279" y="289" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="3jF-72-gdT" firstAttribute="centerX" secondItem="Cly-SN-RFN" secondAttribute="centerX" id="Kdf-hl-D5a"/>
+                            <constraint firstItem="3jF-72-gdT" firstAttribute="top" secondItem="PHH-iL-Qq9" secondAttribute="bottom" constant="269" id="dnt-LD-2ag"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="myLabel" destination="3jF-72-gdT" id="wW2-VJ-8I3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="15W-CN-kR2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2344" y="296"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="iUB-kM-NOD">
