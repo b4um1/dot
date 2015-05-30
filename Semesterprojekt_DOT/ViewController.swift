@@ -9,13 +9,24 @@
 import UIKit
 import MultipeerConnectivity
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, MCBrowserViewControllerDelegate {
+
+    @IBOutlet weak var label_pairedpartner: UILabel!
+    
+    var test = 0; //Testvariable
+    var appDelegate: AppDelegate!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.mpcHandler.setupPeerWithDisplayName(UIDevice.currentDevice().name)
+        appDelegate.mpcHandler.setupSession()
+        appDelegate.mpcHandler.advertiseSelf(true)
         
-        // Do any additional setup after loading the view, typically from a nib.
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "peerChangedStateWithNotification:", name: "MPC_DidChangeStateNotification", object: nil)
+        
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReceivedDataWithNotification:", name: "MPC_DidReceiveDataNotification", object: nil)
     }
 
     override func didReceiveMemoryWarning() {
