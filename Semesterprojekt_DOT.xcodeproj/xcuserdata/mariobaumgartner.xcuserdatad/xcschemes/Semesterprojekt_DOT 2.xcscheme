@@ -20,20 +20,6 @@
                ReferencedContainer = "container:Semesterprojekt_DOT.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E8638C391B19965300CC74E2"
-               BuildableName = "Semesterprojekt_DOTTests.xctest"
-               BlueprintName = "Semesterprojekt_DOTTests"
-               ReferencedContainer = "container:Semesterprojekt_DOT.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -42,16 +28,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E8638C391B19965300CC74E2"
-               BuildableName = "Semesterprojekt_DOTTests.xctest"
-               BlueprintName = "Semesterprojekt_DOTTests"
-               ReferencedContainer = "container:Semesterprojekt_DOT.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
