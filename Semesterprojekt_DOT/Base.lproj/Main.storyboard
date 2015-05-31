@@ -227,21 +227,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3jF-72-gdT">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TUs-TP-fO5" userLabel="name">
+                                <rect key="frame" x="279" y="228" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvC-e8-dgl" userLabel="date">
                                 <rect key="frame" x="279" y="289" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hp2-x5-bOO" userLabel="totalGames">
+                                <rect key="frame" x="279" y="350" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="3jF-72-gdT" firstAttribute="centerX" secondItem="Cly-SN-RFN" secondAttribute="centerX" id="Kdf-hl-D5a"/>
-                            <constraint firstItem="3jF-72-gdT" firstAttribute="top" secondItem="PHH-iL-Qq9" secondAttribute="bottom" constant="269" id="dnt-LD-2ag"/>
+                            <constraint firstAttribute="centerX" secondItem="TUs-TP-fO5" secondAttribute="centerX" id="Htg-E5-Yh0"/>
+                            <constraint firstAttribute="centerY" secondItem="UvC-e8-dgl" secondAttribute="centerY" id="ODG-Wd-rvb"/>
+                            <constraint firstItem="Hp2-x5-bOO" firstAttribute="top" secondItem="UvC-e8-dgl" secondAttribute="bottom" constant="40" id="RZx-IS-C1j"/>
+                            <constraint firstAttribute="centerX" secondItem="Hp2-x5-bOO" secondAttribute="centerX" id="h2n-Hh-DAK"/>
+                            <constraint firstAttribute="centerX" secondItem="UvC-e8-dgl" secondAttribute="centerX" id="kMM-2U-agj"/>
+                            <constraint firstItem="UvC-e8-dgl" firstAttribute="top" secondItem="TUs-TP-fO5" secondAttribute="bottom" constant="40" id="x6W-lT-hEi"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="myLabel" destination="3jF-72-gdT" id="wW2-VJ-8I3"/>
+                        <outlet property="labelDate" destination="UvC-e8-dgl" id="4OE-Hf-EF8"/>
+                        <outlet property="labelName" destination="TUs-TP-fO5" id="8SY-45-eX4"/>
+                        <outlet property="labelTotalGames" destination="Hp2-x5-bOO" id="QiB-C6-Lke"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="15W-CN-kR2" userLabel="First Responder" sceneMemberID="firstResponder"/>

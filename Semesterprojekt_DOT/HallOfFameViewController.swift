@@ -20,15 +20,20 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController!.navigationBar.hidden = false
         
         //storeDummyData("Thomas")
         //storeDummyData("Mario")
         
         loadFromCoreData()
-        println(players)
+        //println(players)
         
         createPageViewController()
+        setupPageControl()
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController!.navigationBar.hidden = false
         setupPageControl()
     }
     
@@ -82,7 +87,7 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
         let appearance = UIPageControl.appearance()
         appearance.pageIndicatorTintColor = UIColor.grayColor()
         appearance.currentPageIndicatorTintColor = UIColor.whiteColor()
-        appearance.backgroundColor = UIColor.darkGrayColor()
+        appearance.backgroundColor = UIColor.blackColor()
     }
     
     // MARK: - UIPageViewControllerDataSource
@@ -114,7 +119,11 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
         if itemIndex < players.count {
             let pageItemController = self.storyboard!.instantiateViewControllerWithIdentifier("ItemController") as! PageItemController
             pageItemController.itemIndex = itemIndex
-            pageItemController.labelName = players[itemIndex].name
+            pageItemController.name = players[itemIndex].name
+            pageItemController.date = players[itemIndex].lastGame
+            pageItemController.totalGames = players[itemIndex].amount as Int
+            pageItemController.wins = players[itemIndex].wins as Int
+            
             return pageItemController
         }
         
