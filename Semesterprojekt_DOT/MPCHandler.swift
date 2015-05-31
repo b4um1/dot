@@ -8,14 +8,39 @@
 
 import UIKit
 import MultipeerConnectivity
+import CoreBluetooth
 
 
-class MPCHandler: NSObject, MCSessionDelegate {
+class MPCHandler: NSObject, MCSessionDelegate, CBPeripheralManagerDelegate {
+    
+    var myBTManager : CBPeripheralManager?
     
     var peerID:MCPeerID!
     var session:MCSession!
     var browser:MCBrowserViewController!
     var advertiser:MCAdvertiserAssistant? = nil
+    
+    func setupPeriphial(){
+        myBTManager = CBPeripheralManager(delegate: self, queue: nil)
+    }
+    //BT Manager
+    func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager!) {
+        var state = -1
+        println(__FUNCTION__)
+        if peripheral.state == CBPeripheralManagerState.PoweredOn {
+            state = 1 //Bluetooth is on
+        } else if peripheral.state == CBPeripheralManagerState.PoweredOff {
+            state = 0 //Bluetooth is on
+        } else if peripheral.state == CBPeripheralManagerState.Unsupported {
+            state = -1
+        } else if peripheral.state == CBPeripheralManagerState.Unauthorized {
+            state = -1
+        }
+        
+        let userInfo = ["state":state]
+        NSNotificationCenter.defaultCenter().postNotificationName("MPC_BluetoothStateChanged", object: nil, userInfo: userInfo)
+        
+    }
     
     func setupPeerWithDisplayName (displayName:String){
         peerID = MCPeerID(displayName: displayName)
@@ -70,8 +95,6 @@ class MPCHandler: NSObject, MCSessionDelegate {
     func session(session: MCSession!, didReceiveStream stream: NSInputStream!, withName streamName: String!, fromPeer peerID: MCPeerID!) {
         
     }
-    
-    
     
 }
 

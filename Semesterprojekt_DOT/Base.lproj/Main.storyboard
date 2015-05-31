@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3au-VQ-8Kk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3au-VQ-8Kk">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -26,7 +26,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OkI-d0-69U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-472" y="304"/>
+            <point key="canvasLocation" x="-118" y="259"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -64,7 +64,8 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="dGU-Qg-9FR" kind="show" id="9mJ-pu-hof"/>
+                                            <action selector="startNewGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="53V-0c-7SC"/>
+                                            <segue destination="dGU-Qg-9FR" kind="show" identifier="startGame" id="9mJ-pu-hof"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfR-W7-z57">
@@ -192,7 +193,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hall of Fame" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gun-zk-JPv">
                                 <rect key="frame" x="252" y="257" width="97" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -205,7 +206,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CrX-KZ-hUG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="988" y="304"/>
+            <point key="canvasLocation" x="1356" y="317"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="Hh5-Dp-mG0">
@@ -213,7 +214,7 @@
                 <pageViewController storyboardIdentifier="PageController" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="jbb-fN-aiY" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="71x-9V-xM1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1684" y="296"/>
+            <point key="canvasLocation" x="2044" y="317"/>
         </scene>
         <!--Page Item Controller-->
         <scene sceneID="B1b-0F-j1V">
@@ -264,12 +265,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="15W-CN-kR2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2344" y="296"/>
+            <point key="canvasLocation" x="2728" y="317"/>
         </scene>
-        <!--View Controller-->
+        <!--Game Screen Controller-->
         <scene sceneID="iUB-kM-NOD">
             <objects>
-                <viewController id="dGU-Qg-9FR" sceneMemberID="viewController">
+                <viewController id="dGU-Qg-9FR" customClass="GameScreenController" customModule="Semesterprojekt_DOT" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eej-Lw-ILu"/>
                         <viewControllerLayoutGuide type="bottom" id="dp4-ou-Wul"/>
@@ -278,23 +279,524 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GAME SCREEN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2xu-bc-S8a">
-                                <rect key="frame" x="239" y="257" width="123" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M6R-B3-TfP" userLabel="Backgroundlabel">
+                                <rect key="frame" x="170" y="80" width="260.5" height="21"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opponent:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MwD-pq-29v">
+                                <rect key="frame" x="259" y="10" width="82" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3O-As-W7f">
+                                <rect key="frame" x="259" y="40" width="54.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" It's your turn, move the red DOT! " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEr-Qg-GAz">
+                                <rect key="frame" x="170" y="80" width="261" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDT-qG-LAz">
+                                <rect key="frame" x="34" y="121" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gjU-w5-Ss5">
+                                <rect key="frame" x="116" y="120.5" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aq8-OB-S4H">
+                                <rect key="frame" x="198" y="120.5" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lrt-eI-Z09">
+                                <rect key="frame" x="157" y="120.5" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eAi-cw-RU0">
+                                <rect key="frame" x="280" y="120.5" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFx-Sb-Aln">
+                                <rect key="frame" x="239" y="120.5" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdV-kv-vXV">
+                                <rect key="frame" x="75" y="120.5" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7D-kA-YHt">
+                                <rect key="frame" x="16" y="156" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0I-KM-cy2">
+                                <rect key="frame" x="98" y="156" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHt-ZB-m1Y">
+                                <rect key="frame" x="180" y="156" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2hV-4Q-FSa">
+                                <rect key="frame" x="139" y="156" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJS-ZC-8x1">
+                                <rect key="frame" x="262" y="156" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RNC-rS-0fs">
+                                <rect key="frame" x="221" y="156" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="61q-bO-WOq">
+                                <rect key="frame" x="57" y="156" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lRy-98-9gf">
+                                <rect key="frame" x="34" y="191" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6nv-u1-WbQ">
+                                <rect key="frame" x="116" y="191" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9on-G4-E3v">
+                                <rect key="frame" x="198" y="191" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t8v-9Y-EE1">
+                                <rect key="frame" x="157" y="191" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IDr-Wd-tPc">
+                                <rect key="frame" x="280" y="191" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="31G-yI-oRT">
+                                <rect key="frame" x="239" y="191" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xWn-vt-GY8">
+                                <rect key="frame" x="75" y="191" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="stv-ZI-ovS">
+                                <rect key="frame" x="16" y="226" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="65X-pG-Li0">
+                                <rect key="frame" x="98" y="226" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hf-hO-7EK">
+                                <rect key="frame" x="180" y="226" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zgp-dH-iv1">
+                                <rect key="frame" x="139" y="226" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNN-tS-8FO">
+                                <rect key="frame" x="262" y="226" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XkN-Rh-Qke">
+                                <rect key="frame" x="221" y="226" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vtD-zr-lqf">
+                                <rect key="frame" x="57" y="226" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6lP-aR-Npm">
+                                <rect key="frame" x="34" y="261" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UB9-fm-NXP">
+                                <rect key="frame" x="116" y="261" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00P-PZ-1br">
+                                <rect key="frame" x="198" y="261" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cdu-YJ-lqo">
+                                <rect key="frame" x="157" y="261" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSu-W7-Dgx">
+                                <rect key="frame" x="280" y="261" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cyy-va-GEm">
+                                <rect key="frame" x="239" y="261" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WMT-6B-GRW">
+                                <rect key="frame" x="75" y="261" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHo-h0-lfS">
+                                <rect key="frame" x="16" y="296" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6iX-qR-DTu">
+                                <rect key="frame" x="98" y="296" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m6d-v6-4oC">
+                                <rect key="frame" x="180" y="296" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEn-Ck-pqO">
+                                <rect key="frame" x="139" y="296" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oOK-IK-YBR">
+                                <rect key="frame" x="262" y="296" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghP-49-q4r">
+                                <rect key="frame" x="221" y="296" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="apx-2p-8h1">
+                                <rect key="frame" x="57" y="296" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Fc-wM-1tW">
+                                <rect key="frame" x="34" y="331" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1nS-Sn-Yg5">
+                                <rect key="frame" x="116" y="331" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y97-hk-W23">
+                                <rect key="frame" x="198" y="331" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="On8-9A-BBm">
+                                <rect key="frame" x="157" y="331" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9O-GX-ydO">
+                                <rect key="frame" x="280" y="331" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G2d-Yj-79a">
+                                <rect key="frame" x="239" y="331" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="gameButtonTouched:" destination="dGU-Qg-9FR" eventType="touchUpInside" id="3iC-9m-wWA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEV-ti-LOK">
+                                <rect key="frame" x="75" y="331" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BE2-uo-TJq">
+                                <rect key="frame" x="16" y="366" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yso-cc-bmV">
+                                <rect key="frame" x="98" y="366" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3d5-9y-NMA">
+                                <rect key="frame" x="180" y="366" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FXf-n6-gjl">
+                                <rect key="frame" x="139" y="366" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D04-ok-T4r">
+                                <rect key="frame" x="262" y="366" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CzF-uV-R9O">
+                                <rect key="frame" x="221" y="366" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="drt-kL-LyA">
+                                <rect key="frame" x="57" y="366" width="35" height="34"/>
+                                <state key="normal" image="dot_standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="2xu-bc-S8a" firstAttribute="centerX" secondItem="vLI-ee-yK8" secondAttribute="centerX" id="h0H-2H-peX"/>
-                            <constraint firstItem="2xu-bc-S8a" firstAttribute="top" secondItem="eej-Lw-ILu" secondAttribute="bottom" constant="257" id="xgN-sA-zog"/>
+                            <constraint firstItem="IDr-Wd-tPc" firstAttribute="leading" secondItem="31G-yI-oRT" secondAttribute="trailing" constant="6" id="0A8-NU-6HM"/>
+                            <constraint firstItem="vtD-zr-lqf" firstAttribute="centerY" secondItem="65X-pG-Li0" secondAttribute="centerY" id="18J-cY-tJq"/>
+                            <constraint firstItem="sdV-kv-vXV" firstAttribute="leading" secondItem="VDT-qG-LAz" secondAttribute="trailing" constant="6" id="1BI-Ua-8sj"/>
+                            <constraint firstItem="6lP-aR-Npm" firstAttribute="leading" secondItem="vLI-ee-yK8" secondAttribute="leadingMargin" constant="18" id="1Qr-yW-l6y"/>
+                            <constraint firstItem="G2d-Yj-79a" firstAttribute="leading" secondItem="y97-hk-W23" secondAttribute="trailing" constant="6" id="1xg-es-T5L"/>
+                            <constraint firstItem="t8v-9Y-EE1" firstAttribute="centerY" secondItem="9on-G4-E3v" secondAttribute="centerY" id="21F-YB-sUH"/>
+                            <constraint firstItem="x3O-As-W7f" firstAttribute="top" secondItem="MwD-pq-29v" secondAttribute="bottom" constant="10" id="2Mh-FD-31P"/>
+                            <constraint firstItem="apx-2p-8h1" firstAttribute="leading" secondItem="vHo-h0-lfS" secondAttribute="trailing" constant="6" id="2aT-gX-tT0"/>
+                            <constraint firstItem="lrt-eI-Z09" firstAttribute="leading" secondItem="gjU-w5-Ss5" secondAttribute="trailing" constant="6" id="2tk-vT-cOk"/>
+                            <constraint firstItem="b9O-GX-ydO" firstAttribute="centerY" secondItem="G2d-Yj-79a" secondAttribute="centerY" id="3e4-uR-nwg"/>
+                            <constraint firstItem="lRy-98-9gf" firstAttribute="top" secondItem="V7D-kA-YHt" secondAttribute="bottom" constant="1" id="3eG-Vj-OmB"/>
+                            <constraint firstItem="UEr-Qg-GAz" firstAttribute="top" secondItem="x3O-As-W7f" secondAttribute="bottom" constant="20" id="3um-2n-pcs"/>
+                            <constraint firstItem="V7D-kA-YHt" firstAttribute="centerY" secondItem="61q-bO-WOq" secondAttribute="centerY" id="3yr-ur-QOV"/>
+                            <constraint firstItem="M6R-B3-TfP" firstAttribute="height" secondItem="UEr-Qg-GAz" secondAttribute="height" id="4K3-gx-ZBm"/>
+                            <constraint firstItem="R0I-KM-cy2" firstAttribute="leading" secondItem="61q-bO-WOq" secondAttribute="trailing" constant="6" id="4sA-uL-auk"/>
+                            <constraint firstItem="bEV-ti-LOK" firstAttribute="leading" secondItem="9Fc-wM-1tW" secondAttribute="trailing" constant="6" id="4zw-fF-jqz"/>
+                            <constraint firstItem="On8-9A-BBm" firstAttribute="leading" secondItem="1nS-Sn-Yg5" secondAttribute="trailing" constant="6" id="5Cd-Xk-U80"/>
+                            <constraint firstItem="CzF-uV-R9O" firstAttribute="leading" secondItem="3d5-9y-NMA" secondAttribute="trailing" constant="6" id="5jj-H4-GTC"/>
+                            <constraint firstItem="stv-ZI-ovS" firstAttribute="centerY" secondItem="vtD-zr-lqf" secondAttribute="centerY" id="664-7y-8p6"/>
+                            <constraint firstItem="7hf-hO-7EK" firstAttribute="centerY" secondItem="XkN-Rh-Qke" secondAttribute="centerY" id="6rU-h1-JGS"/>
+                            <constraint firstItem="FXf-n6-gjl" firstAttribute="leading" secondItem="yso-cc-bmV" secondAttribute="trailing" constant="6" id="7NE-pj-TTM"/>
+                            <constraint firstItem="Zgp-dH-iv1" firstAttribute="centerY" secondItem="7hf-hO-7EK" secondAttribute="centerY" id="7SY-25-glA"/>
+                            <constraint firstItem="9Fc-wM-1tW" firstAttribute="leading" secondItem="vLI-ee-yK8" secondAttribute="leadingMargin" constant="18" id="7o9-JB-wIs"/>
+                            <constraint firstItem="6lP-aR-Npm" firstAttribute="centerY" secondItem="WMT-6B-GRW" secondAttribute="centerY" id="8rf-fi-nJg"/>
+                            <constraint firstItem="D04-ok-T4r" firstAttribute="leading" secondItem="CzF-uV-R9O" secondAttribute="trailing" constant="6" id="94l-zN-PPR"/>
+                            <constraint firstItem="y97-hk-W23" firstAttribute="centerY" secondItem="G2d-Yj-79a" secondAttribute="centerY" id="97f-nZ-hcb"/>
+                            <constraint firstItem="9on-G4-E3v" firstAttribute="leading" secondItem="t8v-9Y-EE1" secondAttribute="trailing" constant="6" id="9HM-HS-RfN"/>
+                            <constraint firstItem="y97-hk-W23" firstAttribute="leading" secondItem="On8-9A-BBm" secondAttribute="trailing" constant="6" id="9YQ-wW-8oU"/>
+                            <constraint firstItem="yso-cc-bmV" firstAttribute="leading" secondItem="drt-kL-LyA" secondAttribute="trailing" constant="6" id="ANh-ks-cyv"/>
+                            <constraint firstItem="UEr-Qg-GAz" firstAttribute="leading" secondItem="VDT-qG-LAz" secondAttribute="trailing" constant="50" id="AdL-u3-UlY"/>
+                            <constraint firstItem="t8v-9Y-EE1" firstAttribute="leading" secondItem="6nv-u1-WbQ" secondAttribute="trailing" constant="6" id="Bd3-Oh-58i"/>
+                            <constraint firstItem="Cdu-YJ-lqo" firstAttribute="centerY" secondItem="00P-PZ-1br" secondAttribute="centerY" id="Cf2-Nc-YMa"/>
+                            <constraint firstItem="WMT-6B-GRW" firstAttribute="leading" secondItem="6lP-aR-Npm" secondAttribute="trailing" constant="6" id="DD0-U6-zfx"/>
+                            <constraint firstItem="BE2-uo-TJq" firstAttribute="top" secondItem="9Fc-wM-1tW" secondAttribute="bottom" constant="1" id="DU9-2d-AYy"/>
+                            <constraint firstItem="eAi-cw-RU0" firstAttribute="centerY" secondItem="DFx-Sb-Aln" secondAttribute="centerY" id="E6Z-HI-fKw"/>
+                            <constraint firstItem="UNN-tS-8FO" firstAttribute="leading" secondItem="XkN-Rh-Qke" secondAttribute="trailing" constant="6" id="EJ1-Hp-svG"/>
+                            <constraint firstItem="1nS-Sn-Yg5" firstAttribute="leading" secondItem="bEV-ti-LOK" secondAttribute="trailing" constant="6" id="Fc4-BG-0cP"/>
+                            <constraint firstItem="6lP-aR-Npm" firstAttribute="top" secondItem="stv-ZI-ovS" secondAttribute="bottom" constant="1" id="Gu5-RZ-jTl"/>
+                            <constraint firstItem="3d5-9y-NMA" firstAttribute="leading" secondItem="FXf-n6-gjl" secondAttribute="trailing" constant="6" id="HbB-u5-Xkk"/>
+                            <constraint firstItem="V7D-kA-YHt" firstAttribute="leading" secondItem="vLI-ee-yK8" secondAttribute="leadingMargin" id="Hei-22-wVZ"/>
+                            <constraint firstItem="65X-pG-Li0" firstAttribute="leading" secondItem="vtD-zr-lqf" secondAttribute="trailing" constant="6" id="Hxv-uE-V92"/>
+                            <constraint firstItem="eAi-cw-RU0" firstAttribute="leading" secondItem="DFx-Sb-Aln" secondAttribute="trailing" constant="6" id="I6X-vG-WfU"/>
+                            <constraint firstItem="BE2-uo-TJq" firstAttribute="leading" secondItem="vLI-ee-yK8" secondAttribute="leadingMargin" id="IAv-OZ-LO1"/>
+                            <constraint firstItem="AEn-Ck-pqO" firstAttribute="leading" secondItem="6iX-qR-DTu" secondAttribute="trailing" constant="6" id="KVW-zA-xln"/>
+                            <constraint firstItem="2hV-4Q-FSa" firstAttribute="leading" secondItem="R0I-KM-cy2" secondAttribute="trailing" constant="6" id="Lbn-qc-Shg"/>
+                            <constraint firstItem="UEr-Qg-GAz" firstAttribute="leading" secondItem="VDT-qG-LAz" secondAttribute="trailing" constant="38" id="LqT-6o-PaL"/>
+                            <constraint firstItem="Zgp-dH-iv1" firstAttribute="leading" secondItem="65X-pG-Li0" secondAttribute="trailing" constant="6" id="M1o-WU-XzK"/>
+                            <constraint firstItem="VDT-qG-LAz" firstAttribute="top" secondItem="UEr-Qg-GAz" secondAttribute="bottom" constant="20" id="Me1-Ea-aGp"/>
+                            <constraint firstAttribute="centerX" secondItem="UEr-Qg-GAz" secondAttribute="centerX" id="Mwn-fA-PmP"/>
+                            <constraint firstItem="MwD-pq-29v" firstAttribute="top" secondItem="eej-Lw-ILu" secondAttribute="bottom" constant="10" id="N0j-ul-zhG"/>
+                            <constraint firstItem="m6d-v6-4oC" firstAttribute="centerY" secondItem="ghP-49-q4r" secondAttribute="centerY" id="NPk-Yf-vqs"/>
+                            <constraint firstItem="M6R-B3-TfP" firstAttribute="leading" secondItem="UEr-Qg-GAz" secondAttribute="leading" id="OQK-oq-hFg"/>
+                            <constraint firstItem="oOK-IK-YBR" firstAttribute="leading" secondItem="ghP-49-q4r" secondAttribute="trailing" constant="6" id="OYp-7z-NRZ"/>
+                            <constraint firstItem="VDT-qG-LAz" firstAttribute="centerY" secondItem="sdV-kv-vXV" secondAttribute="centerY" id="OuT-CW-4Ar"/>
+                            <constraint firstItem="lrt-eI-Z09" firstAttribute="centerY" secondItem="Aq8-OB-S4H" secondAttribute="centerY" id="P1I-Tp-0hx"/>
+                            <constraint firstItem="FXf-n6-gjl" firstAttribute="centerY" secondItem="yso-cc-bmV" secondAttribute="centerY" id="PH3-90-3ZU"/>
+                            <constraint firstItem="VDT-qG-LAz" firstAttribute="leading" secondItem="vLI-ee-yK8" secondAttribute="leadingMargin" constant="18" id="QKU-h6-I41"/>
+                            <constraint firstItem="IDr-Wd-tPc" firstAttribute="centerY" secondItem="31G-yI-oRT" secondAttribute="centerY" id="QZV-LC-ZRr"/>
+                            <constraint firstItem="00P-PZ-1br" firstAttribute="leading" secondItem="Cdu-YJ-lqo" secondAttribute="trailing" constant="6" id="S14-ut-oes"/>
+                            <constraint firstItem="kHt-ZB-m1Y" firstAttribute="leading" secondItem="2hV-4Q-FSa" secondAttribute="trailing" constant="6" id="Sj5-JD-Zvk"/>
+                            <constraint firstItem="61q-bO-WOq" firstAttribute="leading" secondItem="V7D-kA-YHt" secondAttribute="trailing" constant="6" id="T5E-r7-ax9"/>
+                            <constraint firstItem="Cdu-YJ-lqo" firstAttribute="leading" secondItem="UB9-fm-NXP" secondAttribute="trailing" constant="6" id="UIj-tv-Ht7"/>
+                            <constraint firstItem="vHo-h0-lfS" firstAttribute="top" secondItem="6lP-aR-Npm" secondAttribute="bottom" constant="1" id="Uu1-Gn-N8p"/>
+                            <constraint firstItem="ghP-49-q4r" firstAttribute="leading" secondItem="m6d-v6-4oC" secondAttribute="trailing" constant="6" id="V9y-X8-Bod"/>
+                            <constraint firstItem="stv-ZI-ovS" firstAttribute="leading" secondItem="vLI-ee-yK8" secondAttribute="leadingMargin" id="VC2-Tp-XHD"/>
+                            <constraint firstItem="M6R-B3-TfP" firstAttribute="width" secondItem="UEr-Qg-GAz" secondAttribute="width" id="VLd-Hw-Gzp"/>
+                            <constraint firstItem="rJS-ZC-8x1" firstAttribute="centerY" secondItem="RNC-rS-0fs" secondAttribute="centerY" id="VPc-lt-OLy"/>
+                            <constraint firstItem="Cyy-va-GEm" firstAttribute="leading" secondItem="00P-PZ-1br" secondAttribute="trailing" constant="6" id="VWC-w1-kic"/>
+                            <constraint firstItem="VDT-qG-LAz" firstAttribute="leading" secondItem="UEr-Qg-GAz" secondAttribute="leading" constant="-85" id="WII-pt-L7Q"/>
+                            <constraint firstItem="UNN-tS-8FO" firstAttribute="centerY" secondItem="XkN-Rh-Qke" secondAttribute="centerY" id="WUQ-Lb-vpC"/>
+                            <constraint firstItem="lRy-98-9gf" firstAttribute="centerY" secondItem="xWn-vt-GY8" secondAttribute="centerY" id="WWQ-KK-aEE"/>
+                            <constraint firstItem="vtD-zr-lqf" firstAttribute="leading" secondItem="stv-ZI-ovS" secondAttribute="trailing" constant="6" id="Wfm-tY-fze"/>
+                            <constraint firstItem="t8v-9Y-EE1" firstAttribute="centerY" secondItem="6nv-u1-WbQ" secondAttribute="centerY" id="Wmw-FC-G0d"/>
+                            <constraint firstItem="On8-9A-BBm" firstAttribute="centerY" secondItem="1nS-Sn-Yg5" secondAttribute="centerY" id="XHi-u3-JVZ"/>
+                            <constraint firstItem="vHo-h0-lfS" firstAttribute="centerY" secondItem="apx-2p-8h1" secondAttribute="centerY" id="XXu-9c-GyY"/>
+                            <constraint firstItem="MwD-pq-29v" firstAttribute="leading" secondItem="x3O-As-W7f" secondAttribute="leading" id="Y6k-82-wbx"/>
+                            <constraint firstItem="31G-yI-oRT" firstAttribute="leading" secondItem="9on-G4-E3v" secondAttribute="trailing" constant="6" id="Yk5-xN-VMD"/>
+                            <constraint firstItem="9Fc-wM-1tW" firstAttribute="centerY" secondItem="bEV-ti-LOK" secondAttribute="centerY" id="Yu8-Ru-Qfy"/>
+                            <constraint firstItem="stv-ZI-ovS" firstAttribute="top" secondItem="lRy-98-9gf" secondAttribute="bottom" constant="1" id="YvB-nh-vOO"/>
+                            <constraint firstItem="7hf-hO-7EK" firstAttribute="leading" secondItem="Zgp-dH-iv1" secondAttribute="trailing" constant="6" id="ZFf-zt-IuW"/>
+                            <constraint firstItem="drt-kL-LyA" firstAttribute="centerY" secondItem="yso-cc-bmV" secondAttribute="centerY" id="Zc3-Sr-e3s"/>
+                            <constraint firstItem="9on-G4-E3v" firstAttribute="centerY" secondItem="31G-yI-oRT" secondAttribute="centerY" id="Zoz-Yq-W9R"/>
+                            <constraint firstItem="bEV-ti-LOK" firstAttribute="centerY" secondItem="1nS-Sn-Yg5" secondAttribute="centerY" id="aRt-ae-nxd"/>
+                            <constraint firstItem="Aq8-OB-S4H" firstAttribute="centerY" secondItem="DFx-Sb-Aln" secondAttribute="centerY" id="ahj-B0-hCL"/>
+                            <constraint firstItem="FXf-n6-gjl" firstAttribute="centerY" secondItem="3d5-9y-NMA" secondAttribute="centerY" id="b4V-vE-ior"/>
+                            <constraint firstItem="Aq8-OB-S4H" firstAttribute="leading" secondItem="lrt-eI-Z09" secondAttribute="trailing" constant="6" id="beL-4m-KHR"/>
+                            <constraint firstItem="gjU-w5-Ss5" firstAttribute="leading" secondItem="sdV-kv-vXV" secondAttribute="trailing" constant="6" id="ch0-0C-Nal"/>
+                            <constraint firstAttribute="centerX" secondItem="MwD-pq-29v" secondAttribute="centerX" id="cjc-ne-jnk"/>
+                            <constraint firstItem="rJS-ZC-8x1" firstAttribute="leading" secondItem="RNC-rS-0fs" secondAttribute="trailing" constant="6" id="csj-ya-VFQ"/>
+                            <constraint firstItem="AEn-Ck-pqO" firstAttribute="centerY" secondItem="m6d-v6-4oC" secondAttribute="centerY" id="d7k-he-haO"/>
+                            <constraint firstItem="6nv-u1-WbQ" firstAttribute="leading" secondItem="xWn-vt-GY8" secondAttribute="trailing" constant="6" id="dEL-am-uCy"/>
+                            <constraint firstItem="lRy-98-9gf" firstAttribute="leading" secondItem="vLI-ee-yK8" secondAttribute="leadingMargin" constant="18" id="eJh-nb-xqM"/>
+                            <constraint firstItem="vHo-h0-lfS" firstAttribute="leading" secondItem="vLI-ee-yK8" secondAttribute="leadingMargin" id="eQe-vi-GXN"/>
+                            <constraint firstItem="rSu-W7-Dgx" firstAttribute="leading" secondItem="Cyy-va-GEm" secondAttribute="trailing" constant="6" id="eso-ic-jaE"/>
+                            <constraint firstItem="On8-9A-BBm" firstAttribute="centerY" secondItem="y97-hk-W23" secondAttribute="centerY" id="fAY-1l-a8x"/>
+                            <constraint firstItem="m6d-v6-4oC" firstAttribute="leading" secondItem="AEn-Ck-pqO" secondAttribute="trailing" constant="6" id="fQx-zz-nVH"/>
+                            <constraint firstItem="V7D-kA-YHt" firstAttribute="top" secondItem="VDT-qG-LAz" secondAttribute="bottom" constant="1" id="gCx-pr-4Tz"/>
+                            <constraint firstItem="oOK-IK-YBR" firstAttribute="centerY" secondItem="ghP-49-q4r" secondAttribute="centerY" id="gET-2O-9y8"/>
+                            <constraint firstItem="Cdu-YJ-lqo" firstAttribute="centerY" secondItem="UB9-fm-NXP" secondAttribute="centerY" id="gJO-Fd-6wv"/>
+                            <constraint firstItem="Zgp-dH-iv1" firstAttribute="centerY" secondItem="65X-pG-Li0" secondAttribute="centerY" id="hfr-FF-3Sw"/>
+                            <constraint firstItem="6iX-qR-DTu" firstAttribute="leading" secondItem="apx-2p-8h1" secondAttribute="trailing" constant="6" id="i9z-yX-Xsq"/>
+                            <constraint firstItem="61q-bO-WOq" firstAttribute="centerY" secondItem="R0I-KM-cy2" secondAttribute="centerY" id="jeH-bL-PQq"/>
+                            <constraint firstItem="2hV-4Q-FSa" firstAttribute="centerY" secondItem="R0I-KM-cy2" secondAttribute="centerY" id="k0k-Ne-4ml"/>
+                            <constraint firstItem="sdV-kv-vXV" firstAttribute="centerY" secondItem="gjU-w5-Ss5" secondAttribute="centerY" id="kHR-uY-Xml"/>
+                            <constraint firstItem="rSu-W7-Dgx" firstAttribute="centerY" secondItem="Cyy-va-GEm" secondAttribute="centerY" id="l8T-KR-v3r"/>
+                            <constraint firstItem="b9O-GX-ydO" firstAttribute="leading" secondItem="G2d-Yj-79a" secondAttribute="trailing" constant="6" id="llH-1W-eak"/>
+                            <constraint firstItem="BE2-uo-TJq" firstAttribute="centerY" secondItem="drt-kL-LyA" secondAttribute="centerY" id="o2d-hX-Hk2"/>
+                            <constraint firstItem="DFx-Sb-Aln" firstAttribute="leading" secondItem="Aq8-OB-S4H" secondAttribute="trailing" constant="6" id="oqU-BK-HLh"/>
+                            <constraint firstItem="XkN-Rh-Qke" firstAttribute="leading" secondItem="7hf-hO-7EK" secondAttribute="trailing" constant="6" id="pEr-g8-o9P"/>
+                            <constraint firstItem="M6R-B3-TfP" firstAttribute="top" secondItem="UEr-Qg-GAz" secondAttribute="top" id="paM-hb-qzv"/>
+                            <constraint firstItem="lrt-eI-Z09" firstAttribute="centerY" secondItem="gjU-w5-Ss5" secondAttribute="centerY" id="pbF-Kz-MBU"/>
+                            <constraint firstItem="apx-2p-8h1" firstAttribute="centerY" secondItem="6iX-qR-DTu" secondAttribute="centerY" id="qMx-MF-d7c"/>
+                            <constraint firstItem="3d5-9y-NMA" firstAttribute="centerY" secondItem="CzF-uV-R9O" secondAttribute="centerY" id="qfV-p3-zQP"/>
+                            <constraint firstItem="2hV-4Q-FSa" firstAttribute="centerY" secondItem="kHt-ZB-m1Y" secondAttribute="centerY" id="rOE-Us-12j"/>
+                            <constraint firstItem="xWn-vt-GY8" firstAttribute="leading" secondItem="lRy-98-9gf" secondAttribute="trailing" constant="6" id="s47-fR-vvm"/>
+                            <constraint firstItem="00P-PZ-1br" firstAttribute="centerY" secondItem="Cyy-va-GEm" secondAttribute="centerY" id="utX-Y4-h83"/>
+                            <constraint firstItem="UB9-fm-NXP" firstAttribute="leading" secondItem="WMT-6B-GRW" secondAttribute="trailing" constant="6" id="uzy-tb-Sm0"/>
+                            <constraint firstItem="kHt-ZB-m1Y" firstAttribute="centerY" secondItem="RNC-rS-0fs" secondAttribute="centerY" id="v2u-MA-2xc"/>
+                            <constraint firstItem="D04-ok-T4r" firstAttribute="centerY" secondItem="CzF-uV-R9O" secondAttribute="centerY" id="vDc-HT-EDY"/>
+                            <constraint firstItem="drt-kL-LyA" firstAttribute="leading" secondItem="BE2-uo-TJq" secondAttribute="trailing" constant="6" id="vgv-Ed-gRV"/>
+                            <constraint firstItem="WMT-6B-GRW" firstAttribute="centerY" secondItem="UB9-fm-NXP" secondAttribute="centerY" id="wKa-2n-tGk"/>
+                            <constraint firstItem="M6R-B3-TfP" firstAttribute="centerX" secondItem="UEr-Qg-GAz" secondAttribute="centerX" id="wVx-m4-Lt1"/>
+                            <constraint firstItem="AEn-Ck-pqO" firstAttribute="centerY" secondItem="6iX-qR-DTu" secondAttribute="centerY" id="woJ-Kq-wLe"/>
+                            <constraint firstItem="9Fc-wM-1tW" firstAttribute="top" secondItem="vHo-h0-lfS" secondAttribute="bottom" constant="1" id="xP8-T5-qpv"/>
+                            <constraint firstItem="xWn-vt-GY8" firstAttribute="centerY" secondItem="6nv-u1-WbQ" secondAttribute="centerY" id="xll-zI-JIw"/>
+                            <constraint firstItem="UEr-Qg-GAz" firstAttribute="leading" secondItem="VDT-qG-LAz" secondAttribute="trailing" constant="10" id="yYR-fT-knp"/>
+                            <constraint firstItem="RNC-rS-0fs" firstAttribute="leading" secondItem="kHt-ZB-m1Y" secondAttribute="trailing" constant="6" id="z21-E2-Wx4"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="WII-pt-L7Q"/>
+                                <exclude reference="wVx-m4-Lt1"/>
+                                <exclude reference="AdL-u3-UlY"/>
+                                <exclude reference="LqT-6o-PaL"/>
+                                <exclude reference="yYR-fT-knp"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="label_bgl" destination="M6R-B3-TfP" id="10A-Ee-eiR"/>
+                        <outlet property="label_opponent" destination="MwD-pq-29v" id="viS-J0-Ol4"/>
+                        <outlet property="label_steps" destination="x3O-As-W7f" id="2lj-EN-0lc"/>
+                        <outletCollection property="gameDots" destination="Cyy-va-GEm" id="FqG-Nx-Xqr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="13G-3a-6qi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="988" y="-386"/>
+            <point key="canvasLocation" x="1328" y="-442"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="dot_standard" width="35" height="34"/>
+    </resources>
 </document>
