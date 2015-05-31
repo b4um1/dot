@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		348E73A95E87F71778A5E238 /* Pods_Semesterprojekt_DOT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A7B94F45523BAF42EF8B94 /* Pods_Semesterprojekt_DOT.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		CE7E988E1B1B2D220081F77D /* GlobalFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7E988D1B1B2D220081F77D /* GlobalFonts.swift */; };
 		CE94C1641B19CB6000B2CBB6 /* HallOfFameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94C1631B19CB6000B2CBB6 /* HallOfFameViewController.swift */; };
 		CE94C1661B19D15700B2CBB6 /* PageItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94C1651B19D15700B2CBB6 /* PageItemController.swift */; };
 		CEEA1C071B19D68D007B0320 /* PlayerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEEA1C051B19D68D007B0320 /* PlayerModel.xcdatamodeld */; };
@@ -39,6 +40,7 @@
 		07A7B94F45523BAF42EF8B94 /* Pods_Semesterprojekt_DOT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Semesterprojekt_DOT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DC3A169E02A79BAF7F5324 /* Pods-Semesterprojekt_DOT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Semesterprojekt_DOT.release.xcconfig"; path = "Pods/Target Support Files/Pods-Semesterprojekt_DOT/Pods-Semesterprojekt_DOT.release.xcconfig"; sourceTree = "<group>"; };
 		2DD9B393BCB40EB391A1CBDA /* Pods-Semesterprojekt_DOT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Semesterprojekt_DOT.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Semesterprojekt_DOT/Pods-Semesterprojekt_DOT.debug.xcconfig"; sourceTree = "<group>"; };
+		CE7E988D1B1B2D220081F77D /* GlobalFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFonts.swift; sourceTree = "<group>"; };
 		CE94C1631B19CB6000B2CBB6 /* HallOfFameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HallOfFameViewController.swift; sourceTree = "<group>"; };
 		CE94C1651B19D15700B2CBB6 /* PageItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageItemController.swift; sourceTree = "<group>"; };
 		CEEA1C061B19D68D007B0320 /* PlayerModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlayerModel.xcdatamodel; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				E8638C331B19965300CC74E2 /* LaunchScreen.xib */,
 				E8638C311B19965300CC74E2 /* Images.xcassets */,
 				E8638C271B19965300CC74E2 /* AppDelegate.swift */,
+				CE7E988D1B1B2D220081F77D /* GlobalFonts.swift */,
 				E8FBEC211B19F585004C7311 /* VController */,
 				CEEA1C041B19D632007B0320 /* CoreData */,
 				E8462A9A1B19AA1100C31878 /* Multipeerhandler */,
@@ -341,6 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8638C2D1B19965300CC74E2 /* ViewController.swift in Sources */,
+				CE7E988E1B1B2D220081F77D /* GlobalFonts.swift in Sources */,
 				E8462A9C1B19AA2F00C31878 /* MPCHandler.swift in Sources */,
 				CE94C1641B19CB6000B2CBB6 /* HallOfFameViewController.swift in Sources */,
 				E8FBEC231B19F617004C7311 /* GameScreenController.swift in Sources */,
