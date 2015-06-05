@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		348E73A95E87F71778A5E238 /* Pods_Semesterprojekt_DOT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A7B94F45523BAF42EF8B94 /* Pods_Semesterprojekt_DOT.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		CE685E701B21E2320030C23D /* GameScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE685E6F1B21E2320030C23D /* GameScreenViewController.swift */; };
 		CE7E988E1B1B2D220081F77D /* GlobalFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7E988D1B1B2D220081F77D /* GlobalFonts.swift */; };
 		CE94C1641B19CB6000B2CBB6 /* HallOfFameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94C1631B19CB6000B2CBB6 /* HallOfFameViewController.swift */; };
 		CE94C1661B19D15700B2CBB6 /* PageItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94C1651B19D15700B2CBB6 /* PageItemController.swift */; };
@@ -40,6 +41,7 @@
 		07A7B94F45523BAF42EF8B94 /* Pods_Semesterprojekt_DOT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Semesterprojekt_DOT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DC3A169E02A79BAF7F5324 /* Pods-Semesterprojekt_DOT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Semesterprojekt_DOT.release.xcconfig"; path = "Pods/Target Support Files/Pods-Semesterprojekt_DOT/Pods-Semesterprojekt_DOT.release.xcconfig"; sourceTree = "<group>"; };
 		2DD9B393BCB40EB391A1CBDA /* Pods-Semesterprojekt_DOT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Semesterprojekt_DOT.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Semesterprojekt_DOT/Pods-Semesterprojekt_DOT.debug.xcconfig"; sourceTree = "<group>"; };
+		CE685E6F1B21E2320030C23D /* GameScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScreenViewController.swift; sourceTree = "<group>"; };
 		CE7E988D1B1B2D220081F77D /* GlobalFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFonts.swift; sourceTree = "<group>"; };
 		CE94C1631B19CB6000B2CBB6 /* HallOfFameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HallOfFameViewController.swift; sourceTree = "<group>"; };
 		CE94C1651B19D15700B2CBB6 /* PageItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageItemController.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				CE94C1651B19D15700B2CBB6 /* PageItemController.swift */,
 				CE94C1631B19CB6000B2CBB6 /* HallOfFameViewController.swift */,
 				E8FBEC221B19F617004C7311 /* GameScreenController.swift */,
+				CE685E6F1B21E2320030C23D /* GameScreenViewController.swift */,
 			);
 			name = VController;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				CEEA1C0B1B19D7C4007B0320 /* Player.swift in Sources */,
 				CEEA1C071B19D68D007B0320 /* PlayerModel.xcdatamodeld in Sources */,
 				E8638C2B1B19965300CC74E2 /* Semesterprojekt_DOT.xcdatamodeld in Sources */,
+				CE685E701B21E2320030C23D /* GameScreenViewController.swift in Sources */,
 				E8638C281B19965300CC74E2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

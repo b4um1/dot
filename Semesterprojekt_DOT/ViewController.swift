@@ -21,7 +21,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = true
-        self.view.updateConstraints()
     }
     
     override func viewDidLoad() {
