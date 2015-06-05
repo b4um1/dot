@@ -19,8 +19,9 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     
     var oppenentname = ""
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = true
+        self.view.updateConstraints()
     }
     
     override func viewDidLoad() {
