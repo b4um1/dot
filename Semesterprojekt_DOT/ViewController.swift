@@ -26,6 +26,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController!.navigationBar.hidden = true
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.mpcHandler.setupPeerWithDisplayName(UIDevice.currentDevice().name)
         appDelegate.mpcHandler.setupSession()
@@ -86,7 +87,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         }
         
     }
-    
+
     @IBAction func startNewGame(sender: AnyObject) {
         println("Message has been sent");
         
