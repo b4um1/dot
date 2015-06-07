@@ -13,7 +13,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
 
     @IBOutlet weak var label_pairedpartner: UILabel!
     
-    let segueStartGame = "startGame"
+    let segueStartGame = "startGameScreen"
     var test = 0; //Testvariable
     var appDelegate: AppDelegate!
     
@@ -35,6 +35,16 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "peerChangedStateWithNotification:", name: "MPC_DidChangeStateNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReceivedDataWithNotification:", name: "MPC_DidReceiveDataNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "bluetoothStateDidChange:", name: "MPC_BluetoothStateChanged", object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appwillterminate:", name: "APP_WILL_TERMINATE", object: nil)
+
+    }
+    
+    /*
+    If the app terminates, close the actual session
+    */
+    func appwillterminate(){
+        appDelegate.mpcHandler.session.disconnect();
     }
     
     func peerChangedStateWithNotification(notification:NSNotification){
@@ -51,6 +61,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         if state == MCSessionState.Connected.rawValue{ //toRaw was replaced with rawValue
             self.label_pairedpartner.text = "Connected with \(oppenentname)"
         }else{
+            oppenentname = ""
             self.label_pairedpartner.text = "Disconnected"
         }
         
@@ -127,16 +138,24 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == segueStartGame{
-            
-            // only if there is a connection to another device
-            
-            let controller = segue.destinationViewController as! GameScreenController
+            let controller = segue.destinationViewController as! GameScreenViewController
             controller.oppenentname = self.oppenentname
             controller.stepcounter = 0
             controller.playernr = 1
         }
     }
 
+    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
+        var shouldperform = true;
+        
+        if identifier == segueStartGame{
+            if oppenentname.isEmpty{
+                //shouldperform = false
+                //startConnectionBrowser()
+            }
+        }
+        return shouldperform
+    }
 
 }
 

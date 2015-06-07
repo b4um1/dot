@@ -26,7 +26,6 @@ class MPCHandler: NSObject, MCSessionDelegate, CBPeripheralManagerDelegate {
     //BT Manager
     func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager!) {
         var state = -1
-        println(__FUNCTION__)
         if peripheral.state == CBPeripheralManagerState.PoweredOn {
             state = 1 //Bluetooth is on
         } else if peripheral.state == CBPeripheralManagerState.PoweredOff {
