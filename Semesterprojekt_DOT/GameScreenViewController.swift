@@ -37,7 +37,7 @@ class GameScreenViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        self.movingPoint.frame.origin = self.startingPoint.frame.origin
+        self.movingPoint.frame.origin = mGameButtons[0].frame.origin
         self.movingPoint.setImageMove()
     }
     
@@ -58,11 +58,11 @@ class GameScreenViewController: UIViewController {
         })
         */
         
-        var offset: CGFloat = 0.0
+        var offset: CGFloat = 18.0
         if button.superview!.tag == 0 {
-            offset = 18.0
+            offset = 0.0
         }
-        var x = button.frame.origin.x + offset
+        var x = button.frame.origin.x - offset
         var y = button.superview!.frame.origin.y - movingPoint.superview!.frame.origin.y
         
         UIView.animateWithDuration(1.0, animations:{
