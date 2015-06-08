@@ -51,8 +51,22 @@ class GameScreenViewController: UIViewController {
         var button = sender as! GameButton
         println("#:\(button.tag) origin: \(button.frame.origin)")
         
+        /*
+        // alt:
         UIView.animateWithDuration(1.0, animations:{
             self.movingPoint.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y, button.frame.size.width, button.frame.size.height)
+        })
+        */
+        
+        var offset: CGFloat = 0.0
+        if button.superview!.tag == 0 {
+            offset = 18.0
+        }
+        var x = button.frame.origin.x + offset
+        var y = button.superview!.frame.origin.y - movingPoint.superview!.frame.origin.y
+        
+        UIView.animateWithDuration(1.0, animations:{
+            self.movingPoint.frame = CGRectMake(x, y, button.frame.size.width, button.frame.size.height)
         })
         
         if playernr == 1 {
