@@ -849,6 +849,15 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="iXX-uu-9un"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" tag="99" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bat-IR-sUI" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                        <rect key="frame" x="187" y="1" width="35" height="34"/>
+                                        <state key="normal" image="dot_move">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="XoG-eE-u3C"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="4Qn-Ah-tsA" firstAttribute="leading" secondItem="BhM-o9-BhP" secondAttribute="trailing" constant="1" id="0rG-Rm-0IW"/>
@@ -1349,6 +1358,7 @@
                         <outlet property="mOpponent" destination="HsH-WC-xVa" id="OSq-TW-R1k"/>
                         <outlet property="mSteps" destination="Pli-27-Mte" id="Whx-Bv-G7v"/>
                         <outlet property="mTurn" destination="18t-y9-NfT" id="dFb-4v-I3u"/>
+                        <outlet property="movingPoint" destination="bat-IR-sUI" id="o5k-Nd-kfO"/>
                         <outlet property="startingPoint" destination="l9Y-XK-QxZ" id="dTX-6e-cm7"/>
                         <outletCollection property="mGameButtons" destination="e4f-rk-R6G" collectionClass="NSMutableArray" id="5MT-uF-Kdj"/>
                         <outletCollection property="mGameButtons" destination="jEu-HB-Pn2" collectionClass="NSMutableArray" id="5pj-1S-l4E"/>
@@ -1423,6 +1433,7 @@
     </scenes>
     <resources>
         <image name="dot_line" width="236" height="26"/>
+        <image name="dot_move" width="35" height="34"/>
         <image name="dot_standard" width="35" height="34"/>
         <image name="hall_of_fame" width="239" height="29"/>
         <image name="header" width="238" height="143"/>
