@@ -65,14 +65,28 @@ class GameScreenViewController: UIViewController {
         var x = button.frame.origin.x - offset
         var y = button.superview!.frame.origin.y - movingPoint.superview!.frame.origin.y
         
-        UIView.animateWithDuration(1.0, animations:{
-            self.movingPoint.frame = CGRectMake(x, y, button.frame.size.width, button.frame.size.height)
-        })
         
+        if isValidPosition(x, y: y) {
+            UIView.animateWithDuration(1.0, animations:{
+                self.movingPoint.frame = CGRectMake(x, y, button.frame.size.width, button.frame.size.height)
+            })
+        }
+
         if playernr == 1 {
             
         }
     }
+    
+    func isValidPosition(x: CGFloat, y: CGFloat) -> Bool {
+        
+        // +2 -> space between two dots
+        let dotSize = movingPoint.frame.width + 2
+        if ((x - movingPoint.frame.origin.x) < dotSize) && ((x - movingPoint.frame.origin.x) > -dotSize) && ((y - movingPoint.frame.origin.y) < dotSize) && ((y - movingPoint.frame.origin.y) > -dotSize) {
+            return true
+        }
+        return false
+    }
+    
     /*
     // MARK: - Navigation
 
