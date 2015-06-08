@@ -14,7 +14,7 @@ class GameScreenViewController: UIViewController {
     @IBOutlet weak var mSteps: UILabel!
     @IBOutlet weak var mTurn: UILabel!
     @IBOutlet weak var startingPoint: GameButton!
-    
+    @IBOutlet weak var movingPoint: GameButton!
     
     @IBOutlet var mGameButtons: [UIButton]!
     
@@ -34,8 +34,11 @@ class GameScreenViewController: UIViewController {
             mTurn.text = "It's your turn";
         }
         
-        self.startingPoint.setImageMove()
-        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.movingPoint.frame.origin = self.startingPoint.frame.origin
+        self.movingPoint.setImageMove()
     }
     
     func setUpBackgroundLabel(fromLabel: UILabel){
@@ -46,11 +49,10 @@ class GameScreenViewController: UIViewController {
     
     @IBAction func onButtonPressed(sender: AnyObject) {
         var button = sender as! GameButton
-        
-        // Die Animation haut jetzt noch nicht so wirklich hin, da mach ich aber Morgen, Montag 8. Juni weiter, also keine sorgen
+        println("#:\(button.tag) origin: \(button.frame.origin)")
         
         UIView.animateWithDuration(1.0, animations:{
-            button.frame = CGRectMake(self.startingPoint.frame.origin.x, self.startingPoint.frame.origin.y, self.startingPoint.frame.size.width, self.startingPoint.frame.size.height)
+            self.movingPoint.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y, button.frame.size.width, button.frame.size.height)
         })
         
         if playernr == 1 {
