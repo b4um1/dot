@@ -14,7 +14,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     @IBOutlet weak var label_pairedpartner: UILabel!
     
     let segueStartGame = "startGameScreen"
-    var test = 0; //Testvariable
+    var player = 1; //Testvariable
     var appDelegate: AppDelegate!
     
     var oppenentname = ""
@@ -89,12 +89,13 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         oppenentname = senderPeerId.displayName
         
         if message.objectForKey("string")?.isEqualToString("New Game") == true{
-            let alert = UIAlertController(title: "Multi Dot", message: "\(oppenentname) has started a new Game", preferredStyle: UIAlertControllerStyle.Alert)
+            /*let alert = UIAlertController(title: "Multi Dot", message: "\(oppenentname) has started a new Game", preferredStyle: UIAlertControllerStyle.Alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             
-            self.presentViewController(alert, animated: true, completion: nil)
-            
+            self.presentViewController(alert, animated: true, completion: nil)*/
+            player = 2;
+            self.performSegueWithIdentifier(segueStartGame, sender: nil)
         }
         
     }
@@ -141,7 +142,8 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
             let controller = segue.destinationViewController as! GameScreenViewController
             controller.oppenentname = self.oppenentname
             controller.stepcounter = 0
-            controller.playernr = 1
+            controller.playernr = self.player
+            controller.appDelegate = self.appDelegate
         }
     }
 
