@@ -56,7 +56,7 @@ class PNBar:UIView {
         }
     }
     var chartLine: CAShapeLayer!
-    var barColor: UIColor = PNGreenColor
+    var barColor: UIColor = UIColor(red: 0 / 255.0 , green: 155.0 / 255.0, blue: 12.0 / 255.0, alpha: 1.0)
     var barRadius: CGFloat = 0.0 {
         didSet {
             layer.cornerRadius = barRadius

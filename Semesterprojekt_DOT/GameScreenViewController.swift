@@ -26,6 +26,7 @@ class GameScreenViewController: UIViewController {
     var stepcounter = 0     // counts the steps made by gamer 1
     
     var posofmoving = 0
+    var firstConnection = true
 
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = true
@@ -37,7 +38,8 @@ class GameScreenViewController: UIViewController {
             mTurn.text = "Player 1 - It's your turn";
             posofmoving = 30
             generateLockedDots()
-            sendData()
+            sendLockedButtons()
+            sendMovingButton()
         }else{
             mTurn.text = "Player 2 - Wait until your opponent has done his turn";
         }
@@ -72,17 +74,41 @@ class GameScreenViewController: UIViewController {
         let userInfo = notification.userInfo! as Dictionary
         let receivedData:NSData = userInfo["data"] as! NSData
         
-        let message = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
         let senderPeerId:MCPeerID = userInfo["peerID"] as! MCPeerID
         oppenentname = senderPeerId.displayName
         
-        if playernr == 2 {
-            posofmoving = message.objectForKey("movingdot")!.integerValue
-            setUpMovingDot()
+        if playernr == 1 { //handle new locked dot
+            let message = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
+            
+            var button: GameButton
+            var newpos = message.objectForKey("newlockeddot")!.integerValue
+            button = mGameButtons[newpos] as! GameButton
+            button.setImageLocked()
+        }
+        
+        if playernr == 2 { //handle pos of moving dot
+            if firstConnection { //in this part, the array of locked dots is received
+                firstConnection = false
+                let data = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil)
+                
+                if let arrayLockedDot = data as? Array<Int> {
+                    for index in 0...arrayLockedDot.count-1 {
+                        var button: GameButton
+                        button = mGameButtons[arrayLockedDot[index]] as! GameButton
+                        button.setImageLocked()
+                    }
+                }
+                
+            }else{
+                let message = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
+                
+                posofmoving = message.objectForKey("movingdot")!.integerValue
+                setUpMovingDot()
+            }
         }
     }
     
-    func sendData(){
+    func sendMovingButton(){
         let messageDict = ["movingdot":"\(posofmoving)"]
         
         let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
@@ -96,6 +122,37 @@ class GameScreenViewController: UIViewController {
         }
 
     }
+    func sendLockedButtons(){
+        
+        let data = NSJSONSerialization.dataWithJSONObject(lockedDotsTags, options: nil, error: nil)
+        let string = NSString(data: data!, encoding: NSUTF8StringEncoding)
+        
+        println("String jsonformat: \(string)")
+        
+        var error:NSError?
+        
+        appDelegate.mpcHandler.session.sendData(data, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error)
+        
+        if error != nil{
+            println("error: \(error?.localizedDescription)")
+        }
+        
+    }
+    
+    func sendNewLockedDot(posoflocked: Int){
+        let messageDict = ["newlockeddot":"\(posoflocked)"]
+        let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
+        
+        var error:NSError?
+        
+        appDelegate.mpcHandler.session.sendData(messageData, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error)
+        
+        if error != nil{
+            println("error: \(error?.localizedDescription)")
+        }
+        
+    }
+
 
     
     func generateLockedDots(){
@@ -104,7 +161,6 @@ class GameScreenViewController: UIViewController {
             var randomNumber:UInt32 = 0
             do {
                 randomNumber = arc4random_uniform(UInt32(mGameButtons.count - 1))
-                println(randomNumber)
                 button = mGameButtons[Int(randomNumber)] as! GameButton
             } while button.isLocked
             button.setImageLocked()
@@ -118,29 +174,32 @@ class GameScreenViewController: UIViewController {
         var button = sender as! GameButton
         println("#:\(button.tag) origin: \(button.frame.origin)")
         
-        /*
-        // alt:
-        UIView.animateWithDuration(1.0, animations:{
-            self.movingPoint.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y, button.frame.size.width, button.frame.size.height)
-        })
-        */
-        
-        var offset: CGFloat = 18.0
-        if button.superview!.tag == 0 {
-            offset = 0.0
-        }
-        var x = button.frame.origin.x - offset
-        var y = button.superview!.frame.origin.y - movingPoint.superview!.frame.origin.y
-        
-        
-        if isValidPosition(x, y: y, button: button) {
-            UIView.animateWithDuration(1.0, animations:{
-                self.movingPoint.frame = CGRectMake(x, y, button.frame.size.width, button.frame.size.height)
-            })
-            stepcounter++
-            mSteps.text = "Steps: \(stepcounter)"
-            posofmoving = button.tag - 1
-            sendData()
+        if playernr == 1 {
+            var offset: CGFloat = 18.0
+            if button.superview!.tag == 0 {
+                offset = 0.0
+            }
+            var x = button.frame.origin.x - offset
+            var y = button.superview!.frame.origin.y - movingPoint.superview!.frame.origin.y
+            
+            
+            if isValidPosition(x, y: y, button: button) {
+                UIView.animateWithDuration(1.0, animations:{
+                    self.movingPoint.frame = CGRectMake(x, y, button.frame.size.width, button.frame.size.height)
+                })
+                stepcounter++
+                mSteps.text = "Steps: \(stepcounter)"
+                posofmoving = button.tag - 1
+                sendMovingButton()
+            }
+
+        }else{
+            if !button.isLocked{
+                stepcounter++
+                mSteps.text = "Steps: \(stepcounter)"
+                button.setImageLocked()
+                sendNewLockedDot(button.tag-1)
+            }
         }
     }
     

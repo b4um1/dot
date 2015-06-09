@@ -16,7 +16,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     let segueStartGame = "startGameScreen"
     var player = 1; //Testvariable
     var appDelegate: AppDelegate!
-    
+    var newGame:Bool = false
     var oppenentname = ""
     
     override func viewWillAppear(animated: Bool) {
@@ -83,19 +83,22 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     func handleReceivedDataWithNotification(notification:NSNotification){
         let userInfo = notification.userInfo! as Dictionary
         let receivedData:NSData = userInfo["data"] as! NSData
-        
-        let message = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
-        let senderPeerId:MCPeerID = userInfo["peerID"] as! MCPeerID
-        oppenentname = senderPeerId.displayName
-        
-        if message.objectForKey("string")?.isEqualToString("New Game") == true{
-            /*let alert = UIAlertController(title: "Multi Dot", message: "\(oppenentname) has started a new Game", preferredStyle: UIAlertControllerStyle.Alert)
+        if newGame == false {
+            newGame = true
+            let message = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
+            let senderPeerId:MCPeerID = userInfo["peerID"] as! MCPeerID
+            oppenentname = senderPeerId.displayName
             
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            
-            self.presentViewController(alert, animated: true, completion: nil)*/
-            player = 2;
-            self.performSegueWithIdentifier(segueStartGame, sender: nil)
+            if message.objectForKey("string")?.isEqualToString("New Game") == true{
+                /*let alert = UIAlertController(title: "Multi Dot", message: "\(oppenentname) has started a new Game", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+                
+                self.presentViewController(alert, animated: true, completion: nil)*/
+                player = 2;
+                self.performSegueWithIdentifier(segueStartGame, sender: nil)
+            }
+
         }
         
     }

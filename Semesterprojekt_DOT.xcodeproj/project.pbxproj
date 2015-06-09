@@ -24,6 +24,7 @@
 		E8638C321B19965300CC74E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8638C311B19965300CC74E2 /* Images.xcassets */; };
 		E8638C351B19965300CC74E2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8638C331B19965300CC74E2 /* LaunchScreen.xib */; };
 		E8638C411B19965300CC74E2 /* Semesterprojekt_DOTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8638C401B19965300CC74E2 /* Semesterprojekt_DOTTests.swift */; };
+		E8E7111D1B27408000051EF4 /* Swiftyjson.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E7111C1B27408000051EF4 /* Swiftyjson.swift */; };
 		E8F0C87A1B24A5F600750941 /* GameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F0C8791B24A5F600750941 /* GameButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		E8638C3A1B19965300CC74E2 /* Semesterprojekt_DOTTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Semesterprojekt_DOTTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8638C3F1B19965300CC74E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8638C401B19965300CC74E2 /* Semesterprojekt_DOTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Semesterprojekt_DOTTests.swift; sourceTree = "<group>"; };
+		E8E7111C1B27408000051EF4 /* Swiftyjson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swiftyjson.swift; sourceTree = "<group>"; };
 		E8F0C8791B24A5F600750941 /* GameButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,6 +152,7 @@
 				E8638C271B19965300CC74E2 /* AppDelegate.swift */,
 				E8F0C8791B24A5F600750941 /* GameButton.swift */,
 				CE7E988D1B1B2D220081F77D /* GlobalFonts.swift */,
+				E8E7111C1B27408000051EF4 /* Swiftyjson.swift */,
 				E8FBEC211B19F585004C7311 /* VController */,
 				CEEA1C041B19D632007B0320 /* CoreData */,
 				E8462A9A1B19AA1100C31878 /* Multipeerhandler */,
@@ -349,6 +352,7 @@
 				E8638C2D1B19965300CC74E2 /* ViewController.swift in Sources */,
 				CE7E988E1B1B2D220081F77D /* GlobalFonts.swift in Sources */,
 				E8462A9C1B19AA2F00C31878 /* MPCHandler.swift in Sources */,
+				E8E7111D1B27408000051EF4 /* Swiftyjson.swift in Sources */,
 				CE94C1641B19CB6000B2CBB6 /* HallOfFameViewController.swift in Sources */,
 				CE94C1661B19D15700B2CBB6 /* PageItemController.swift in Sources */,
 				CEEA1C0B1B19D7C4007B0320 /* Player.swift in Sources */,
