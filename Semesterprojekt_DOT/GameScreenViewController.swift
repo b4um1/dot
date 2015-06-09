@@ -84,6 +84,13 @@ class GameScreenViewController: UIViewController {
             var newpos = message.objectForKey("newlockeddot")!.integerValue
             button = mGameButtons[newpos] as! GameButton
             button.setImageLocked()
+            // Move our fade out code from earlier
+            UIView.animateWithDuration(1.0, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+                button.alpha = 1.0 // Instead of a specific instance of, say, birdTypeLabel, we simply set [thisInstance] (ie, self)'s alpha
+                }, completion: nil)
+            
+            button.setImageLocked()
+            LoadingOverlay.shared.hideOverlayView()
         }
         
         if playernr == 2 { //handle pos of moving dot
@@ -101,9 +108,10 @@ class GameScreenViewController: UIViewController {
                 
             }else{
                 let message = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
-                
                 posofmoving = message.objectForKey("movingdot")!.integerValue
                 setUpMovingDot()
+                
+                LoadingOverlay.shared.hideOverlayView()
             }
         }
     }
@@ -191,6 +199,7 @@ class GameScreenViewController: UIViewController {
                 mSteps.text = "Steps: \(stepcounter)"
                 posofmoving = button.tag - 1
                 sendMovingButton()
+                LoadingOverlay.shared.showOverlay(self.view)
             }
 
         }else{
@@ -199,6 +208,7 @@ class GameScreenViewController: UIViewController {
                 mSteps.text = "Steps: \(stepcounter)"
                 button.setImageLocked()
                 sendNewLockedDot(button.tag-1)
+                LoadingOverlay.shared.showOverlay(self.view)
             }
         }
     }

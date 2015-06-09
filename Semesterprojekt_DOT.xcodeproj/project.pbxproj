@@ -25,6 +25,7 @@
 		E8638C351B19965300CC74E2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8638C331B19965300CC74E2 /* LaunchScreen.xib */; };
 		E8638C411B19965300CC74E2 /* Semesterprojekt_DOTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8638C401B19965300CC74E2 /* Semesterprojekt_DOTTests.swift */; };
 		E8E7111D1B27408000051EF4 /* Swiftyjson.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E7111C1B27408000051EF4 /* Swiftyjson.swift */; };
+		E8E7111F1B274DD600051EF4 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E7111E1B274DD600051EF4 /* Overlay.swift */; };
 		E8F0C87A1B24A5F600750941 /* GameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F0C8791B24A5F600750941 /* GameButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		E8638C3F1B19965300CC74E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8638C401B19965300CC74E2 /* Semesterprojekt_DOTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Semesterprojekt_DOTTests.swift; sourceTree = "<group>"; };
 		E8E7111C1B27408000051EF4 /* Swiftyjson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swiftyjson.swift; sourceTree = "<group>"; };
+		E8E7111E1B274DD600051EF4 /* Overlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		E8F0C8791B24A5F600750941 /* GameButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -193,6 +195,7 @@
 				CE94C1651B19D15700B2CBB6 /* PageItemController.swift */,
 				CE94C1631B19CB6000B2CBB6 /* HallOfFameViewController.swift */,
 				CE685E6F1B21E2320030C23D /* GameScreenViewController.swift */,
+				E8E7111E1B274DD600051EF4 /* Overlay.swift */,
 			);
 			name = VController;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				E8638C2B1B19965300CC74E2 /* Semesterprojekt_DOT.xcdatamodeld in Sources */,
 				CE685E701B21E2320030C23D /* GameScreenViewController.swift in Sources */,
 				E8F0C87A1B24A5F600750941 /* GameButton.swift in Sources */,
+				E8E7111F1B274DD600051EF4 /* Overlay.swift in Sources */,
 				E8638C281B19965300CC74E2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
