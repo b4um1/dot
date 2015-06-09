@@ -192,10 +192,10 @@
 			isa = PBXGroup;
 			children = (
 				E8638C2C1B19965300CC74E2 /* ViewController.swift */,
+				E8E7111E1B274DD600051EF4 /* Overlay.swift */,
 				CE94C1651B19D15700B2CBB6 /* PageItemController.swift */,
 				CE94C1631B19CB6000B2CBB6 /* HallOfFameViewController.swift */,
 				CE685E6F1B21E2320030C23D /* GameScreenViewController.swift */,
-				E8E7111E1B274DD600051EF4 /* Overlay.swift */,
 			);
 			name = VController;
 			sourceTree = "<group>";

@@ -26,7 +26,7 @@ class GameScreenViewController: UIViewController {
     var stepcounter = 0     // counts the steps made by gamer 1
     
     var posofmoving = 0
-    var firstConnection = true
+    var firstConnection = true, firstMoveDot = true
 
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = true
@@ -41,7 +41,8 @@ class GameScreenViewController: UIViewController {
             sendLockedButtons()
             sendMovingButton()
         }else{
-            mTurn.text = "Player 2 - Wait until your opponent has done his turn";
+            mTurn.text = "Player 2 - Wait until your opponent has done his turn"
+            LoadingOverlay.shared.showOverlay(self.view)
         }
     }
     
@@ -84,12 +85,7 @@ class GameScreenViewController: UIViewController {
             var newpos = message.objectForKey("newlockeddot")!.integerValue
             button = mGameButtons[newpos] as! GameButton
             button.setImageLocked()
-            // Move our fade out code from earlier
-            UIView.animateWithDuration(1.0, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: {
-                button.alpha = 1.0 // Instead of a specific instance of, say, birdTypeLabel, we simply set [thisInstance] (ie, self)'s alpha
-                }, completion: nil)
             
-            button.setImageLocked()
             LoadingOverlay.shared.hideOverlayView()
         }
         
@@ -110,8 +106,12 @@ class GameScreenViewController: UIViewController {
                 let message = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
                 posofmoving = message.objectForKey("movingdot")!.integerValue
                 setUpMovingDot()
+                if firstMoveDot{
+                    firstMoveDot = false
+                }else{
+                    LoadingOverlay.shared.hideOverlayView()
+                }
                 
-                LoadingOverlay.shared.hideOverlayView()
             }
         }
     }
