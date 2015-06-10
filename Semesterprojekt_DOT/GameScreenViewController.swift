@@ -34,15 +34,44 @@ class GameScreenViewController: UIViewController {
         mOpponent.text = "Opponet: \(oppenentname)"
         mSteps.text = "Steps: \(stepcounter)"
         
+        for b in mGameButtons { // hide all buttons because of the animation
+            b.hidden = true
+        }
+        
         if playernr == 1{
             mTurn.text = "Player 1 - It's your turn";
-            posofmoving = 30
+            posofmoving = 28
             generateLockedDots()
             sendLockedButtons()
             sendMovingButton()
         }else{
             mTurn.text = "Player 2 - Wait until your opponent has done his turn"
             LoadingOverlay.shared.showOverlay(self.view)
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        for b in mGameButtons {
+            b.hidden = false
+        }
+        // animation of locked dots
+        for button in mGameButtons {
+            var b = button as! GameButton
+            if b.isLocked {
+                var buttonFrame = b.frame
+                b.frame.origin.y = -view.frame.height / 2
+                
+                UIView.animateWithDuration(1.0, animations:{
+                    b.frame = CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y, b.frame.size.width, b.frame.size.height)
+                })
+                
+                b.transform = CGAffineTransformMakeScale(2, 2)
+                UIView.beginAnimations("fadeInAndGrow", context: nil)
+                UIView.setAnimationDuration(1)
+                b.transform = CGAffineTransformMakeScale(1.0, 1.0)
+                
+                UIView.commitAnimations()
+            }
         }
     }
     
@@ -164,7 +193,7 @@ class GameScreenViewController: UIViewController {
 
     
     func generateLockedDots(){
-        for i in 0...numberOfDefaultLockedDots {
+        for i in 0...numberOfDefaultLockedDots - 1 {
             var button: GameButton
             var randomNumber:UInt32 = 0
             do {
