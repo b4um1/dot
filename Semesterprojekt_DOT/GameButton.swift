@@ -16,6 +16,7 @@ class GameButton: UIButton {
     var image_locked = UIImage(named:"dot_locked")
     
     var isLocked = false
+    var isMove = false
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -24,6 +25,7 @@ class GameButton: UIButton {
     
     func setImageMove(){
         self.setImage(image_move, forState: .Normal)
+        isMove = true
     }
     func setImageStandard(){
         self.setImage(image_standard, forState: .Normal)

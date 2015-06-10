@@ -18,8 +18,9 @@ class GameScreenViewController: UIViewController {
     @IBOutlet weak var movingPoint: GameButton!
     @IBOutlet var mGameButtons: [UIButton]!
     
+    //var borderDots = [1, 2, 3, 4, 5, 6, 7, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 56, 57, 58, 59, 60, 61, 62, 63, 64]
     var lockedDotsTags = [Int]()
-    let numberOfDefaultLockedDots = 10
+    let numberOfDefaultLockedDots = 20
     var appDelegate: AppDelegate! //appdelegate for communication with the mpc handler
     var oppenentname = ""   // name of the opponent
     var playernr = 0      // you are player 1 for standard
@@ -41,6 +42,7 @@ class GameScreenViewController: UIViewController {
         if playernr == 1{
             mTurn.text = "Player 1 - It's your turn";
             posofmoving = 28
+            (mGameButtons[posofmoving] as! GameButton).isMove = true
             generateLockedDots()
             sendLockedButtons()
             sendMovingButton()
@@ -49,6 +51,15 @@ class GameScreenViewController: UIViewController {
             LoadingOverlay.shared.showOverlay(self.view)
         }
     }
+    
+    /*
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        for dot in borderDots {
+            if dot == movingPoint.tag {
+                println("------- WINNER -------")
+            }
+        }
+    }*/
     
     override func viewDidAppear(animated: Bool) {
         for b in mGameButtons {
@@ -199,7 +210,7 @@ class GameScreenViewController: UIViewController {
             do {
                 randomNumber = arc4random_uniform(UInt32(mGameButtons.count - 1))
                 button = mGameButtons[Int(randomNumber)] as! GameButton
-            } while button.isLocked
+            } while button.isLocked || button.isMove
             button.setImageLocked()
             lockedDotsTags.append(Int(randomNumber))
         }
