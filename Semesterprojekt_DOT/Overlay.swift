@@ -52,7 +52,6 @@ public class LoadingOverlay{
         
         activityIndicator.startAnimating()
         view.addSubview(overlayView)
-        println("view should be visible")
     }
     
     public func hideOverlayView() {

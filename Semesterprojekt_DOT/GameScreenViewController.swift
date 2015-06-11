@@ -18,7 +18,6 @@ class GameScreenViewController: UIViewController {
     @IBOutlet weak var movingPoint: GameButton!
     @IBOutlet var mGameButtons: [UIButton]!
     
-    //var borderDots = [1, 2, 3, 4, 5, 6, 7, 8, 9, 16, 17, 24, 25, 32, 33, 40, 41, 56, 57, 58, 59, 60, 61, 62, 63, 64]
     var lockedDotsTags = [Int]()
     let numberOfDefaultLockedDots = 20
     var appDelegate: AppDelegate! //appdelegate for communication with the mpc handler
@@ -27,10 +26,16 @@ class GameScreenViewController: UIViewController {
     var stepcounter = 0     // counts the steps made by gamer 1
     
     var posofmoving = 0
+    var winnerAnimation = 0
     var firstConnection = true, firstMoveDot = true
-
+    
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = true
+        initGameScreen()
+    }
+    
+    func initGameScreen() {
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReceivedDataWithNotification:", name: "MPC_DidReceiveDataNotification", object: nil)
         mOpponent.text = "Opponet: \(oppenentname)"
         mSteps.text = "Steps: \(stepcounter)"
@@ -50,16 +55,92 @@ class GameScreenViewController: UIViewController {
             mTurn.text = "Player 2 - Wait until your opponent has done his turn"
             LoadingOverlay.shared.showOverlay(self.view)
         }
+
     }
     
-    /*
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        for dot in borderDots {
-            if dot == movingPoint.tag {
-                println("------- WINNER -------")
+        if playernr == 1 { // if player 1 is on a border dot and clicks in the view (he wins)
+            var isWinner = false
+            var x: CGFloat = 0
+            var y: CGFloat = 0
+            if posofmoving < 8 && posofmoving >= 0 {
+                isWinner = true // move up
+                x = movingPoint.frame.origin.x
+                y = movingPoint.frame.origin.y - 35
+                winnerAnimation = 1
+            }
+            if posofmoving < 64 && posofmoving > 56 {
+                isWinner = true // move down
+                x = movingPoint.frame.origin.x
+                y = movingPoint.frame.origin.y + 35
+                winnerAnimation = 2
+            }
+            if posofmoving == 8 || posofmoving == 16 || posofmoving == 24 || posofmoving == 32 || posofmoving == 40 || posofmoving == 48 {
+                isWinner = true // move left
+                x = movingPoint.frame.origin.x - 35
+                y = movingPoint.frame.origin.y
+                winnerAnimation = 3
+            }
+            if posofmoving == 15 || posofmoving == 23 || posofmoving == 31 || posofmoving == 39 || posofmoving == 47 || posofmoving == 55 {
+                isWinner = true // move right
+                x = movingPoint.frame.origin.x + 35
+                y = movingPoint.frame.origin.y
+                winnerAnimation = 4
+            }
+            
+            if isWinner {
+                sendMovingButton()
+                UIView.animateWithDuration(1.0, animations:{
+                    self.movingPoint.frame = CGRectMake(x, y, self.movingPoint.frame.size.width, self.movingPoint.frame.size.height)
+                })
+                UIView.commitAnimations()
+                showEndAlert(true)
             }
         }
-    }*/
+    }
+    
+    func showEndAlert(winning: Bool) {
+        var title = ""
+        if winning {
+            title = "Congratulations! You win!"
+        } else {
+            title = "You lost!"
+        }
+        
+        let alertCotroller = UIAlertController(title: title, message: "play again?", preferredStyle: .Alert)
+        
+        // Create the actions.
+        let yesAction = UIAlertAction(title: "Yes", style: .Default) { action in
+            self.clearGameSettings(true)
+        }
+        
+        let noAction = UIAlertAction(title: "No", style: .Default) { action in
+            self.clearGameSettings(false)
+        }
+        
+        // Add the actions.
+        alertCotroller.addAction(yesAction)
+        alertCotroller.addAction(noAction)
+        
+        presentViewController(alertCotroller, animated: true, completion: nil)
+    }
+    
+    func clearGameSettings(player1: Bool) {
+        /*
+        if player1 {
+            playernr = 1
+        } else {
+            playernr = 2
+        }
+        stepcounter = 0     // counts the steps made by gamer 1
+        
+        posofmoving = 0
+        winnerAnimation = 0
+        firstConnection = true
+        firstMoveDot = true
+        initGameScreen()
+*/
+    }
     
     override func viewDidAppear(animated: Bool) {
         for b in mGameButtons {
@@ -97,18 +178,43 @@ class GameScreenViewController: UIViewController {
     
     func setUpMovingDot(){
         //set up the button where player 1 starts -- should happen randomly
-        var button = mGameButtons[posofmoving]
         
-        var offset: CGFloat = 18.0
-        if button.superview!.tag == 0 {
-            offset = 0.0
+        if winnerAnimation > 0 { // there is a winner
+            var x: CGFloat = 0
+            var y: CGFloat = 0
+            if winnerAnimation == 1 {
+                x = movingPoint.frame.origin.x
+                y = movingPoint.frame.origin.y - 35
+            } else if winnerAnimation == 2 {
+                x = movingPoint.frame.origin.x
+                y = movingPoint.frame.origin.y + 35
+            } else if winnerAnimation == 3 {
+                x = movingPoint.frame.origin.x - 35
+                y = movingPoint.frame.origin.y
+            } else if winnerAnimation == 4 {
+                x = movingPoint.frame.origin.x + 35
+                y = movingPoint.frame.origin.y
+            }
+            showEndAlert(false)
+            UIView.animateWithDuration(1.0, animations:{
+                self.movingPoint.frame = CGRectMake(x, y, self.movingPoint.frame.size.width, self.movingPoint.frame.size.height)
+            })
+            UIView.commitAnimations()
+            
+        } else {
+            
+            var button = mGameButtons[posofmoving]
+            var offset: CGFloat = 18.0
+            if button.superview!.tag == 0 {
+                offset = 0.0
+            }
+            var x = button.frame.origin.x - offset
+            var y = button.superview!.frame.origin.y - movingPoint.superview!.frame.origin.y
+            UIView.animateWithDuration(1.0, animations:{
+                self.movingPoint.frame = CGRectMake(x, y, button.frame.size.width, button.frame.size.height)
+            })
+            self.movingPoint.setImageMove()
         }
-        var x = button.frame.origin.x - offset
-        var y = button.superview!.frame.origin.y - movingPoint.superview!.frame.origin.y
-        UIView.animateWithDuration(1.0, animations:{
-            self.movingPoint.frame = CGRectMake(x, y, button.frame.size.width, button.frame.size.height)
-        })
-        self.movingPoint.setImageMove()
     }
     
     func handleReceivedDataWithNotification(notification:NSNotification){
@@ -142,8 +248,10 @@ class GameScreenViewController: UIViewController {
                     }
                 }
                 
-            }else{
+            } else {
                 let message = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
+                winnerAnimation = message.objectForKey("winnerAnimation")!.integerValue
+                
                 posofmoving = message.objectForKey("movingdot")!.integerValue
                 setUpMovingDot()
                 if firstMoveDot{
@@ -151,13 +259,12 @@ class GameScreenViewController: UIViewController {
                 }else{
                     LoadingOverlay.shared.hideOverlayView()
                 }
-                
             }
         }
     }
     
     func sendMovingButton(){
-        let messageDict = ["movingdot":"\(posofmoving)"]
+        let messageDict = ["movingdot":"\(posofmoving)", "winnerAnimation":"\(winnerAnimation)"]
         
         let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
         
@@ -198,10 +305,7 @@ class GameScreenViewController: UIViewController {
         if error != nil{
             println("error: \(error?.localizedDescription)")
         }
-        
     }
-
-
     
     func generateLockedDots(){
         for i in 0...numberOfDefaultLockedDots - 1 {
@@ -217,7 +321,6 @@ class GameScreenViewController: UIViewController {
 
     }
 
-    
     @IBAction func onButtonPressed(sender: AnyObject) {
         var button = sender as! GameButton
         println("#:\(button.tag) origin: \(button.frame.origin)")
@@ -248,8 +351,34 @@ class GameScreenViewController: UIViewController {
                 mSteps.text = "Steps: \(stepcounter)"
                 button.setImageLocked()
                 sendNewLockedDot(button.tag-1)
+                if isDotCaged() {
+                    showEndAlert(true)
+                }
                 LoadingOverlay.shared.showOverlay(self.view)
             }
+        }
+    }
+    
+    func isDotCaged() -> Bool {
+        var counter = 0
+        for button in mGameButtons {
+            var offset: CGFloat = 18.0
+            if button.superview!.tag == 0 {
+                offset = 0.0
+            }
+            var x = button.frame.origin.x - offset
+            var y = button.superview!.frame.origin.y - movingPoint.superview!.frame.origin.y
+
+            let dotSize = movingPoint.frame.width + 2
+            if ((x - movingPoint.frame.origin.x) < dotSize) && ((x - movingPoint.frame.origin.x) > -dotSize) && ((y - movingPoint.frame.origin.y) < dotSize) && ((y - movingPoint.frame.origin.y) > -dotSize) && (button as! GameButton).isLocked {
+                counter++
+            }
+
+        }
+        if counter == 6 {
+            return true
+        } else {
+            return false
         }
     }
     
@@ -271,15 +400,4 @@ class GameScreenViewController: UIViewController {
         }
         return isValid
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
