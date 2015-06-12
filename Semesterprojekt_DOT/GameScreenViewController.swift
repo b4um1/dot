@@ -26,7 +26,7 @@ class GameScreenViewController: UIViewController {
     var stepcounter = 0     // counts the steps made by gamer 1
     
     var posofmoving = 0
-    var winnerAnimation = 0
+    var winnerAnimationIndex = 0    // should the dot move up, down, left, right?
     var firstConnection = true, firstMoveDot = true
     
     override func viewWillAppear(animated: Bool) {
@@ -67,25 +67,25 @@ class GameScreenViewController: UIViewController {
                 isWinner = true // move up
                 x = movingPoint.frame.origin.x
                 y = movingPoint.frame.origin.y - 35
-                winnerAnimation = 1
+                winnerAnimationIndex = 1
             }
             if posofmoving < 64 && posofmoving > 56 {
                 isWinner = true // move down
                 x = movingPoint.frame.origin.x
                 y = movingPoint.frame.origin.y + 35
-                winnerAnimation = 2
+                winnerAnimationIndex = 2
             }
             if posofmoving == 8 || posofmoving == 16 || posofmoving == 24 || posofmoving == 32 || posofmoving == 40 || posofmoving == 48 {
                 isWinner = true // move left
                 x = movingPoint.frame.origin.x - 35
                 y = movingPoint.frame.origin.y
-                winnerAnimation = 3
+                winnerAnimationIndex = 3
             }
             if posofmoving == 15 || posofmoving == 23 || posofmoving == 31 || posofmoving == 39 || posofmoving == 47 || posofmoving == 55 {
                 isWinner = true // move right
                 x = movingPoint.frame.origin.x + 35
                 y = movingPoint.frame.origin.y
-                winnerAnimation = 4
+                winnerAnimationIndex = 4
             }
             
             if isWinner {
@@ -126,20 +126,7 @@ class GameScreenViewController: UIViewController {
     }
     
     func clearGameSettings(player1: Bool) {
-        /*
-        if player1 {
-            playernr = 1
-        } else {
-            playernr = 2
-        }
-        stepcounter = 0     // counts the steps made by gamer 1
-        
-        posofmoving = 0
-        winnerAnimation = 0
-        firstConnection = true
-        firstMoveDot = true
-        initGameScreen()
-*/
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -179,19 +166,19 @@ class GameScreenViewController: UIViewController {
     func setUpMovingDot(){
         //set up the button where player 1 starts -- should happen randomly
         
-        if winnerAnimation > 0 { // there is a winner
+        if winnerAnimationIndex > 0 { // there is a winner
             var x: CGFloat = 0
             var y: CGFloat = 0
-            if winnerAnimation == 1 {
+            if winnerAnimationIndex == 1 {
                 x = movingPoint.frame.origin.x
                 y = movingPoint.frame.origin.y - 35
-            } else if winnerAnimation == 2 {
+            } else if winnerAnimationIndex == 2 {
                 x = movingPoint.frame.origin.x
                 y = movingPoint.frame.origin.y + 35
-            } else if winnerAnimation == 3 {
+            } else if winnerAnimationIndex == 3 {
                 x = movingPoint.frame.origin.x - 35
                 y = movingPoint.frame.origin.y
-            } else if winnerAnimation == 4 {
+            } else if winnerAnimationIndex == 4 {
                 x = movingPoint.frame.origin.x + 35
                 y = movingPoint.frame.origin.y
             }
@@ -202,7 +189,6 @@ class GameScreenViewController: UIViewController {
             UIView.commitAnimations()
             
         } else {
-            
             var button = mGameButtons[posofmoving]
             var offset: CGFloat = 18.0
             if button.superview!.tag == 0 {
@@ -231,7 +217,7 @@ class GameScreenViewController: UIViewController {
             var newpos = message.objectForKey("newlockeddot")!.integerValue
             button = mGameButtons[newpos] as! GameButton
             button.setImageLocked()
-            
+            newLockedDotAnimation(button)
             LoadingOverlay.shared.hideOverlayView()
         }
         
@@ -250,7 +236,7 @@ class GameScreenViewController: UIViewController {
                 
             } else {
                 let message = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
-                winnerAnimation = message.objectForKey("winnerAnimation")!.integerValue
+                winnerAnimationIndex = message.objectForKey("winnerAnimationIndex")!.integerValue
                 
                 posofmoving = message.objectForKey("movingdot")!.integerValue
                 setUpMovingDot()
@@ -264,7 +250,7 @@ class GameScreenViewController: UIViewController {
     }
     
     func sendMovingButton(){
-        let messageDict = ["movingdot":"\(posofmoving)", "winnerAnimation":"\(winnerAnimation)"]
+        let messageDict = ["movingdot":"\(posofmoving)", "winnerAnimationIndex":"\(winnerAnimationIndex)"]
         
         let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
         
@@ -344,12 +330,12 @@ class GameScreenViewController: UIViewController {
                 sendMovingButton()
                 LoadingOverlay.shared.showOverlay(self.view)
             }
-
         }else{
-            if !button.isLocked{
+            if !button.isLocked && button.tag - 1 != posofmoving{
                 stepcounter++
                 mSteps.text = "Steps: \(stepcounter)"
                 button.setImageLocked()
+                newLockedDotAnimation(button)
                 sendNewLockedDot(button.tag-1)
                 if isDotCaged() {
                     showEndAlert(true)
@@ -373,13 +359,20 @@ class GameScreenViewController: UIViewController {
             if ((x - movingPoint.frame.origin.x) < dotSize) && ((x - movingPoint.frame.origin.x) > -dotSize) && ((y - movingPoint.frame.origin.y) < dotSize) && ((y - movingPoint.frame.origin.y) > -dotSize) && (button as! GameButton).isLocked {
                 counter++
             }
-
         }
         if counter == 6 {
             return true
         } else {
             return false
         }
+    }
+    
+    func newLockedDotAnimation(button: GameButton) {
+        button.transform = CGAffineTransformMakeScale(10, 10)
+        UIView.beginAnimations("scale", context: nil)
+        UIView.setAnimationDuration(0.8)
+        button.transform = CGAffineTransformMakeScale(1.0, 1.0)
+        UIView.commitAnimations()
     }
     
     func isValidPosition(x: CGFloat, y: CGFloat, button: GameButton) -> Bool {
@@ -393,8 +386,8 @@ class GameScreenViewController: UIViewController {
         
         for b in mGameButtons {
             if b == button {
-                if (b as! GameButton).isLocked {
-                    return false
+                if (b as! GameButton).isLocked || b.tag - 1 == posofmoving {
+                    isValid = false
                 }
             }
         }
