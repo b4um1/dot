@@ -76,11 +76,10 @@ class GameScreenViewController: UIViewController {
             generateLockedDots()
             sendLockedButtons()
             sendMovingButton()
-        }else{
+        } else {
             mTurn.text = "Player 2 - Wait until your opponent has done his turn"
             LoadingOverlay.shared.showOverlay(self.view)
         }
-
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -136,11 +135,11 @@ class GameScreenViewController: UIViewController {
         
         // Create the actions.
         let yesAction = UIAlertAction(title: "Yes", style: .Default) { action in
-            self.clearGameSettings(true)
+            self.clearGameSettings()
         }
         
         let noAction = UIAlertAction(title: "No", style: .Default) { action in
-            self.clearGameSettings(false)
+            
         }
         
         // Add the actions.
@@ -150,8 +149,24 @@ class GameScreenViewController: UIViewController {
         presentViewController(alertCotroller, animated: true, completion: nil)
     }
     
-    func clearGameSettings(player1: Bool) {
-
+    func clearGameSettings() {
+        
+        //LoadingOverlay.shared.showOverlay(self.view)
+        //sendNewGameRequest(true)
+        
+        
+        /*
+        lockedDotsTags = [Int]()
+        oppenentname = ""   // name of the opponent
+        stepcounter = 0     // counts the steps made by gamer 1
+        
+        posofmoving = 0
+        winnerAnimationIndex = 0    // should the dot move up, down, left, right?
+        firstConnection = true
+        firstMoveDot = true
+        
+        initGameScreen()
+        */
     }
     
 
@@ -209,6 +224,7 @@ class GameScreenViewController: UIViewController {
         let userInfo = notification.userInfo! as Dictionary
         let receivedData:NSData = userInfo["data"] as! NSData
         
+        
         let senderPeerId:MCPeerID = userInfo["peerID"] as! MCPeerID
         oppenentname = senderPeerId.displayName
         
@@ -217,6 +233,7 @@ class GameScreenViewController: UIViewController {
             
             var button: GameButton
             var newpos = message.objectForKey("newlockeddot")!.integerValue
+
             button = mGameButtons[newpos] as! GameButton
             button.setImageLocked()
             newLockedDotAnimation(button)
@@ -238,7 +255,6 @@ class GameScreenViewController: UIViewController {
                         button.setImageLocked()
                     }
                 }
-                
             } else {
                 let message = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
                 winnerAnimationIndex = message.objectForKey("winnerAnimationIndex")!.integerValue
@@ -302,6 +318,21 @@ class GameScreenViewController: UIViewController {
             println("error: \(error?.localizedDescription)")
         }
     }
+    
+    /*
+    func sendNewGameRequest(playAgain: Bool){
+        let messageDict = ["newGame":"\(playAgain)"]
+        let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
+        
+        var error:NSError?
+        
+        appDelegate.mpcHandler.session.sendData(messageData, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error)
+        
+        if error != nil{
+            println("error: \(error?.localizedDescription)")
+        }
+    }
+    */
     
     func generateLockedDots(){
         for i in 0...numberOfDefaultLockedDots - 1 {
