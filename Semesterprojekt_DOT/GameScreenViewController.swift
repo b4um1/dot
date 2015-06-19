@@ -34,7 +34,7 @@ class GameScreenViewController: UIViewController {
     let JSON_MOVINGDOT = "movingdot"
     let JSON_NEWLOCKEDDOT = "newlockeddot"
     let JSON_WINNINGANIMATION = "winnerAnimationIndex"
-    
+    let JSON_AVATARID = "avatar_id"
     
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = true
