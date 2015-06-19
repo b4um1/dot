@@ -18,6 +18,10 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     var appDelegate: AppDelegate!
     var newGame:Bool = false
     var oppenentname = ""
+    let defaults = NSUserDefaults.standardUserDefaults()
+
+    let numberOfAvatars = 40
+    let avatarKey = "avatarId"
     
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = true
@@ -38,6 +42,11 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appwillterminate:", name: "APP_WILL_TERMINATE", object: nil)
 
+        
+        var id = defaults.integerForKey(avatarKey)
+        if id == 0 {
+            defaults.setObject(Int(arc4random_uniform(UInt32(numberOfAvatars)) + 1), forKey: avatarKey)
+        }
     }
     
     /*

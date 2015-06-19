@@ -25,8 +25,9 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
         
         /*
         var myDate = NSDate()
-        storeDummyData("Thomas", wins: 6, amount: 8, date: myDate, avatarId: 30)
-        storeDummyData("Mario", wins: 11, amount: 20, date: myDate, avatarId: 12)
+        storeDummyData("Thomas' iPhone 5", wins: 6, amount: 8, date: myDate, avatarId: 40)
+        storeDummyData("Mario's iPhone 5s", wins: 11, amount: 20, date: myDate, avatarId: 14)
+        storeDummyData("Maximilians iPhone 6 Plus", wins: 0, amount: 3, date: myDate, avatarId: 38)
         */
 
         loadFromCoreData()
@@ -44,11 +45,6 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
             NSFontAttributeName: DotFontStyle(30)
         ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
-        /*
-        self.navigationController!.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-        self.navigationController!.navigationBar.shadowImage = UIImage()
-        self.navigationController!.navigationBar.translucent = true
-*/
         setupPageControl()
     }
     
@@ -78,6 +74,8 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
         player1!.amount = amount
         player1!.lastGame = date
         player1!.wins = wins
+        player1?.avatar = avatarId
+        
         
         appDelegate.managedObjectContext?.save(nil)
     }
@@ -139,11 +137,10 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
             pageItemController.date = players[itemIndex].lastGame
             pageItemController.totalGames = players[itemIndex].amount as Int
             pageItemController.wins = players[itemIndex].wins as Int
-            //pageItemController.avatar.image = players[itemIndex].avatar
+            pageItemController.avatarId = players[itemIndex].avatar as Int
             
             return pageItemController
         }
-        
         return nil
     }
     

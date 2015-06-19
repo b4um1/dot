@@ -19,7 +19,16 @@ class PageItemController: UIViewController {
     
     var barChart = PNBarChart()
     
+    var avatarId: Int = 1 {
+        didSet {
+            if let imageView = avatar {
+                imageView.image = UIImage(named: "avatar\(avatarId)")
+            }
+        }
+    }
+    
     @IBOutlet weak var avatar: UIImageView!
+    
     var labelName: UILabel!
     var labelDate: UILabel!
     var labelTotalGames: UILabel!
@@ -31,6 +40,8 @@ class PageItemController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        avatar.image = UIImage(named: "avatar\(avatarId)")
+        
         height = view.frame.size.height
         
         //labelName?.text = name
@@ -39,11 +50,6 @@ class PageItemController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        /*
-        self.navigationController!.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-        self.navigationController!.navigationBar.shadowImage = UIImage()
-        self.navigationController!.navigationBar.translucent = true
-        */
         drawView()
 
     }
@@ -51,12 +57,12 @@ class PageItemController: UIViewController {
     func drawView() {
         setChartData()
         
-        labelName = UILabel(frame: CGRectMake(0, 0, 200, 30))
+        labelName = UILabel(frame: CGRectMake(0, 0, self.view.frame.width - 10, 30))
         //labelName.center = CGPointMake(view.frame.width / 1.5, height! / 2 - 100)
         labelName.center = CGPointMake(view.frame.width / 2, 50)
         labelName.textAlignment = NSTextAlignment.Center
         labelName.textColor = UIColor.blackColor()
-        labelName.font = DotFontStyle(40.0)
+        labelName.font = DotFontStyle(28.0)
         labelName.text = name
         
         labelTotalGames = UILabel(frame: CGRectMake(0, 0, 200, 25))
@@ -99,7 +105,7 @@ class PageItemController: UIViewController {
         labelWins.text = wins.description + " wins"
         
         var labelDefeats = UILabel(frame: CGRectMake(0, 0, 200, 21))
-        labelDefeats.center = CGPointMake(barChart.frame.width / 2, 30  + 150)
+        labelDefeats.center = CGPointMake(barChart.frame.width / 2, 30 + 150)
         labelDefeats.textAlignment = NSTextAlignment.Center
         labelDefeats.textColor = DotRedColor
         labelDefeats.font = DotFontStyle(20.0)
@@ -133,5 +139,4 @@ class PageItemController: UIViewController {
         view.addSubview(labelWins)
         view.addSubview(labelDefeats)
     }
-
 }

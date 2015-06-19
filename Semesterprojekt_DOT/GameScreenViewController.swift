@@ -8,6 +8,7 @@
 
 import UIKit
 import MultipeerConnectivity
+import CoreData
 
 class GameScreenViewController: UIViewController {
 
@@ -29,6 +30,11 @@ class GameScreenViewController: UIViewController {
     var winnerAnimationIndex = 0    // should the dot move up, down, left, right?
     var firstConnection = true, firstMoveDot = true
     
+    var players = [Player]()
+    var playerId: Int = 0
+    let defaults = NSUserDefaults.standardUserDefaults()
+    let avatarKey = "avatarId"
+    var opponentsAvatar = 0
     
     let JSON_LOCKEDDOTS = "lockeddots"
     let JSON_MOVINGDOT = "movingdot"
@@ -42,6 +48,7 @@ class GameScreenViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        sendAvatar(defaults.integerForKey(avatarKey))
         for b in mGameButtons {
             b.hidden = false
         }
@@ -63,6 +70,23 @@ class GameScreenViewController: UIViewController {
                 
                 UIView.commitAnimations()
             }
+        }
+    }
+    
+    func loadFromCoreData() {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext!
+        
+        let fetchRequest = NSFetchRequest(entityName: "Player")
+        
+        var error: NSError?
+        let fetchedResults = managedContext.executeFetchRequest(fetchRequest,
+            error: &error) as! [Player]?
+        
+        if let results = fetchedResults {
+            players = results
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)")
         }
     }
     
@@ -126,6 +150,7 @@ class GameScreenViewController: UIViewController {
                     self.movingPoint.frame = CGRectMake(x, y, self.movingPoint.frame.size.width, self.movingPoint.frame.size.height)
                 })
                 UIView.commitAnimations()
+                gameOverWithWinner(winnerPlayer1: true)
                 showEndAlert(true)
             }
         }
@@ -135,6 +160,7 @@ class GameScreenViewController: UIViewController {
         var title = ""
         if winning {
             title = "Congratulations! You win!"
+            
         } else {
             title = "You lost!"
         }
@@ -207,6 +233,7 @@ class GameScreenViewController: UIViewController {
                 x = movingPoint.frame.origin.x + 35
                 y = movingPoint.frame.origin.y
             }
+            gameOverWithWinner(winnerPlayer1: true)
             showEndAlert(false)
             UIView.animateWithDuration(1.0, animations:{
                 self.movingPoint.frame = CGRectMake(x, y, self.movingPoint.frame.size.width, self.movingPoint.frame.size.height)
@@ -249,6 +276,16 @@ class GameScreenViewController: UIViewController {
         oppenentname = senderPeerId.displayName
         
         let json = JSON(data: receivedData)
+        
+        
+        winnerAnimationIndex = json[JSON_WINNINGANIMATION].intValue
+        
+        var avatarId = json[JSON_AVATARID].intValue
+        if avatarId != 0 {
+            opponentsAvatar = avatarId
+        }
+        
+        println("ID: " + avatarId.description)
         
         if playernr == 1 { //handle new locked dot
             var button: GameButton
@@ -294,6 +331,21 @@ class GameScreenViewController: UIViewController {
             println("Couldn't send message: \(error?.localizedDescription)")
         }
     }
+    
+    func sendAvatar(avatarId: Int) {
+        
+        var json: JSON = [JSON_AVATARID:avatarId]
+        var jsonrawdata = json.rawData(options: nil, error: nil)
+        
+        var error:NSError?
+        appDelegate.mpcHandler.session.sendData(jsonrawdata, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error:&error)
+        
+        if error != nil{
+            println("Couldn't send message: \(error?.localizedDescription)")
+        }
+        
+    }
+
     
     func sendNewLockedDot(posoflocked: Int){
         var json: JSON = [JSON_NEWLOCKEDDOT:posoflocked] //valid - checked by jsonlint
@@ -367,6 +419,7 @@ class GameScreenViewController: UIViewController {
                 newLockedDotAnimation(button)
                 sendNewLockedDot(button.tag-1)
                 if isDotCaged() {
+                    gameOverWithWinner(winnerPlayer1: false)
                     showEndAlert(true)
                 }
                 LoadingOverlay.shared.showOverlay(self.view)
@@ -421,5 +474,58 @@ class GameScreenViewController: UIViewController {
             }
         }
         return isValid
+    }
+    
+    func gameOverWithWinner(#winnerPlayer1: Bool) {
+        loadFromCoreData()
+        var alreadyInCoreData = false
+        for (index, player) in enumerate(players) {
+            if oppenentname == player.name {
+                playerId = index
+                alreadyInCoreData = true
+            }
+        }
+        if !alreadyInCoreData {
+            var entity = NSEntityDescription.entityForName("Player", inManagedObjectContext:appDelegate.managedObjectContext!)
+            var player = Player(entity: entity!, insertIntoManagedObjectContext: appDelegate.managedObjectContext!)
+            player.name = oppenentname
+            player.wins = 0
+            player.amount = 0
+            player.avatar = opponentsAvatar
+            
+            appDelegate.managedObjectContext?.save(nil)
+            loadFromCoreData()
+        }
+        
+        if winnerPlayer1 {
+            if playernr == 1 {
+                players[playerId].amount = Int(players[playerId].amount) + 1
+                players[playerId].wins = Int(players[playerId].wins) + 1
+            } else {
+                players[playerId].amount = Int(players[playerId].amount) + 1
+            }
+        } else {
+            if playernr == 1 {
+                players[playerId].amount = Int(players[playerId].amount) + 1
+            } else {
+                players[playerId].amount = Int(players[playerId].amount) + 1
+                players[playerId].wins = Int(players[playerId].wins) + 1
+            }
+        }
+        saveToCoreData()
+    }
+    
+    func saveToCoreData() {
+        let predicate = NSPredicate(format: "name == %@", oppenentname)
+        
+        let fetchRequest = NSFetchRequest(entityName: "Player")
+        fetchRequest.predicate = predicate
+        
+        let fetchedEntities = appDelegate.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as! [Player]
+        
+        fetchedEntities.first?.wins = players[playerId].wins
+        fetchedEntities.first?.amount = players[playerId].amount
+        
+        appDelegate.managedObjectContext!.save(nil)
     }
 }
