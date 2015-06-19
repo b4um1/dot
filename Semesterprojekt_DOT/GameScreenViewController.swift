@@ -74,8 +74,9 @@ class GameScreenViewController: UIViewController {
             posofmoving = 28
             (mGameButtons[posofmoving] as! GameButton).isMove = true
             generateLockedDots()
-            sendLockedButtons()
-            sendMovingButton()
+            sendGameSetup()
+            //sendLockedButtons()
+            //sendMovingButton()
         } else {
             mTurn.text = "Player 2 - Wait until your opponent has done his turn"
             LoadingOverlay.shared.showOverlay(self.view)
@@ -220,6 +221,29 @@ class GameScreenViewController: UIViewController {
         }
     }
     
+    func sendGameSetup(){ //movingdot and  locked dots
+        let data = NSJSONSerialization.dataWithJSONObject(lockedDotsTags, options: nil, error: nil)
+        let datansstring = NSString(data: data!, encoding: NSUTF8StringEncoding)
+        let datastring = datansstring as! String
+        
+        //        swiftyjson ecoded
+        var json: JSON = ["movingdot":posofmoving,"winnerAnimationIndex":winnerAnimationIndex,"lockeddots":lockedDotsTags] //valid - checked by jsonlint
+        //        println("\(json))")
+        
+        
+        var jsonrawdata = json.rawData(options: nil, error: nil)
+//        var teststring = NSString(data: jsonrawdata!, encoding: NSUTF8StringEncoding)
+//        println("\(teststring)")
+        
+        var error:NSError?
+        appDelegate.mpcHandler.session.sendData(jsonrawdata, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error)
+        
+        if error != nil{
+            println("error: \(error?.localizedDescription)")
+        }
+        
+    }
+    
     func handleReceivedDataWithNotification(notification:NSNotification){
         let userInfo = notification.userInfo! as Dictionary
         let receivedData:NSData = userInfo["data"] as! NSData
@@ -241,32 +265,25 @@ class GameScreenViewController: UIViewController {
         }
         
         if playernr == 2 { //handle pos of moving dot
+            let json = JSON(data: receivedData)
+            posofmoving = json["movingdot"].intValue
             
-            
-            
-            /*if firstConnection { //in this part, the array of locked dots is received
-                firstConnection = false
-                let data = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil)
+            if let arrayLockedDots = json["lockeddots"].array {
+                println("jsonlockeddots: \(arrayLockedDots.count)")
                 
-                if let arrayLockedDot = data as? Array<Int> {
-                    for index in 0...arrayLockedDot.count-1 {
-                        var button: GameButton
-                        button = mGameButtons[arrayLockedDot[index]] as! GameButton
-                        button.setImageLocked()
-                    }
+                for index in 0...arrayLockedDots.count-1 {
+                    var button: GameButton
+                    button = mGameButtons[arrayLockedDots[index].intValue] as! GameButton
+                    button.setImageLocked()
                 }
-            } else {
-                let message = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
-                winnerAnimationIndex = message.objectForKey("winnerAnimationIndex")!.integerValue
-                
-                posofmoving = message.objectForKey("movingdot")!.integerValue
-                setUpMovingDot()
-                if firstMoveDot{
-                    firstMoveDot = false
-                }else{
-                    LoadingOverlay.shared.hideOverlayView()
-                }
-            }*/
+            }
+            
+            setUpMovingDot()
+            if firstMoveDot{
+                firstMoveDot = false
+            }else{
+                LoadingOverlay.shared.hideOverlayView()
+            }
         }
     }
     
@@ -284,30 +301,9 @@ class GameScreenViewController: UIViewController {
         }
 
     }
-    func sendLockedButtons(){
-        
-        let data = NSJSONSerialization.dataWithJSONObject(lockedDotsTags, options: nil, error: nil)
-        let string = NSString(data: data!, encoding: NSUTF8StringEncoding)
-        
-        println("String jsonformat: \(string)")
-        
-        var error:NSError?
-        
-        appDelegate.mpcHandler.session.sendData(data, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error)
-        
-        if error != nil{
-            println("error: \(error?.localizedDescription)")
-        }
-        
-    }
-    
-    func sendGameSetup(){ //movingdot and  locked dots
-        
-    }
-    
     
     func sendNewLockedDot(posoflocked: Int){
-        let messageDict = ["newlockeddot":"\(posoflocked)"]
+        let messageDict = ["newlockeddot":"\(posoflocked)",]
         let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
         
         var error:NSError?
