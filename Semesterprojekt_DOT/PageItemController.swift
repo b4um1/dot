@@ -19,6 +19,7 @@ class PageItemController: UIViewController {
     
     var barChart = PNBarChart()
     
+    @IBOutlet weak var avatar: UIImageView!
     var labelName: UILabel!
     var labelDate: UILabel!
     var labelTotalGames: UILabel!
@@ -38,7 +39,13 @@ class PageItemController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        /*
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        self.navigationController!.navigationBar.shadowImage = UIImage()
+        self.navigationController!.navigationBar.translucent = true
+        */
         drawView()
+
     }
     
     func drawView() {
@@ -46,28 +53,27 @@ class PageItemController: UIViewController {
         
         labelName = UILabel(frame: CGRectMake(0, 0, 200, 30))
         //labelName.center = CGPointMake(view.frame.width / 1.5, height! / 2 - 100)
-        labelName.center = CGPointMake(view.frame.width / 1.5, 100)
-        labelName.textAlignment = NSTextAlignment.Left
-        labelName.textColor = DotGrayColor
+        labelName.center = CGPointMake(view.frame.width / 2, 50)
+        labelName.textAlignment = NSTextAlignment.Center
+        labelName.textColor = UIColor.blackColor()
         labelName.font = DotFontStyle(40.0)
         labelName.text = name
         
         labelTotalGames = UILabel(frame: CGRectMake(0, 0, 200, 25))
-        labelTotalGames.center = CGPointMake(view.frame.width / 1.5, height! / 3)
+        labelTotalGames.center = CGPointMake(view.frame.width / 1.5, height! / 2)
         labelTotalGames.textAlignment = NSTextAlignment.Left
         labelTotalGames.textColor = UIColor.whiteColor()
         labelTotalGames.font = DotFontStyle(20.0)
         labelTotalGames.text = totalGames.description + " games!"
         
         labelDate = UILabel(frame: CGRectMake(0, 0, 200, 25))
-        labelDate.center = CGPointMake(view.frame.width / 1.5, height! / 3 + 50)
+        labelDate.center = CGPointMake(view.frame.width / 1.5, height! / 2 + 50)
         labelDate.textAlignment = NSTextAlignment.Left
         labelDate.font = DotFontStyle(20.0)
         labelDate.textColor = UIColor.whiteColor()
         if date != nil {
             labelDate.text = "last game: " + dateformatterDate(date!).description
         }
-        
         
         self.view.addSubview(labelName)
         self.view.addSubview(labelTotalGames)
@@ -83,17 +89,17 @@ class PageItemController: UIViewController {
     }
     
     func setChartData() {
-        var barChart = PNBarChart(frame: CGRectMake(0, 50, self.view.frame.size.width / 3, height! / 1.5))
+        var barChart = PNBarChart(frame: CGRectMake(0, 200, self.view.frame.size.width / 3, height! / 2.2))
         
         var labelWins = UILabel(frame: CGRectMake(0, 0, 200, 21))
-        labelWins.center = CGPointMake(barChart.frame.width / 2, barChart.frame.height + 40)
+        labelWins.center = CGPointMake(barChart.frame.width / 2, barChart.frame.height + 30 + 150)
         labelWins.textAlignment = NSTextAlignment.Center
         labelWins.textColor = DotGreenColor
         labelWins.font = DotFontStyle(20.0)
         labelWins.text = wins.description + " wins"
         
         var labelDefeats = UILabel(frame: CGRectMake(0, 0, 200, 21))
-        labelDefeats.center = CGPointMake(barChart.frame.width / 2, 50)
+        labelDefeats.center = CGPointMake(barChart.frame.width / 2, 30  + 150)
         labelDefeats.textAlignment = NSTextAlignment.Center
         labelDefeats.textColor = DotRedColor
         labelDefeats.font = DotFontStyle(20.0)

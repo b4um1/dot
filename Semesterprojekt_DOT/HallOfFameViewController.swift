@@ -25,8 +25,8 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
         
         /*
         var myDate = NSDate()
-        storeDummyData("Thomas", wins: 6, amount: 8, date: myDate)
-        storeDummyData("Mario", wins: 11, amount: 20, date: myDate)
+        storeDummyData("Thomas", wins: 6, amount: 8, date: myDate, avatarId: 30)
+        storeDummyData("Mario", wins: 11, amount: 20, date: myDate, avatarId: 12)
         */
 
         loadFromCoreData()
@@ -39,10 +39,16 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
     
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = false
+                
         var attributes = [
             NSFontAttributeName: DotFontStyle(30)
         ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
+        /*
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        self.navigationController!.navigationBar.shadowImage = UIImage()
+        self.navigationController!.navigationBar.translucent = true
+*/
         setupPageControl()
     }
     
@@ -62,7 +68,7 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
         }
     }
     
-    func storeDummyData(name: String, wins: Int, amount: Int, date: NSDate) {
+    func storeDummyData(name: String, wins: Int, amount: Int, date: NSDate, avatarId: Int) {
         var player1: Player?
         
         var entity = NSEntityDescription.entityForName("Player", inManagedObjectContext:appDelegate.managedObjectContext!)
@@ -95,9 +101,9 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
     
     private func setupPageControl() {
         let appearance = UIPageControl.appearance()
-        appearance.pageIndicatorTintColor = UIColor.blackColor()
+        appearance.pageIndicatorTintColor = UIColor.grayColor()
         appearance.currentPageIndicatorTintColor = UIColor.whiteColor()
-        appearance.backgroundColor = UIColor.lightGrayColor()
+        appearance.backgroundColor = UIColor.clearColor()
     }
     
     // MARK: - UIPageViewControllerDataSource
@@ -133,6 +139,7 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
             pageItemController.date = players[itemIndex].lastGame
             pageItemController.totalGames = players[itemIndex].amount as Int
             pageItemController.wins = players[itemIndex].wins as Int
+            //pageItemController.avatar.image = players[itemIndex].avatar
             
             return pageItemController
         }
