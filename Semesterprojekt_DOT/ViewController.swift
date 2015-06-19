@@ -90,11 +90,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
             oppenentname = senderPeerId.displayName
             
             if message.objectForKey("string")?.isEqualToString("New Game") == true{
-                /*let alert = UIAlertController(title: "Multi Dot", message: "\(oppenentname) has started a new Game", preferredStyle: UIAlertControllerStyle.Alert)
-                
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                
-                self.presentViewController(alert, animated: true, completion: nil)*/
                 player = 2;
                 self.performSegueWithIdentifier(segueStartGame, sender: nil)
             }

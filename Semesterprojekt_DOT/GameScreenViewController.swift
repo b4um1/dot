@@ -34,6 +34,31 @@ class GameScreenViewController: UIViewController {
         initGameScreen()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        for b in mGameButtons {
+            b.hidden = false
+        }
+        // animation of locked dots
+        for button in mGameButtons {
+            var b = button as! GameButton
+            if b.isLocked {
+                var buttonFrame = b.frame
+                b.frame.origin.y = -view.frame.height / 2
+                
+                UIView.animateWithDuration(1.0, animations:{
+                    b.frame = CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y, b.frame.size.width, b.frame.size.height)
+                })
+                
+                b.transform = CGAffineTransformMakeScale(2, 2)
+                UIView.beginAnimations("fadeInAndGrow", context: nil)
+                UIView.setAnimationDuration(1)
+                b.transform = CGAffineTransformMakeScale(1.0, 1.0)
+                
+                UIView.commitAnimations()
+            }
+        }
+    }
+    
     func initGameScreen() {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReceivedDataWithNotification:", name: "MPC_DidReceiveDataNotification", object: nil)
@@ -129,30 +154,7 @@ class GameScreenViewController: UIViewController {
 
     }
     
-    override func viewDidAppear(animated: Bool) {
-        for b in mGameButtons {
-            b.hidden = false
-        }
-        // animation of locked dots
-        for button in mGameButtons {
-            var b = button as! GameButton
-            if b.isLocked {
-                var buttonFrame = b.frame
-                b.frame.origin.y = -view.frame.height / 2
-                
-                UIView.animateWithDuration(1.0, animations:{
-                    b.frame = CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y, b.frame.size.width, b.frame.size.height)
-                })
-                
-                b.transform = CGAffineTransformMakeScale(2, 2)
-                UIView.beginAnimations("fadeInAndGrow", context: nil)
-                UIView.setAnimationDuration(1)
-                b.transform = CGAffineTransformMakeScale(1.0, 1.0)
-                
-                UIView.commitAnimations()
-            }
-        }
-    }
+
     
     override func viewDidLayoutSubviews() {
         if playernr == 1 {
@@ -222,7 +224,10 @@ class GameScreenViewController: UIViewController {
         }
         
         if playernr == 2 { //handle pos of moving dot
-            if firstConnection { //in this part, the array of locked dots is received
+            
+            
+            
+            /*if firstConnection { //in this part, the array of locked dots is received
                 firstConnection = false
                 let data = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil)
                 
@@ -245,7 +250,7 @@ class GameScreenViewController: UIViewController {
                 }else{
                     LoadingOverlay.shared.hideOverlayView()
                 }
-            }
+            }*/
         }
     }
     
@@ -279,6 +284,11 @@ class GameScreenViewController: UIViewController {
         }
         
     }
+    
+    func sendGameSetup(){ //movingdot and  locked dots
+        
+    }
+    
     
     func sendNewLockedDot(posoflocked: Int){
         let messageDict = ["newlockeddot":"\(posoflocked)"]
