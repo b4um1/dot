@@ -20,27 +20,29 @@ class GameScreenViewController: UIViewController {
     @IBOutlet var mGameButtons: [UIButton]!
     
     var lockedDotsTags = [Int]()
-    let numberOfDefaultLockedDots = 20
+    let numberOfDefaultLockedDots = 10
     var appDelegate: AppDelegate! //appdelegate for communication with the mpc handler
     var oppenentname = ""   // name of the opponent
     var playernr = 0      // you are player 1 for standard
     var stepcounter = 0     // counts the steps made by gamer 1
+    var firstMoveDot = true
     
     var posofmoving = 0
     var winnerAnimationIndex = 0    // should the dot move up, down, left, right?
-    var firstConnection = true, firstMoveDot = true
     
     var players = [Player]()
     var playerId: Int = 0
     let defaults = NSUserDefaults.standardUserDefaults()
     let avatarKey = "avatarId"
     var opponentsAvatar = 0
+    var myavatar = 0
     
     let JSON_LOCKEDDOTS = "lockeddots"
     let JSON_MOVINGDOT = "movingdot"
     let JSON_NEWLOCKEDDOT = "newlockeddot"
     let JSON_WINNINGANIMATION = "winnerAnimationIndex"
     let JSON_AVATARID = "avatar_id"
+    let JSON_CANCELGAME = "cancelGame"
     
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = true
@@ -48,7 +50,16 @@ class GameScreenViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        sendAvatar(defaults.integerForKey(avatarKey))
+        animateDots()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if playernr == 1 {
+            setUpMovingDot()
+        }
+    }
+    
+    func animateDots(){
         for b in mGameButtons {
             b.hidden = false
         }
@@ -71,6 +82,7 @@ class GameScreenViewController: UIViewController {
                 UIView.commitAnimations()
             }
         }
+
     }
     
     func loadFromCoreData() {
@@ -91,10 +103,11 @@ class GameScreenViewController: UIViewController {
     }
     
     func initGameScreen() {
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReceivedDataWithNotification:", name: "MPC_DidReceiveDataNotification", object: nil)
+        
         mOpponent.text = "Opponet: \(oppenentname)"
         mSteps.text = "Steps: \(stepcounter)"
+        myavatar = defaults.integerForKey(avatarKey)
         
         for b in mGameButtons { // hide all buttons because of the animation
             b.hidden = true
@@ -103,16 +116,32 @@ class GameScreenViewController: UIViewController {
         if playernr == 1{
             mTurn.text = "Player 1 - It's your turn";
             posofmoving = 28
-            (mGameButtons[posofmoving] as! GameButton).isMove = true
             generateLockedDots()
             sendGameSetup()
-            //sendLockedButtons()
-            //sendMovingButton()
         } else {
             mTurn.text = "Player 2 - Wait until your opponent has done his turn"
             LoadingOverlay.shared.showOverlay(self.view)
         }
     }
+    
+    func clearGameSettings() {
+        playernr = 0
+        posofmoving = 0
+        winnerAnimationIndex = 0
+        /*
+        lockedDotsTags = [Int]()
+        oppenentname = ""   // name of the opponent
+        stepcounter = 0     // counts the steps made by gamer 1
+        
+        posofmoving = 0
+        winnerAnimationIndex = 0    // should the dot move up, down, left, right?
+        firstConnection = true
+        firstMoveDot = true
+        
+        initGameScreen()
+        */
+    }
+
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         if playernr == 1 { // if player 1 is on a border dot and clicks in the view (he wins)
@@ -160,12 +189,11 @@ class GameScreenViewController: UIViewController {
         var title = ""
         if winning {
             title = "Congratulations! You win!"
-            
         } else {
             title = "You lost!"
         }
         
-        let alertCotroller = UIAlertController(title: title, message: "play again?", preferredStyle: .Alert)
+        let alertCotroller = UIAlertController(title: title, message: "Do you want to play again?", preferredStyle: .Alert)
         
         // Create the actions.
         let yesAction = UIAlertAction(title: "Yes", style: .Default) { action in
@@ -173,7 +201,7 @@ class GameScreenViewController: UIViewController {
         }
         
         let noAction = UIAlertAction(title: "No", style: .Default) { action in
-            
+            self.cancelGame()
         }
         
         // Add the actions.
@@ -183,35 +211,9 @@ class GameScreenViewController: UIViewController {
         presentViewController(alertCotroller, animated: true, completion: nil)
     }
     
-    func clearGameSettings() {
-        
-        //LoadingOverlay.shared.showOverlay(self.view)
-        //sendNewGameRequest(true)
-        
-        
-        /*
-        lockedDotsTags = [Int]()
-        oppenentname = ""   // name of the opponent
-        stepcounter = 0     // counts the steps made by gamer 1
-        
-        posofmoving = 0
-        winnerAnimationIndex = 0    // should the dot move up, down, left, right?
-        firstConnection = true
-        firstMoveDot = true
-        
-        initGameScreen()
-        */
-    }
-    
-
-    
-    override func viewDidLayoutSubviews() {
-        if playernr == 1 {
-            setUpMovingDot()
-        }else{//player 2
-            
-        }
-       
+    func cancelGame(){
+        sendCancelGame()
+        self.performSegueWithIdentifier("HomeScreen", sender: nil)
     }
     
     func setUpMovingDot(){
@@ -241,6 +243,7 @@ class GameScreenViewController: UIViewController {
             UIView.commitAnimations()
             
         } else {
+            (mGameButtons[posofmoving] as! GameButton).isMove = true
             var button = mGameButtons[posofmoving]
             var offset: CGFloat = 18.0
             if button.superview!.tag == 0 {
@@ -255,10 +258,14 @@ class GameScreenViewController: UIViewController {
         }
     }
     
-    func sendGameSetup(){ //movingdot and  locked dots
-        
-        var json: JSON = [JSON_MOVINGDOT:posofmoving,JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_LOCKEDDOTS:lockedDotsTags] //valid - checked by jsonlint
+    func sendGameSetup(){ //movingdot and locked dots and avatarID
+        var json: JSON = [JSON_MOVINGDOT:posofmoving,JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_LOCKEDDOTS:lockedDotsTags,JSON_AVATARID:myavatar] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
+        
+        var stringjson = json.description
+        
+        //sendjson
+        println("sendjson: \(stringjson)")
         
         var error:NSError?
         appDelegate.mpcHandler.session.sendData(jsonrawdata, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error:&error)
@@ -276,7 +283,7 @@ class GameScreenViewController: UIViewController {
         oppenentname = senderPeerId.displayName
         
         let json = JSON(data: receivedData)
-        
+        //println("ReceivedJson: \(json.description)")
         
         winnerAnimationIndex = json[JSON_WINNINGANIMATION].intValue
         
@@ -285,20 +292,22 @@ class GameScreenViewController: UIViewController {
             opponentsAvatar = avatarId
         }
         
-        println("ID: " + avatarId.description)
+        if let cancelAction = json[JSON_CANCELGAME].string{
+            self.performSegueWithIdentifier("HomeScreen", sender: nil)
+        }
         
         if playernr == 1 { //handle new locked dot
             var button: GameButton
             var newpos = json[JSON_NEWLOCKEDDOT].intValue
 
+            LoadingOverlay.shared.hideOverlayView()
+            
             button = mGameButtons[newpos] as! GameButton
             button.setImageLocked()
             newLockedDotAnimation(button)
-            LoadingOverlay.shared.hideOverlayView()
         }
         
         if playernr == 2 { //handle pos of moving dot
-            
             posofmoving = json[JSON_MOVINGDOT].intValue
             
             if let arrayLockedDots = json[JSON_LOCKEDDOTS].array {
@@ -310,8 +319,8 @@ class GameScreenViewController: UIViewController {
                     button.setImageLocked()
                 }
             }
-            
             setUpMovingDot()
+            
             if firstMoveDot{
                 firstMoveDot = false
             }else{
@@ -332,23 +341,24 @@ class GameScreenViewController: UIViewController {
         }
     }
     
-    func sendAvatar(avatarId: Int) {
-        
-        var json: JSON = [JSON_AVATARID:avatarId]
-        var jsonrawdata = json.rawData(options: nil, error: nil)
-        
-        var error:NSError?
-        appDelegate.mpcHandler.session.sendData(jsonrawdata, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error:&error)
-        
-        if error != nil{
-            println("Couldn't send message: \(error?.localizedDescription)")
-        }
-        
-    }
+    //not used, irregular
+//    func sendAvatar(avatarId: Int) {
+//        
+//        var json: JSON = [JSON_AVATARID:avatarId]
+//        var jsonrawdata = json.rawData(options: nil, error: nil)
+//        
+//        var error:NSError?
+//        appDelegate.mpcHandler.session.sendData(jsonrawdata, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error:&error)
+//        
+//        if error != nil{
+//            println("Couldn't send message: \(error?.localizedDescription)")
+//        }
+//        
+//    }
 
     
     func sendNewLockedDot(posoflocked: Int){
-        var json: JSON = [JSON_NEWLOCKEDDOT:posoflocked] //valid - checked by jsonlint
+        var json: JSON = [JSON_NEWLOCKEDDOT:posoflocked,JSON_AVATARID:myavatar] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
         
         var error:NSError?
@@ -357,6 +367,14 @@ class GameScreenViewController: UIViewController {
         if error != nil{
             println("Couldn't send message: \(error?.localizedDescription)")
         }
+    }
+    
+    func sendCancelGame(){
+        let messageDict = [JSON_CANCELGAME:"cancel"]
+        let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
+        
+        var error:NSError?
+        appDelegate.mpcHandler.session.sendData(messageData, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error)
     }
     
     /*

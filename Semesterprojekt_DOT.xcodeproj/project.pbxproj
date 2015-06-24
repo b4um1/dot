@@ -20,7 +20,6 @@
 		E8638C281B19965300CC74E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8638C271B19965300CC74E2 /* AppDelegate.swift */; };
 		E8638C2B1B19965300CC74E2 /* Semesterprojekt_DOT.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E8638C291B19965300CC74E2 /* Semesterprojekt_DOT.xcdatamodeld */; };
 		E8638C2D1B19965300CC74E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8638C2C1B19965300CC74E2 /* ViewController.swift */; };
-		E8638C301B19965300CC74E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8638C2E1B19965300CC74E2 /* Main.storyboard */; };
 		E8638C321B19965300CC74E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8638C311B19965300CC74E2 /* Images.xcassets */; };
 		E8638C351B19965300CC74E2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8638C331B19965300CC74E2 /* LaunchScreen.xib */; };
 		E8638C411B19965300CC74E2 /* Semesterprojekt_DOTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8638C401B19965300CC74E2 /* Semesterprojekt_DOTTests.swift */; };
@@ -57,7 +56,6 @@
 		E8638C271B19965300CC74E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E8638C2A1B19965300CC74E2 /* Semesterprojekt_DOT.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Semesterprojekt_DOT.xcdatamodel; sourceTree = "<group>"; };
 		E8638C2C1B19965300CC74E2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E8638C2F1B19965300CC74E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E8638C311B19965300CC74E2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E8638C341B19965300CC74E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E8638C3A1B19965300CC74E2 /* Semesterprojekt_DOTTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Semesterprojekt_DOTTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,7 +146,6 @@
 		E8638C241B19965300CC74E2 /* Semesterprojekt_DOT */ = {
 			isa = PBXGroup;
 			children = (
-				E8638C2E1B19965300CC74E2 /* Main.storyboard */,
 				E8638C331B19965300CC74E2 /* LaunchScreen.xib */,
 				E8638C311B19965300CC74E2 /* Images.xcassets */,
 				E8638C271B19965300CC74E2 /* AppDelegate.swift */,
@@ -283,7 +280,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8638C301B19965300CC74E2 /* Main.storyboard in Resources */,
 				E8638C351B19965300CC74E2 /* LaunchScreen.xib in Resources */,
 				CEEA1C0D1B19E18D007B0320 /* Podfile in Resources */,
 				E8638C321B19965300CC74E2 /* Images.xcassets in Resources */,
@@ -387,14 +383,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E8638C2E1B19965300CC74E2 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E8638C2F1B19965300CC74E2 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E8638C331B19965300CC74E2 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
