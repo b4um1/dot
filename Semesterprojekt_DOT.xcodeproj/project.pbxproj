@@ -23,6 +23,7 @@
 		E8638C321B19965300CC74E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8638C311B19965300CC74E2 /* Images.xcassets */; };
 		E8638C351B19965300CC74E2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8638C331B19965300CC74E2 /* LaunchScreen.xib */; };
 		E8638C411B19965300CC74E2 /* Semesterprojekt_DOTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8638C401B19965300CC74E2 /* Semesterprojekt_DOTTests.swift */; };
+		E8A0F2931B3AF422006C53C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8A0F2911B3AF422006C53C0 /* Main.storyboard */; };
 		E8E7111D1B27408000051EF4 /* Swiftyjson.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E7111C1B27408000051EF4 /* Swiftyjson.swift */; };
 		E8E7111F1B274DD600051EF4 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E7111E1B274DD600051EF4 /* Overlay.swift */; };
 		E8F0C87A1B24A5F600750941 /* GameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F0C8791B24A5F600750941 /* GameButton.swift */; };
@@ -61,6 +62,7 @@
 		E8638C3A1B19965300CC74E2 /* Semesterprojekt_DOTTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Semesterprojekt_DOTTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8638C3F1B19965300CC74E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8638C401B19965300CC74E2 /* Semesterprojekt_DOTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Semesterprojekt_DOTTests.swift; sourceTree = "<group>"; };
+		E8A0F2921B3AF422006C53C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E8E7111C1B27408000051EF4 /* Swiftyjson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swiftyjson.swift; sourceTree = "<group>"; };
 		E8E7111E1B274DD600051EF4 /* Overlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		E8F0C8791B24A5F600750941 /* GameButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameButton.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		E8638C241B19965300CC74E2 /* Semesterprojekt_DOT */ = {
 			isa = PBXGroup;
 			children = (
+				E8A0F2911B3AF422006C53C0 /* Main.storyboard */,
 				E8638C331B19965300CC74E2 /* LaunchScreen.xib */,
 				E8638C311B19965300CC74E2 /* Images.xcassets */,
 				E8638C271B19965300CC74E2 /* AppDelegate.swift */,
@@ -283,6 +286,7 @@
 				E8638C351B19965300CC74E2 /* LaunchScreen.xib in Resources */,
 				CEEA1C0D1B19E18D007B0320 /* Podfile in Resources */,
 				E8638C321B19965300CC74E2 /* Images.xcassets in Resources */,
+				E8A0F2931B3AF422006C53C0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +393,14 @@
 				E8638C341B19965300CC74E2 /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		E8A0F2911B3AF422006C53C0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E8A0F2921B3AF422006C53C0 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

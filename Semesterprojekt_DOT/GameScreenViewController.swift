@@ -213,7 +213,7 @@ class GameScreenViewController: UIViewController {
     
     func cancelGame(){
         sendCancelGame()
-        self.performSegueWithIdentifier("HomeScreen", sender: nil)
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     func setUpMovingDot(){
@@ -293,7 +293,7 @@ class GameScreenViewController: UIViewController {
         }
         
         if let cancelAction = json[JSON_CANCELGAME].string{
-            self.performSegueWithIdentifier("HomeScreen", sender: nil)
+            self.navigationController?.popToRootViewControllerAnimated(true)
         }
         
         if playernr == 1 { //handle new locked dot
