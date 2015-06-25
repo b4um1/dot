@@ -115,7 +115,7 @@ class GameScreenViewController: UIViewController {
         
         if playernr == 1{
             mTurn.text = "Player 1 - It's your turn";
-            posofmoving = 28
+            posofmoving = 23
             generateLockedDots()
             sendGameSetup()
         } else {
@@ -193,26 +193,28 @@ class GameScreenViewController: UIViewController {
             title = "You lost!"
         }
         
-        let alertCotroller = UIAlertController(title: title, message: "Do you want to play again?", preferredStyle: .Alert)
+        var message = "Do you want to play again?"
+        
+        let alertCotroller = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         
         // Create the actions.
         let yesAction = UIAlertAction(title: "Yes", style: .Default) { action in
-            self.clearGameSettings()
+            //self.cancelGame()
         }
         
         let noAction = UIAlertAction(title: "No", style: .Default) { action in
-            self.cancelGame()
+            //self.cancelGame()
         }
         
         // Add the actions.
         alertCotroller.addAction(yesAction)
-        alertCotroller.addAction(noAction)
+        //alertCotroller.addAction(noAction)
         
         presentViewController(alertCotroller, animated: true, completion: nil)
     }
     
     func cancelGame(){
-        sendCancelGame()
+        //sendCancelGame()
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
@@ -290,10 +292,6 @@ class GameScreenViewController: UIViewController {
         var avatarId = json[JSON_AVATARID].intValue
         if avatarId != 0 {
             opponentsAvatar = avatarId
-        }
-        
-        if let cancelAction = json[JSON_CANCELGAME].string{
-            self.navigationController?.popToRootViewControllerAnimated(true)
         }
         
         if playernr == 1 { //handle new locked dot
