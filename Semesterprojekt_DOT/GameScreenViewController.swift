@@ -10,7 +10,7 @@ import UIKit
 import MultipeerConnectivity
 import CoreData
 
-class GameScreenViewController: UIViewController {
+class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var mOpponent: UILabel!
     @IBOutlet weak var mSteps: UILabel!
@@ -44,13 +44,50 @@ class GameScreenViewController: UIViewController {
     let JSON_AVATARID = "avatar_id"
     let JSON_CANCELGAME = "cancelGame"
     
+    @IBOutlet weak var progressView: UIProgressView!
+    var time = 0
+    var timer = NSTimer()
+    let TIMEOUT = 10
+    
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = true
+        self.navigationController!.interactivePopGestureRecognizer.delegate = self
+        
         initGameScreen()
     }
     
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
+    }
+
     override func viewDidAppear(animated: Bool) {
         animateDots()
+    }
+    
+    @IBAction func giveUpPressed(sender: AnyObject) {
+        println("Give Up!")
+    }
+    
+    func startTimer() {
+        time = TIMEOUT * 100
+        progressView.setProgress(1, animated: false)
+        progressView.progressTintColor = DotGreenColor
+        progressView.trackTintColor = DotRedColor
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("subtractTime"), userInfo: nil, repeats: true)
+
+    }
+    
+    func subtractTime() {
+        time--
+        if(time == 0)  {
+            progressView.setProgress(0, animated: true)
+            timer.invalidate()
+            println("TIMEOUT")
+            
+        } else {
+            var state: Float = Float(time) / Float(TIMEOUT * 100)
+            progressView.setProgress(state, animated: true)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -63,6 +100,7 @@ class GameScreenViewController: UIViewController {
         for b in mGameButtons {
             b.hidden = false
         }
+        var isAnimationFinished = false
         // animation of locked dots
         for button in mGameButtons {
             var b = button as! GameButton
@@ -70,19 +108,25 @@ class GameScreenViewController: UIViewController {
                 var buttonFrame = b.frame
                 b.frame.origin.y = -view.frame.height / 2
                 
-                UIView.animateWithDuration(1.0, animations:{
-                    b.frame = CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y, b.frame.size.width, b.frame.size.height)
-                })
-                
                 b.transform = CGAffineTransformMakeScale(2, 2)
                 UIView.beginAnimations("fadeInAndGrow", context: nil)
                 UIView.setAnimationDuration(1)
                 b.transform = CGAffineTransformMakeScale(1.0, 1.0)
                 
+                UIView.animateWithDuration(1.0, animations:{
+                    b.frame = CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y, b.frame.size.width, b.frame.size.height)
+                    },
+                    completion: {
+                        (finished:Bool) in
+                        if !isAnimationFinished {
+                            self.startTimer()
+                            isAnimationFinished = true
+                        }
+                    }
+                )
                 UIView.commitAnimations()
             }
         }
-
     }
     
     func loadFromCoreData() {
