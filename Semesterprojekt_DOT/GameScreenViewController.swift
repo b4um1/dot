@@ -47,7 +47,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var progressView: UIProgressView!
     var time = 0
     var timer = NSTimer()
-    let TIMEOUT = 10
+    let TIMEOUT = 5
     
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = true
@@ -113,10 +113,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 UIView.setAnimationDuration(1)
                 b.transform = CGAffineTransformMakeScale(1.0, 1.0)
                 
-                UIView.animateWithDuration(1.0, animations:{
+                UIView.animateWithDuration(1.0, animations: {
                     b.frame = CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y, b.frame.size.width, b.frame.size.height)
-                    },
-                    completion: {
+                    }, completion: {
                         (finished:Bool) in
                         if !isAnimationFinished {
                             self.startTimer()
