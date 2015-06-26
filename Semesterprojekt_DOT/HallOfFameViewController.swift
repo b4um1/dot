@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource {
+class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource, UIGestureRecognizerDelegate {
     
     // MARK: - Variables
     private var pageViewController: UIPageViewController?
@@ -40,12 +40,17 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
     
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = false
-                
+        self.navigationController!.interactivePopGestureRecognizer.delegate = self
+        
         var attributes = [
             NSFontAttributeName: DotFontStyle(30)
         ]
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         setupPageControl()
+    }
+    
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
     }
     
     func loadFromCoreData() {

@@ -20,11 +20,11 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var mGameButtons: [UIButton]!
     
     var lockedDotsTags = [Int]()
-    let numberOfDefaultLockedDots = 10
-    var appDelegate: AppDelegate! //appdelegate for communication with the mpc handler
-    var oppenentname = ""   // name of the opponent
-    var playernr = 0      // you are player 1 for standard
-    var stepcounter = 0     // counts the steps made by gamer 1
+    let numberOfDefaultLockedDots = 15
+    var appDelegate: AppDelegate!   //appdelegate for communication with the mpc handler
+    var oppenentname = ""           // name of the opponent
+    var playernr = 0                // you are player 1 for standard
+    var stepcounter = 0             // counts the steps made by gamer 1
     var firstMoveDot = true
     
     var posofmoving = 0
@@ -37,17 +37,22 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     var opponentsAvatar = 0
     var myavatar = 0
     
+    var winnerTwo = false
+    var giveUp = false
+    
     let JSON_LOCKEDDOTS = "lockeddots"
     let JSON_MOVINGDOT = "movingdot"
     let JSON_NEWLOCKEDDOT = "newlockeddot"
     let JSON_WINNINGANIMATION = "winnerAnimationIndex"
     let JSON_AVATARID = "avatar_id"
     let JSON_CANCELGAME = "cancelGame"
+    let JSON_WINNERTWO = "winnerTwo"
+    let JSON_GIVEUP = "giveUp"
     
     @IBOutlet weak var progressView: UIProgressView!
     var time = 0
     var timer = NSTimer()
-    let TIMEOUT = 5
+    let TIMEOUT = 10
     
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = true
@@ -65,7 +70,15 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func giveUpPressed(sender: AnyObject) {
-        println("Give Up!")
+        giveUp = true
+        showEndAlert(winning: false, gaveUp: true)
+        if playernr == 1 {
+            gameOverWithWinner(winnerPlayer1: false)
+            sendMovingButton()
+        } else {
+            gameOverWithWinner(winnerPlayer1: true)
+            sendNewLockedDot(-1)
+        }
     }
     
     func startTimer() {
@@ -83,7 +96,12 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             progressView.setProgress(0, animated: true)
             timer.invalidate()
             println("TIMEOUT")
-            
+            if playernr == 1 {
+                sendMovingButton()
+            } else {
+                sendNewLockedDot(100)   // timeout
+            }
+            LoadingOverlay.shared.showOverlay(self.view)
         } else {
             var state: Float = Float(time) / Float(TIMEOUT * 100)
             progressView.setProgress(state, animated: true)
@@ -118,7 +136,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                     }, completion: {
                         (finished:Bool) in
                         if !isAnimationFinished {
-                            self.startTimer()
+                            if self.playernr == 1 {
+                                self.startTimer()
+                            }
                             isAnimationFinished = true
                         }
                     }
@@ -158,7 +178,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         
         if playernr == 1{
             mTurn.text = "Player 1 - It's your turn";
-            posofmoving = 23
+            posofmoving = 28
             generateLockedDots()
             sendGameSetup()
         } else {
@@ -223,21 +243,23 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 })
                 UIView.commitAnimations()
                 gameOverWithWinner(winnerPlayer1: true)
-                showEndAlert(true)
+                showEndAlert(winning: true, gaveUp: false)
             }
         }
     }
     
-    func showEndAlert(winning: Bool) {
+    func showEndAlert(#winning: Bool, gaveUp: Bool) {
         var title = ""
         if winning {
-            title = "Congratulations! You win!"
+            if gaveUp {
+                title = "\(oppenentname) gave up! You win!"
+            } else {
+                title = "Congratulations! You win!"
+            }
         } else {
             title = "You lost!"
         }
-        
         var message = "Do you want to play again?"
-        
         let alertCotroller = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         
         // Create the actions.
@@ -258,7 +280,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func cancelGame(){
         //sendCancelGame()
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        self.navigationController!.popToRootViewControllerAnimated(true)
     }
     
     func setUpMovingDot(){
@@ -281,7 +303,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 y = movingPoint.frame.origin.y
             }
             gameOverWithWinner(winnerPlayer1: true)
-            showEndAlert(false)
+            showEndAlert(winning: false, gaveUp: false)
             UIView.animateWithDuration(1.0, animations:{
                 self.movingPoint.frame = CGRectMake(x, y, self.movingPoint.frame.size.width, self.movingPoint.frame.size.height)
             })
@@ -340,16 +362,39 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         if playernr == 1 { //handle new locked dot
             var button: GameButton
             var newpos = json[JSON_NEWLOCKEDDOT].intValue
-
-            LoadingOverlay.shared.hideOverlayView()
             
-            button = mGameButtons[newpos] as! GameButton
-            button.setImageLocked()
-            newLockedDotAnimation(button)
+            var gaveUp = json[JSON_GIVEUP].boolValue
+            if gaveUp {
+                showEndAlert(winning: true, gaveUp: true)
+                gameOverWithWinner(winnerPlayer1: true)
+            }
+            
+            if newpos != -1 {
+                startTimer()
+                LoadingOverlay.shared.hideOverlayView()
+
+                if newpos != 100 {   // timeout
+                    button = mGameButtons[newpos] as! GameButton
+                    button.setImageLocked()
+                    newLockedDotAnimation(button)
+                }
+            }
+            
+            var winnerPTwo = json[JSON_WINNERTWO].boolValue
+            if winnerPTwo {
+                self.gameOverWithWinner(winnerPlayer1: false)
+                showEndAlert(winning: false, gaveUp: true)
+            }
         }
         
         if playernr == 2 { //handle pos of moving dot
             posofmoving = json[JSON_MOVINGDOT].intValue
+            
+            var gaveUp = json[JSON_GIVEUP].boolValue
+            if gaveUp {
+                showEndAlert(winning: true, gaveUp: true)
+                gameOverWithWinner(winnerPlayer1: false)
+            }
             
             if let arrayLockedDots = json[JSON_LOCKEDDOTS].array {
                 println("jsonlockeddots: \(arrayLockedDots.count)")
@@ -365,13 +410,14 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             if firstMoveDot{
                 firstMoveDot = false
             }else{
+                startTimer()
                 LoadingOverlay.shared.hideOverlayView()
             }
         }
     }
     
     func sendMovingButton(){
-        var json: JSON = [JSON_MOVINGDOT:posofmoving, JSON_WINNINGANIMATION:winnerAnimationIndex] //valid - checked by jsonlint
+        var json: JSON = [JSON_MOVINGDOT:posofmoving, JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_GIVEUP:giveUp] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
         
         var error:NSError?
@@ -382,24 +428,8 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    //not used, irregular
-//    func sendAvatar(avatarId: Int) {
-//        
-//        var json: JSON = [JSON_AVATARID:avatarId]
-//        var jsonrawdata = json.rawData(options: nil, error: nil)
-//        
-//        var error:NSError?
-//        appDelegate.mpcHandler.session.sendData(jsonrawdata, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error:&error)
-//        
-//        if error != nil{
-//            println("Couldn't send message: \(error?.localizedDescription)")
-//        }
-//        
-//    }
-
-    
     func sendNewLockedDot(posoflocked: Int){
-        var json: JSON = [JSON_NEWLOCKEDDOT:posoflocked,JSON_AVATARID:myavatar] //valid - checked by jsonlint
+        var json: JSON = [JSON_NEWLOCKEDDOT:posoflocked,JSON_AVATARID:myavatar,JSON_WINNERTWO:winnerTwo,JSON_GIVEUP:giveUp] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
         
         var error:NSError?
@@ -468,6 +498,8 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 mSteps.text = "Steps: \(stepcounter)"
                 posofmoving = button.tag - 1
                 sendMovingButton()
+                timer.invalidate()
+                progressView.setProgress(1.0, animated: false)
                 LoadingOverlay.shared.showOverlay(self.view)
             }
         }else{
@@ -476,11 +508,14 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 mSteps.text = "Steps: \(stepcounter)"
                 button.setImageLocked()
                 newLockedDotAnimation(button)
-                sendNewLockedDot(button.tag-1)
                 if isDotCaged() {
+                    winnerTwo = true
                     gameOverWithWinner(winnerPlayer1: false)
-                    showEndAlert(true)
+                    showEndAlert(winning: true, gaveUp: false)
                 }
+                sendNewLockedDot(button.tag-1)
+                timer.invalidate()
+                progressView.setProgress(1.0, animated: false)
                 LoadingOverlay.shared.showOverlay(self.view)
             }
         }
