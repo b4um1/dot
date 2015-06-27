@@ -46,6 +46,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         var id = defaults.integerForKey(avatarKey)
         if id == 0 {
             defaults.setObject(Int(arc4random_uniform(UInt32(numberOfAvatars)) + 1), forKey: avatarKey)
+            println("id: \(defaults.integerForKey(avatarKey))")
         }
     }
     

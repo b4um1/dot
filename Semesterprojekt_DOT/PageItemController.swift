@@ -51,8 +51,32 @@ class PageItemController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         drawView()
-
+        
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        wiggle()
+    }
+    
+    func wiggle() {
+        let duration = 0.3
+        let options = UIViewKeyframeAnimationOptions.Autoreverse | UIViewKeyframeAnimationOptions.Repeat
+        let rotationValue = 0.07
+        let rotation = CGFloat(rotationValue)
+        
+        self.avatar.transform = CGAffineTransformMakeRotation(-CGFloat(rotationValue/2))
+        
+        UIView.animateKeyframesWithDuration(duration, delay: 0.0, options: options, animations: { () -> Void in
+            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.5, animations: { () -> Void in
+                self.avatar.transform = CGAffineTransformMakeRotation(rotation)
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: { () -> Void in
+                self.avatar.transform = CGAffineTransformMakeRotation(-rotation)
+            })
+        }, completion: nil)
+        
+    }
+
     
     func drawView() {
         setChartData()
