@@ -115,7 +115,7 @@ class GameScreenViewController: UIViewController {
         
         if playernr == 1{
             mTurn.text = "Player 1 - It's your turn";
-            posofmoving = 23
+            posofmoving = 27
             generateLockedDots()
             sendGameSetup()
         } else {
