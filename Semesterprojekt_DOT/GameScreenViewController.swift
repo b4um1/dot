@@ -10,6 +10,14 @@ import UIKit
 import MultipeerConnectivity
 import CoreData
 
+
+extension Array {
+    func contains<T : Equatable>(obj: T) -> Bool {
+        let filtered = self.filter {$0 as? T == obj}
+        return filtered.count > 0
+    }
+}
+
 class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var mOpponent: UILabel!
@@ -20,7 +28,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var mGameButtons: [UIButton]!
     
     var lockedDotsTags = [Int]()
+    var actionDotsTags = [Int]()
     let numberOfDefaultLockedDots = 15
+    let numberOfActionFields = 4
     var appDelegate: AppDelegate!   //appdelegate for communication with the mpc handler
     var oppenentname = ""           // name of the opponent
     var playernr = 0                // you are player 1 for standard
@@ -48,6 +58,8 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     let JSON_CANCELGAME = "cancelGame"
     let JSON_WINNERTWO = "winnerTwo"
     let JSON_GIVEUP = "giveUp"
+    let JSON_ACTIONDOTS = "actiondots"
+    let JSON_ISACTION = "isAction"
     
     @IBOutlet weak var progressView: UIProgressView!
     var time = 0
@@ -77,7 +89,8 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             sendMovingButton()
         } else {
             gameOverWithWinner(winnerPlayer1: true)
-            sendNewLockedDot(-1)
+            lockedDotsTags.append(-1)
+            sendNewLockedDot(lockedDotsTags)
         }
     }
     
@@ -99,7 +112,8 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             if playernr == 1 {
                 sendMovingButton()
             } else {
-                sendNewLockedDot(100)   // timeout
+                lockedDotsTags.append(100)
+                sendNewLockedDot(lockedDotsTags)   // timeout
             }
             LoadingOverlay.shared.showOverlay(self.view)
         } else {
@@ -171,7 +185,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         mOpponent.text = "Opponet: \(oppenentname)"
         mSteps.text = "Steps: \(stepcounter)"
         myavatar = defaults.integerForKey(avatarKey)
-        
+
         for b in mGameButtons { // hide all buttons because of the animation
             b.hidden = true
         }
@@ -180,10 +194,24 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             mTurn.text = "Player 1 - It's your turn";
             posofmoving = 28
             generateLockedDots()
+            generateActionDots()
             sendGameSetup()
         } else {
             mTurn.text = "Player 2 - Wait until your opponent has done his turn"
             LoadingOverlay.shared.showOverlay(self.view)
+        }
+    }
+    
+    func generateActionDots() {
+        for i in 0...numberOfActionFields - 1 {
+            var button: GameButton
+            var randomNumber:UInt32 = 0
+            do {
+                randomNumber = arc4random_uniform(UInt32(mGameButtons.count - 1))
+                button = mGameButtons[Int(randomNumber)] as! GameButton
+            } while button.isLocked || button.isMove
+            button.setImageAction()
+            actionDotsTags.append(Int(randomNumber))
         }
     }
     
@@ -249,6 +277,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func showEndAlert(#winning: Bool, gaveUp: Bool) {
+        timer.invalidate()
+        progressView.setProgress(1.0, animated: false)
+        
         var title = ""
         if winning {
             if gaveUp {
@@ -310,6 +341,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             UIView.commitAnimations()
             
         } else {
+            (mGameButtons[posofmoving] as! GameButton).setImageStandard()
             (mGameButtons[posofmoving] as! GameButton).isMove = true
             var button = mGameButtons[posofmoving]
             var offset: CGFloat = 18.0
@@ -326,7 +358,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func sendGameSetup(){ //movingdot and locked dots and avatarID
-        var json: JSON = [JSON_MOVINGDOT:posofmoving,JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_LOCKEDDOTS:lockedDotsTags,JSON_AVATARID:myavatar] //valid - checked by jsonlint
+        var json: JSON = [JSON_MOVINGDOT:posofmoving,JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_LOCKEDDOTS:lockedDotsTags,JSON_AVATARID:myavatar,JSON_ACTIONDOTS:actionDotsTags] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
         
         var stringjson = json.description
@@ -361,7 +393,6 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         
         if playernr == 1 { //handle new locked dot
             var button: GameButton
-            var newpos = json[JSON_NEWLOCKEDDOT].intValue
             
             var gaveUp = json[JSON_GIVEUP].boolValue
             if gaveUp {
@@ -369,14 +400,52 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 gameOverWithWinner(winnerPlayer1: true)
             }
             
-            if newpos != -1 {
-                startTimer()
-                LoadingOverlay.shared.hideOverlayView()
+            //var newpos = json[JSON_NEWLOCKEDDOT].intValue
+            var newpos = -1
+            if let arraylockedDots = json[JSON_NEWLOCKEDDOT].array {
+                var amountOfNewLockedDots = 0
+                for b in mGameButtons {
+                    var gameButton = b as! GameButton
+                    if !gameButton.isMove && !gameButton.isAction {
+                        gameButton.setImageStandard()
+                    }
+                }
+                if arraylockedDots.count < lockedDotsTags.count { // a few green dots disapeard (action field)
+                    amountOfNewLockedDots = 100
+                    lockedDotsTags.removeAll(keepCapacity: false)
+                    for x in arraylockedDots {
+                        lockedDotsTags.append(x.intValue)
+                    }
+                }
+                
+                var reAllocationOfDots = false
+                if arraylockedDots.count == lockedDotsTags.count { // green dots gets reallocated
+                    reAllocationOfDots = true
+                    amountOfNewLockedDots = 0
+                    lockedDotsTags.removeAll(keepCapacity: false)
+                    for x in arraylockedDots {
+                        lockedDotsTags.append(x.intValue)
+                    }
+                }
+                
 
-                if newpos != 100 {   // timeout
-                    button = mGameButtons[newpos] as! GameButton
-                    button.setImageLocked()
-                    newLockedDotAnimation(button)
+                for index in 0...arraylockedDots.count-1 {
+                    var button: GameButton
+                    if arraylockedDots[index] != 100 { // timeout
+                        button = mGameButtons[arraylockedDots[index].intValue] as! GameButton
+                        button.setImageLocked()
+
+                        if !lockedDotsTags.contains(arraylockedDots[index].intValue) {
+                            amountOfNewLockedDots++     // new green dot
+                            lockedDotsTags.append(arraylockedDots[index].intValue)
+                            newLockedDotAnimation(button)
+                        }
+                    }
+                }
+                newpos = arraylockedDots[arraylockedDots.count-1].intValue
+                if newpos != -1 && amountOfNewLockedDots <= 1 && reAllocationOfDots == false {
+                    startTimer()    // start timer after adding a new green dot, but not after handling some action fields
+                    LoadingOverlay.shared.hideOverlayView()
                 }
             }
             
@@ -389,7 +458,6 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         
         if playernr == 2 { //handle pos of moving dot
             posofmoving = json[JSON_MOVINGDOT].intValue
-            
             var gaveUp = json[JSON_GIVEUP].boolValue
             if gaveUp {
                 showEndAlert(winning: true, gaveUp: true)
@@ -398,20 +466,58 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             
             if let arrayLockedDots = json[JSON_LOCKEDDOTS].array {
                 println("jsonlockeddots: \(arrayLockedDots.count)")
-                
                 for index in 0...arrayLockedDots.count-1 {
+                    lockedDotsTags.append(arrayLockedDots[index].intValue)
                     var button: GameButton
                     button = mGameButtons[arrayLockedDots[index].intValue] as! GameButton
                     button.setImageLocked()
                 }
             }
+            
+            if let arrayActionDots = json[JSON_ACTIONDOTS].array {
+                for index in 0...arrayActionDots.count-1 {
+                    var button: GameButton
+                    button = mGameButtons[arrayActionDots[index].intValue] as! GameButton
+                    button.setImageAction()
+                }
+            }
+            
+            var amountOfNewLockedDots = 0
+            if let arrayLockedDots = json[JSON_NEWLOCKEDDOT].array {
+                for b in mGameButtons {
+                    var gameButton = b as! GameButton
+                    if !gameButton.isMove && !gameButton.isAction {
+                        gameButton.setImageStandard()
+                    }
+                }
+                if arrayLockedDots.count <= lockedDotsTags.count { // a few green dots disapeard or the green dots get reallocated (action field)
+                    amountOfNewLockedDots = 100
+                    lockedDotsTags.removeAll(keepCapacity: false)
+                    for x in arrayLockedDots {
+                        lockedDotsTags.append(x.intValue)
+                    }
+                }
+                for index in 0...arrayLockedDots.count-1 {
+                    var button: GameButton
+                    button = mGameButtons[arrayLockedDots[index].intValue] as! GameButton
+                    button.setImageLocked()
+                    if !lockedDotsTags.contains(arrayLockedDots[index].intValue) {
+                        amountOfNewLockedDots++ // new green dot
+                        lockedDotsTags.append(arrayLockedDots[index].intValue)
+                        newLockedDotAnimation(button)
+                    }
+                }
+            }
+            
             setUpMovingDot()
             
             if firstMoveDot{
                 firstMoveDot = false
             }else{
-                startTimer()
-                LoadingOverlay.shared.hideOverlayView()
+                if amountOfNewLockedDots <= 1 {
+                    startTimer() // start timer after adding a new green dot, but not after handling some action fields
+                    LoadingOverlay.shared.hideOverlayView()
+                }
             }
         }
     }
@@ -428,8 +534,8 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    func sendNewLockedDot(posoflocked: Int){
-        var json: JSON = [JSON_NEWLOCKEDDOT:posoflocked,JSON_AVATARID:myavatar,JSON_WINNERTWO:winnerTwo,JSON_GIVEUP:giveUp] //valid - checked by jsonlint
+    func sendNewLockedDot(lockedDots: [Int]){
+        var json: JSON = [JSON_NEWLOCKEDDOT:lockedDots,JSON_AVATARID:myavatar,JSON_WINNERTWO:winnerTwo,JSON_GIVEUP:giveUp] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
         
         var error:NSError?
@@ -476,10 +582,82 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
 
     }
+    
+    func handleActionDots(button: GameButton) {
+        
+        var rand = arc4random_uniform(UInt32(3))
+        if rand == 0 {
+            // grüne dots kommen hinzu
+            for i in 0...3 {
+                var randomNumber: UInt32 = 0
+                var buttonAction: GameButton
+                do {
+                    randomNumber = arc4random_uniform(UInt32(mGameButtons.count - 1))
+                    buttonAction = mGameButtons[Int(randomNumber)] as! GameButton
+                } while buttonAction.isLocked || buttonAction.isMove
+                var buttonTag = (mGameButtons[Int(randomNumber)] as! GameButton).tag
+                lockedDotsTags.append(buttonTag-1)
+                (mGameButtons[Int(randomNumber)] as! GameButton).setImageLocked()
+                newLockedDotAnimation((mGameButtons[Int(randomNumber)] as! GameButton))
+            }
+            sendNewLockedDot(lockedDotsTags)
+            
+        } else if rand == 1 {
+            // grüne dots explodieren
+            for i in 0...3 {
+                var randomNumber = arc4random_uniform(UInt32(lockedDotsTags.count - 1))
+                for b in mGameButtons {
+                    if b.tag-1 == lockedDotsTags[Int(randomNumber)] {
+                        var gameButton = b as! GameButton
+                        gameButton.setImageStandard()
+                    }
+                }
+                lockedDotsTags.removeAtIndex(Int(randomNumber))
+            }
+            sendNewLockedDot(lockedDotsTags)
+            
+        } else if rand == 2 {
+            // grüne dots werden anders angeordnet
+            for b in mGameButtons {
+                var gameButton = b as! GameButton
+                if !gameButton.isMove && !gameButton.isAction {
+                    gameButton.setImageStandard()
+                }
+            }
+            for i in 0...lockedDotsTags.count-1 {
+                var randomNumber: UInt32 = 0
+                var buttonAction: GameButton
+                do {
+                    randomNumber = arc4random_uniform(UInt32(mGameButtons.count - 1))
+                    buttonAction = mGameButtons[Int(randomNumber)] as! GameButton
+                } while buttonAction.isLocked || buttonAction.isMove || buttonAction.isAction || button.tag == buttonAction.tag
+                lockedDotsTags[i] = buttonAction.tag-1
+                buttonAction.setImageLocked()
+            }
+            sendNewLockedDot(lockedDotsTags)
+            
+        } else if rand == 3 {
+
+            // roter dot wird auf eine zufällige position gesetzt
+        /*
+        var randomNumber: UInt32 = 0
+        var buttonAction: GameButton
+        do {
+            randomNumber = arc4random_uniform(UInt32(mGameButtons.count - 1))
+            buttonAction = mGameButtons[Int(randomNumber)] as! GameButton
+        } while buttonAction.isLocked || buttonAction.isMove || buttonAction.isAction || button.tag == buttonAction.tag
+        
+        buttonAction.setImageMove()
+        movingPoint = buttonAction
+        sendMovingButton()
+        */
+        }
+    }
 
     @IBAction func onButtonPressed(sender: AnyObject) {
         var button = sender as! GameButton
         println("#:\(button.tag) origin: \(button.frame.origin)")
+    
         
         if playernr == 1 {
             var offset: CGFloat = 18.0
@@ -491,19 +669,24 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             
             
             if isValidPosition(x, y: y, button: button) {
+
                 UIView.animateWithDuration(1.0, animations:{
                     self.movingPoint.frame = CGRectMake(x, y, button.frame.size.width, button.frame.size.height)
                 })
                 stepcounter++
                 mSteps.text = "Steps: \(stepcounter)"
                 posofmoving = button.tag - 1
+                if button.isAction {
+                    handleActionDots(button)
+                    button.setImageStandard()
+                }
                 sendMovingButton()
                 timer.invalidate()
                 progressView.setProgress(1.0, animated: false)
                 LoadingOverlay.shared.showOverlay(self.view)
             }
         }else{
-            if !button.isLocked && button.tag - 1 != posofmoving{
+            if !button.isLocked && button.tag - 1 != posofmoving {
                 stepcounter++
                 mSteps.text = "Steps: \(stepcounter)"
                 button.setImageLocked()
@@ -513,7 +696,14 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                     gameOverWithWinner(winnerPlayer1: false)
                     showEndAlert(winning: true, gaveUp: false)
                 }
-                sendNewLockedDot(button.tag-1)
+                //lockedDotsTags.append(button.tag-1)
+                
+                if button.isAction {
+                    handleActionDots(button)
+                }
+                lockedDotsTags.append(button.tag-1)
+                
+                sendNewLockedDot(lockedDotsTags)
                 timer.invalidate()
                 progressView.setProgress(1.0, animated: false)
                 LoadingOverlay.shared.showOverlay(self.view)
