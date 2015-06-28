@@ -201,7 +201,17 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             //mTurn.text = "It's your turn";
             playerIndicatorYou.image = UIImage(named: "dot_move")
             playerIndicatorOpponent.image = UIImage(named: "dot_locked")
-            posofmoving = 28
+            var rand = arc4random_uniform(UInt32(4))
+            if rand == 0 {
+                posofmoving = 28
+            } else if rand == 1 {
+                posofmoving = 27
+            } else if rand == 2 {
+                posofmoving = 35
+            } else if rand == 3 {
+                posofmoving = 36
+            }
+            (mGameButtons[posofmoving] as! GameButton).setImageMove()
             generateLockedDots()
             generateActionDots()
             sendGameSetup()
@@ -470,7 +480,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 
                 for index in 0...arraylockedDots.count-1 {
                     var button: GameButton
-                    if arraylockedDots[index] != 100 { // timeout
+                    if arraylockedDots[index] != 100 && !gaveUp { // timeout
                         button = mGameButtons[arraylockedDots[index].intValue] as! GameButton
                         button.setImageLocked()     // set locked dots
 
@@ -627,7 +637,6 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     func handleActionDots(button: GameButton) {
         
         var rand = arc4random_uniform(UInt32(4))
-        println(rand)
         if rand == 0 {
 
             // grüne dots kommen hinzu
@@ -854,6 +863,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         
         fetchedEntities.first?.wins = players[playerId].wins
         fetchedEntities.first?.amount = players[playerId].amount
+        fetchedEntities.first?.lastGame = NSDate()
         
         appDelegate.managedObjectContext!.save(nil)
     }

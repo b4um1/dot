@@ -102,6 +102,7 @@ class PageItemController: UIViewController {
         labelDate.font = DotFontStyle(20.0)
         labelDate.textColor = UIColor.whiteColor()
         if date != nil {
+            println("DATE ISNT NIL")
             labelDate.text = "last game: " + dateformatterDate(date!).description
         }
         
@@ -129,7 +130,7 @@ class PageItemController: UIViewController {
         labelWins.text = wins.description + " wins"
         
         var labelDefeats = UILabel(frame: CGRectMake(0, 0, 200, 21))
-        labelDefeats.center = CGPointMake(barChart.frame.width / 2, 30 + 150)
+        labelDefeats.center = CGPointMake(barChart.frame.width / 2, 50 + 150)
         labelDefeats.textAlignment = NSTextAlignment.Center
         labelDefeats.textColor = DotRedColor
         labelDefeats.font = DotFontStyle(20.0)
