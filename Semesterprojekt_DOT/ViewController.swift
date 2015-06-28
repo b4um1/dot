@@ -12,6 +12,7 @@ import MultipeerConnectivity
 class ViewController: UIViewController, MCBrowserViewControllerDelegate {
 
     @IBOutlet weak var label_pairedpartner: UILabel!
+    @IBOutlet weak var extremeModeSwitch: UISwitch!
     
     let segueStartGame = "startGameScreen"
     var player = 1; //Testvariable
@@ -152,6 +153,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
             controller.stepcounter = 0
             controller.playernr = self.player
             controller.appDelegate = self.appDelegate
+            controller.isExtremeMode = extremeModeSwitch.on
         }
     }
 

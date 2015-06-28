@@ -36,12 +36,13 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     var lockedDotsTags = [Int]()
     var actionDotsTags = [Int]()
     let numberOfDefaultLockedDots = 15
-    let numberOfActionFields = 4
+    var numberOfActionFields = 4
     var appDelegate: AppDelegate!   //appdelegate for communication with the mpc handler
     var opponentname = ""           // name of the opponent
     var playernr = 0                // you are player 1 for standard
     var stepcounter = 0             // counts the steps made by gamer 1
     var firstMoveDot = true
+    var isExtremeMode = false
     
     var posofmoving = 0
     var winnerAnimationIndex = 0    // should the dot move up, down, left, right?
@@ -70,12 +71,16 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var progressView: UIProgressView!
     var time = 0
     var timer = NSTimer()
-    let TIMEOUT = 10
+    var TIMEOUT = 10
     
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = true
         self.navigationController!.interactivePopGestureRecognizer.delegate = self
         
+        if isExtremeMode {
+            numberOfActionFields = 6
+            TIMEOUT = 3
+        }
         initGameScreen()
     }
     
