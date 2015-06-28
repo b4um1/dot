@@ -22,7 +22,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var mOpponent: UILabel!
     @IBOutlet weak var mSteps: UILabel!
-    @IBOutlet weak var mTurn: UILabel!
+    //@IBOutlet weak var mTurn: UILabel!
     @IBOutlet weak var startingPoint: GameButton!
     @IBOutlet weak var movingPoint: GameButton!
     @IBOutlet var mGameButtons: [UIButton]!
@@ -198,7 +198,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         if playernr == 1{
-            mTurn.text = "It's your turn";
+            //mTurn.text = "It's your turn";
             playerIndicatorYou.image = UIImage(named: "dot_move")
             playerIndicatorOpponent.image = UIImage(named: "dot_locked")
             posofmoving = 28
@@ -209,7 +209,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             playerIndicatorOpponent.image = UIImage(named: "dot_move")
             playerIndicatorYou.image = UIImage(named: "dot_locked")
             sendGameSetup()
-            mTurn.text = "Wait until your opponent has done his turn"
+            //mTurn.text = "Wait until your opponent has done his turn"
             LoadingOverlay.shared.showOverlay(self.view)
         }
     }
