@@ -148,7 +148,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == segueStartGame{
             let controller = segue.destinationViewController as! GameScreenViewController
-            controller.oppenentname = self.oppenentname
+            controller.opponentname = self.oppenentname
             controller.stepcounter = 0
             controller.playernr = self.player
             controller.appDelegate = self.appDelegate

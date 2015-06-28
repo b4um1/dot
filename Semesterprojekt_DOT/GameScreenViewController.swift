@@ -26,6 +26,8 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var startingPoint: GameButton!
     @IBOutlet weak var movingPoint: GameButton!
     @IBOutlet var mGameButtons: [UIButton]!
+    @IBOutlet weak var playerIndicatorYou: UIImageView!
+    @IBOutlet weak var playerIndicatorOpponent: UIImageView!
     
     @IBOutlet weak var avatar1: UIImageView!
     
@@ -36,7 +38,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     let numberOfDefaultLockedDots = 15
     let numberOfActionFields = 4
     var appDelegate: AppDelegate!   //appdelegate for communication with the mpc handler
-    var oppenentname = ""           // name of the opponent
+    var opponentname = ""           // name of the opponent
     var playernr = 0                // you are player 1 for standard
     var stepcounter = 0             // counts the steps made by gamer 1
     var firstMoveDot = true
@@ -186,7 +188,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     func initGameScreen() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReceivedDataWithNotification:", name: "MPC_DidReceiveDataNotification", object: nil)
         
-        mOpponent.text = "Opponet: \(oppenentname)"
+        mOpponent.text = "\(opponentname)"
         mSteps.text = "Steps: \(stepcounter)"
         myavatar = defaults.integerForKey(avatarKey)
         avatar1.image = UIImage(named: "avatar\(myavatar)")
@@ -196,14 +198,18 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         if playernr == 1{
-            mTurn.text = "Player 1 - It's your turn";
+            mTurn.text = "It's your turn";
+            playerIndicatorYou.image = UIImage(named: "dot_move")
+            playerIndicatorOpponent.image = UIImage(named: "dot_locked")
             posofmoving = 28
             generateLockedDots()
             generateActionDots()
             sendGameSetup()
         } else {
+            playerIndicatorOpponent.image = UIImage(named: "dot_move")
+            playerIndicatorYou.image = UIImage(named: "dot_locked")
             sendGameSetup()
-            mTurn.text = "Player 2 - Wait until your opponent has done his turn"
+            mTurn.text = "Wait until your opponent has done his turn"
             LoadingOverlay.shared.showOverlay(self.view)
         }
     }
@@ -227,7 +233,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         winnerAnimationIndex = 0
         /*
         lockedDotsTags = [Int]()
-        oppenentname = ""   // name of the opponent
+        opponentname = ""   // name of the opponent
         stepcounter = 0     // counts the steps made by gamer 1
         
         posofmoving = 0
@@ -292,7 +298,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         var title = ""
         if winning {
             if gaveUp {
-                title = "\(oppenentname) gave up! You win!"
+                title = "\(opponentname) gave up! You win!"
             } else {
                 title = "Congratulations! You win!"
             }
@@ -411,7 +417,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         let userInfo = notification.userInfo! as Dictionary
         let receivedData:NSData = userInfo["data"] as! NSData
         let senderPeerId:MCPeerID = userInfo["peerID"] as! MCPeerID
-        oppenentname = senderPeerId.displayName
+        opponentname = senderPeerId.displayName
         
         let json = JSON(data: receivedData)
         //println("ReceivedJson: \(json.description)")
@@ -803,7 +809,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         loadFromCoreData()
         var alreadyInCoreData = false
         for (index, player) in enumerate(players) {
-            if oppenentname == player.name {
+            if opponentname == player.name {
                 playerId = index
                 alreadyInCoreData = true
             }
@@ -811,7 +817,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         if !alreadyInCoreData {
             var entity = NSEntityDescription.entityForName("Player", inManagedObjectContext:appDelegate.managedObjectContext!)
             var player = Player(entity: entity!, insertIntoManagedObjectContext: appDelegate.managedObjectContext!)
-            player.name = oppenentname
+            player.name = opponentname
             player.wins = 0
             player.amount = 0
             player.avatar = opponentsAvatar
@@ -839,7 +845,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func saveToCoreData() {
-        let predicate = NSPredicate(format: "name == %@", oppenentname)
+        let predicate = NSPredicate(format: "name == %@", opponentname)
         
         let fetchRequest = NSFetchRequest(entityName: "Player")
         fetchRequest.predicate = predicate
