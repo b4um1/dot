@@ -27,6 +27,10 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var movingPoint: GameButton!
     @IBOutlet var mGameButtons: [UIButton]!
     
+    @IBOutlet weak var avatar1: UIImageView!
+    
+    @IBOutlet weak var avatar2: UIImageView!
+    
     var lockedDotsTags = [Int]()
     var actionDotsTags = [Int]()
     let numberOfDefaultLockedDots = 15
@@ -185,7 +189,8 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         mOpponent.text = "Opponet: \(oppenentname)"
         mSteps.text = "Steps: \(stepcounter)"
         myavatar = defaults.integerForKey(avatarKey)
-
+        avatar1.image = UIImage(named: "avatar\(myavatar)")
+        
         for b in mGameButtons { // hide all buttons because of the animation
             b.hidden = true
         }
@@ -197,6 +202,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             generateActionDots()
             sendGameSetup()
         } else {
+            sendGameSetup()
             mTurn.text = "Player 2 - Wait until your opponent has done his turn"
             LoadingOverlay.shared.showOverlay(self.view)
         }
@@ -375,7 +381,30 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         if error != nil{
             println("Couldn't send message: \(error?.localizedDescription)")
         }
-        
+    }
+    
+    func resetAllLockedDots() {
+        for b in mGameButtons { // reset all locked dots
+            var gameButton = b as! GameButton
+            if !gameButton.isMove && !gameButton.isAction {
+                gameButton.setImageStandard()
+            }
+        }
+    }
+    
+    func animateNewGreyDots(#old: [Int]) {
+        var animationDisappear = [Int]()
+        for t in old {
+            if !lockedDotsTags.contains(t) {
+                animationDisappear.append(t)
+            }
+        }
+        for b in mGameButtons {
+            if animationDisappear.contains(b.tag-1) {
+                newLockedDotAnimation(b as! GameButton)
+            }
+        }
+
     }
     
     func handleReceivedDataWithNotification(notification:NSNotification){
@@ -392,6 +421,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         var avatarId = json[JSON_AVATARID].intValue
         if avatarId != 0 {
             opponentsAvatar = avatarId
+            avatar2.image = UIImage(named: "avatar\(opponentsAvatar)")
         }
         
         if playernr == 1 { //handle new locked dot
@@ -410,14 +440,8 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             var newpos = -1
             if let arraylockedDots = json[JSON_NEWLOCKEDDOT].array {
                 var amountOfNewLockedDots = 0
-                for b in mGameButtons { // reset all locked dots
-                    var gameButton = b as! GameButton
-                    if !gameButton.isMove && !gameButton.isAction {
-                        gameButton.setImageStandard()
-                    }
-                }
+                resetAllLockedDots()
                 
-                var animationDisappear = [Int]()
                 if arraylockedDots.count < lockedDotsTags.count { // a few green dots disapeard (action field)
                     amountOfNewLockedDots = 100 // -> so don't start the timer and don't hide the overlay
                     var temp = lockedDotsTags
@@ -425,16 +449,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                     for x in arraylockedDots {
                         lockedDotsTags.append(x.intValue)
                     }
-                    for t in temp {
-                        if !lockedDotsTags.contains(t) {
-                            animationDisappear.append(t)
-                        }
-                    }
-                    for b in mGameButtons {
-                        if animationDisappear.contains(b.tag-1) {
-                            newLockedDotAnimation(b as! GameButton)
-                        }
-                    }
+                    animateNewGreyDots(old: temp)
                 }
                 
                 var reAllocationOfDots = false
@@ -505,13 +520,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             
             var amountOfNewLockedDots = 0
             if let arrayLockedDots = json[JSON_NEWLOCKEDDOT].array {
-                for b in mGameButtons {
-                    // reset locked dots
-                    var gameButton = b as! GameButton
-                    if !gameButton.isMove && !gameButton.isAction {
-                        gameButton.setImageStandard()
-                    }
-                }
+                resetAllLockedDots()
                 var animationDisappear = [Int]()
                 if arrayLockedDots.count <= lockedDotsTags.count { // a few green dots disapeard or the green dots get reallocated (action field)
                     amountOfNewLockedDots = 100
@@ -520,16 +529,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                     for x in arrayLockedDots {
                         lockedDotsTags.append(x.intValue)
                     }
-                    for t in temp {
-                        if !lockedDotsTags.contains(t) {
-                            animationDisappear.append(t)
-                        }
-                    }
-                    for b in mGameButtons {
-                        if animationDisappear.contains(b.tag-1) {
-                            newLockedDotAnimation(b as! GameButton)
-                        }
-                    }
+                    animateNewGreyDots(old: temp)
                 }
                 for index in 0...arrayLockedDots.count-1 {
                     var button: GameButton
@@ -697,7 +697,6 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func onButtonPressed(sender: AnyObject) {
         var button = sender as! GameButton
         println("#:\(button.tag) origin: \(button.frame.origin)")
-    
         
         if playernr == 1 {
             var offset: CGFloat = 18.0
