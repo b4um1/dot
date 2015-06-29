@@ -9,6 +9,18 @@
 import UIKit
 import MultipeerConnectivity
 
+extension NSDate
+{
+    convenience
+    init(dateString:String) {
+        let dateStringFormatter = NSDateFormatter()
+        dateStringFormatter.dateFormat = "yyyy-MM-dd"
+        dateStringFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        let d = dateStringFormatter.dateFromString(dateString)!
+        self.init(timeInterval:0, sinceDate:d)
+    }
+}
+
 class ViewController: UIViewController, MCBrowserViewControllerDelegate {
 
     @IBOutlet weak var label_pairedpartner: UILabel!
@@ -23,6 +35,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
 
     let numberOfAvatars = 40
     let avatarKey = "avatarId"
+
     
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = true
@@ -74,7 +87,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
             oppenentname = ""
             self.label_pairedpartner.text = "Disconnected"
         }
-        
     }
     
     func bluetoothStateDidChange(notification: NSNotification){ //1 on 0 off
@@ -93,6 +105,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     func handleReceivedDataWithNotification(notification:NSNotification){
         let userInfo = notification.userInfo! as Dictionary
         let receivedData:NSData = userInfo["data"] as! NSData
+
         let message = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
         
         if message.objectForKey("string")?.isEqualToString("StartNewGameFromHome") == true{
@@ -142,6 +155,21 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
             controller.playernr = self.player
             controller.appDelegate = self.appDelegate
             controller.isExtremeMode = extremeModeSwitch.on
+            
+            var comps = NSDateComponents()
+            comps.day = 01
+            comps.month = 01
+            comps.year = 2015
+           
+            let start = NSDate(dateString:"2015-01-01")
+            let enddt = NSDate()
+            let calendar = NSCalendar.currentCalendar()
+            let datecomponenets = calendar.components(NSCalendarUnit.CalendarUnitSecond, fromDate: start, toDate: enddt, options: nil)
+            let seconds = datecomponenets.second
+            println("Seconds: \(seconds)")
+            
+            controller.gameID = seconds
+            
         }
     }
 

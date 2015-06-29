@@ -68,10 +68,13 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     let JSON_GIVEUP = "giveUp"
     let JSON_ACTIONDOTS = "actiondots"
     let JSON_ISACTION = "isAction"
+    let JSON_GAMEID = "gameId"
     
     var time = 0
     var timer = NSTimer()
     var TIMEOUT = 10
+    
+    var gameID: Int = 0
     
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = true
@@ -157,6 +160,8 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         let state = userInfo.objectForKey("state") as! Int
         let peerid = userInfo.objectForKey("peerID") as! MCPeerID
         
+        //let state = userInfo.objectForKey(test_state) as! Int
+        //let peerid = userInfo.objectForKey(test_peerid) as! MCPeerID
         
         if state == MCSessionState.NotConnected.rawValue{
             showEndAlert(winning: false, gaveUp: false, draw: true)
@@ -345,7 +350,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 message = "\(opponentname) gave up! He is such a loser! 😂😂"
             } else {
                 title = "Congratulation 🍻🎉"
-                message = "You have won the game 😏😎"
+                message = "You won the game 😏😎"
             }
         } else {
             title = "Bad News Bro 😟"
@@ -366,6 +371,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func cancelGame(){
+        timer.invalidate()
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
@@ -386,10 +392,19 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 x = movingPoint.frame.origin.x + 35
                 y = movingPoint.frame.origin.y
             }
-            gameOverWithWinner(winnerPlayer1: true)
+        
+            //gameOverWithWinner(winnerPlayer1: true)
+            if !iAmTheWinner {
+                showEndAlert(winning: false, gaveUp: false, draw: false)
+                gameOverWithWinner(winnerPlayer1: true)
+            }
+            
+            /*
             if !iAmTheWinner{
                 showEndAlert(winning: false, gaveUp: false, draw: false)
-            }
+            } else {
+                gameOverWithWinner(winnerPlayer1: true)
+            }*/
             UIView.animateWithDuration(1.0, animations:{
                 self.movingPoint.frame = CGRectMake(x, y, self.movingPoint.frame.size.width, self.movingPoint.frame.size.height)
             })
@@ -413,7 +428,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func sendGameSetup(){ //movingdot and locked dots and avatarID
-        var json: JSON = [JSON_MOVINGDOT:posofmoving,JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_LOCKEDDOTS:lockedDotsTags,JSON_AVATARID:myavatar,JSON_ACTIONDOTS:actionDotsTags] //valid - checked by jsonlint
+        var json: JSON = [JSON_MOVINGDOT:posofmoving,JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_LOCKEDDOTS:lockedDotsTags,JSON_AVATARID:myavatar,JSON_ACTIONDOTS:actionDotsTags,JSON_GAMEID:gameID] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
         
 
@@ -454,154 +469,162 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         let userInfo = notification.userInfo! as Dictionary
         let receivedData:NSData = userInfo["data"] as! NSData
         let senderPeerId:MCPeerID = userInfo["peerID"] as! MCPeerID
+        
         opponentname = senderPeerId.displayName
         
         let json = JSON(data: receivedData)
         
-        
-        winnerAnimationIndex = json[JSON_WINNINGANIMATION].intValue
-        
-        var avatarId = json[JSON_AVATARID].intValue
-        if avatarId != 0 {
-            opponentsAvatar = avatarId
-            avatar2.image = UIImage(named: "avatar\(opponentsAvatar)")
-        }
-        
-        if playernr == 1 { //handle new locked dot
-            var pos = json[JSON_MOVINGDOT].intValue
-            if pos != 0 && iAmTheWinner == false{
-                posofmoving = pos
-                setUpMovingDot()
+        var gid = json[JSON_GAMEID].intValue
+        println("\(gid) vs. \(gameID)")
+        if (gid >= gameID - 2) && (gid <= gameID + 2) {
+            
+            winnerAnimationIndex = json[JSON_WINNINGANIMATION].intValue
+            var avatarId = json[JSON_AVATARID].intValue
+            if avatarId != 0 {
+                opponentsAvatar = avatarId
+                avatar2.image = UIImage(named: "avatar\(opponentsAvatar)")
             }
-            var button: GameButton
-            var gaveUp = json[JSON_GIVEUP].boolValue
-            if gaveUp {     // player 2 gave up
-                showEndAlert(winning: true, gaveUp: true, draw: false)
-                gameOverWithWinner(winnerPlayer1: true)
+            
+            if playernr == 1 { //handle new locked dot
+                var pos = json[JSON_MOVINGDOT].intValue
+                if pos != 0 && iAmTheWinner == false{
+                    posofmoving = pos
+                    setUpMovingDot()
+                }
+                var button: GameButton
+                var gaveUp = json[JSON_GIVEUP].boolValue
+                if gaveUp {     // player 2 gave up
+                    showEndAlert(winning: true, gaveUp: true, draw: false)
+                    gameOverWithWinner(winnerPlayer1: true)
+                }
+                //var newpos = json[JSON_NEWLOCKEDDOT].intValue
+                var newpos = -1
+                if let arraylockedDots = json[JSON_NEWLOCKEDDOT].array {
+                    var amountOfNewLockedDots = 0
+                    resetAllLockedDots()
+                    
+                    if arraylockedDots.count < lockedDotsTags.count { // a few green dots disapeard (action field)
+                        amountOfNewLockedDots = 100 // -> so don't start the timer and don't hide the overlay
+                        var temp = lockedDotsTags
+                        lockedDotsTags.removeAll(keepCapacity: false)
+                        for x in arraylockedDots {
+                            lockedDotsTags.append(x.intValue)
+                        }
+                        animateNewGreyDots(old: temp)
+                    }
+                    
+                    var reAllocationOfDots = false
+                    if arraylockedDots.count == lockedDotsTags.count { // green dots gets reallocated (action field
+                        reAllocationOfDots = true   // dots just got reallocated -> don't start timer und don't hide the overlay
+                        amountOfNewLockedDots = 0
+                        lockedDotsTags.removeAll(keepCapacity: false)
+                        for x in arraylockedDots {
+                            lockedDotsTags.append(x.intValue)
+                        }
+                    }
+                    
+                    for index in 0...arraylockedDots.count-1 {
+                        var button: GameButton
+                        if arraylockedDots[index] != 100 && !gaveUp { // timeout
+                            button = mGameButtons[arraylockedDots[index].intValue] as! GameButton
+                            button.setImageLocked()     // set locked dots
+                            
+                            if !lockedDotsTags.contains(arraylockedDots[index].intValue) {
+                                amountOfNewLockedDots++     // new green dot
+                                lockedDotsTags.append(arraylockedDots[index].intValue)
+                                newLockedDotAnimation(button)
+                            }
+                        }
+                    }
+                    newpos = arraylockedDots[arraylockedDots.count-1].intValue
+                    // amountOfNewLockedDots = 1 -> 1 normal move (without action field)
+                    if newpos != -1 && amountOfNewLockedDots <= 1 && reAllocationOfDots == false {
+                        startTimer()    // start timer after adding a new green dot, but not after handling some action fields
+                        LoadingOverlay.shared.hideOverlayView()
+                    }
+                }
+                
+                var winnerPTwo = json[JSON_WINNERTWO].boolValue
+                if winnerPTwo {
+                    self.gameOverWithWinner(winnerPlayer1: false)
+                    showEndAlert(winning: false, gaveUp: true, draw: false)
+                }
             }
-            //var newpos = json[JSON_NEWLOCKEDDOT].intValue
-            var newpos = -1
-            if let arraylockedDots = json[JSON_NEWLOCKEDDOT].array {
+            
+            if playernr == 2 { //handle pos of moving dot
+                posofmoving = json[JSON_MOVINGDOT].intValue
+                var gaveUp = json[JSON_GIVEUP].boolValue
+                if gaveUp { // player 1 gave up
+                    showEndAlert(winning: true, gaveUp: true, draw: false)
+                    gameOverWithWinner(winnerPlayer1: false)
+                }
+                
+                if let arrayLockedDots = json[JSON_LOCKEDDOTS].array {
+                    // set default locked dots
+                    println("jsonlockeddots: \(arrayLockedDots.count)")
+                    for index in 0...arrayLockedDots.count-1 {
+                        lockedDotsTags.append(arrayLockedDots[index].intValue)
+                        var button: GameButton
+                        button = mGameButtons[arrayLockedDots[index].intValue] as! GameButton
+                        button.setImageLocked()
+                    }
+                }
+                
+                if let arrayActionDots = json[JSON_ACTIONDOTS].array {
+                    // set action dots
+                    for index in 0...arrayActionDots.count-1 {
+                        var button: GameButton
+                        button = mGameButtons[arrayActionDots[index].intValue] as! GameButton
+                        button.setImageAction()
+                    }
+                }
+                
                 var amountOfNewLockedDots = 0
-                resetAllLockedDots()
-                
-                if arraylockedDots.count < lockedDotsTags.count { // a few green dots disapeard (action field)
-                    amountOfNewLockedDots = 100 // -> so don't start the timer and don't hide the overlay
-                    var temp = lockedDotsTags
-                    lockedDotsTags.removeAll(keepCapacity: false)
-                    for x in arraylockedDots {
-                        lockedDotsTags.append(x.intValue)
+                if let arrayLockedDots = json[JSON_NEWLOCKEDDOT].array {
+                    resetAllLockedDots()
+                    var animationDisappear = [Int]()
+                    if arrayLockedDots.count <= lockedDotsTags.count { // a few green dots disapeard or the green dots get reallocated (action field)
+                        amountOfNewLockedDots = 100
+                        var temp = lockedDotsTags
+                        lockedDotsTags.removeAll(keepCapacity: false)
+                        for x in arrayLockedDots {
+                            lockedDotsTags.append(x.intValue)
+                        }
+                        animateNewGreyDots(old: temp)
                     }
-                    animateNewGreyDots(old: temp)
-                }
-                
-                var reAllocationOfDots = false
-                if arraylockedDots.count == lockedDotsTags.count { // green dots gets reallocated (action field
-                    reAllocationOfDots = true   // dots just got reallocated -> don't start timer und don't hide the overlay
-                    amountOfNewLockedDots = 0
-                    lockedDotsTags.removeAll(keepCapacity: false)
-                    for x in arraylockedDots {
-                        lockedDotsTags.append(x.intValue)
-                    }
-                }
-                
-                for index in 0...arraylockedDots.count-1 {
-                    var button: GameButton
-                    if arraylockedDots[index] != 100 && !gaveUp { // timeout
-                        button = mGameButtons[arraylockedDots[index].intValue] as! GameButton
+                    for index in 0...arrayLockedDots.count-1 {
+                        var button: GameButton
+                        button = mGameButtons[arrayLockedDots[index].intValue] as! GameButton
                         button.setImageLocked()     // set locked dots
-                        
-                        if !lockedDotsTags.contains(arraylockedDots[index].intValue) {
-                            amountOfNewLockedDots++     // new green dot
-                            lockedDotsTags.append(arraylockedDots[index].intValue)
+                        if !lockedDotsTags.contains(arrayLockedDots[index].intValue) {
+                            amountOfNewLockedDots++ // new green dot
+                            lockedDotsTags.append(arrayLockedDots[index].intValue)
                             newLockedDotAnimation(button)
                         }
                     }
                 }
-                newpos = arraylockedDots[arraylockedDots.count-1].intValue
-                // amountOfNewLockedDots = 1 -> 1 normal move (without action field)
-                if newpos != -1 && amountOfNewLockedDots <= 1 && reAllocationOfDots == false {
-                    startTimer()    // start timer after adding a new green dot, but not after handling some action fields
-                    LoadingOverlay.shared.hideOverlayView()
+                
+                setUpMovingDot()
+                
+                if firstMoveDot{
+                    firstMoveDot = false
+                }else{
+                    // amountOfNewLockedDots = 1 -> 1 normal move (without action field)
+                    if amountOfNewLockedDots <= 1 {
+                        startTimer() // start timer after adding a new green dot, but not after handling some action fields
+                        LoadingOverlay.shared.hideOverlayView()
+                    }
                 }
             }
+
             
-            var winnerPTwo = json[JSON_WINNERTWO].boolValue
-            if winnerPTwo {
-                self.gameOverWithWinner(winnerPlayer1: false)
-                showEndAlert(winning: false, gaveUp: true, draw: false)
-            }
+            
         }
         
-        if playernr == 2 { //handle pos of moving dot
-            posofmoving = json[JSON_MOVINGDOT].intValue
-            var gaveUp = json[JSON_GIVEUP].boolValue
-            if gaveUp { // player 1 gave up
-                showEndAlert(winning: true, gaveUp: true, draw: false)
-                gameOverWithWinner(winnerPlayer1: false)
-            }
-            
-            if let arrayLockedDots = json[JSON_LOCKEDDOTS].array {
-                // set default locked dots
-                println("jsonlockeddots: \(arrayLockedDots.count)")
-                for index in 0...arrayLockedDots.count-1 {
-                    lockedDotsTags.append(arrayLockedDots[index].intValue)
-                    var button: GameButton
-                    button = mGameButtons[arrayLockedDots[index].intValue] as! GameButton
-                    button.setImageLocked()
-                }
-            }
-            
-            if let arrayActionDots = json[JSON_ACTIONDOTS].array {
-                // set action dots
-                for index in 0...arrayActionDots.count-1 {
-                    var button: GameButton
-                    button = mGameButtons[arrayActionDots[index].intValue] as! GameButton
-                    button.setImageAction()
-                }
-            }
-            
-            var amountOfNewLockedDots = 0
-            if let arrayLockedDots = json[JSON_NEWLOCKEDDOT].array {
-                resetAllLockedDots()
-                var animationDisappear = [Int]()
-                if arrayLockedDots.count <= lockedDotsTags.count { // a few green dots disapeard or the green dots get reallocated (action field)
-                    amountOfNewLockedDots = 100
-                    var temp = lockedDotsTags
-                    lockedDotsTags.removeAll(keepCapacity: false)
-                    for x in arrayLockedDots {
-                        lockedDotsTags.append(x.intValue)
-                    }
-                    animateNewGreyDots(old: temp)
-                }
-                for index in 0...arrayLockedDots.count-1 {
-                    var button: GameButton
-                    button = mGameButtons[arrayLockedDots[index].intValue] as! GameButton
-                    button.setImageLocked()     // set locked dots
-                    if !lockedDotsTags.contains(arrayLockedDots[index].intValue) {
-                        amountOfNewLockedDots++ // new green dot
-                        lockedDotsTags.append(arrayLockedDots[index].intValue)
-                        newLockedDotAnimation(button)
-                    }
-                }
-            }
-            
-            setUpMovingDot()
-            
-            if firstMoveDot{
-                firstMoveDot = false
-            }else{
-                // amountOfNewLockedDots = 1 -> 1 normal move (without action field)
-                if amountOfNewLockedDots <= 1 {
-                    startTimer() // start timer after adding a new green dot, but not after handling some action fields
-                    LoadingOverlay.shared.hideOverlayView()
-                }
-            }
-        }
     }
     
     func sendMovingButton(){
-        var json: JSON = [JSON_MOVINGDOT:posofmoving, JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_GIVEUP:giveUp] //valid - checked by jsonlint
+        var json: JSON = [JSON_MOVINGDOT:posofmoving, JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_GIVEUP:giveUp,JSON_GAMEID:gameID] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
         
         var error:NSError?
@@ -613,7 +636,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func sendNewLockedDot(lockedDots: [Int]){
-        var json: JSON = [JSON_NEWLOCKEDDOT:lockedDots,JSON_AVATARID:myavatar,JSON_WINNERTWO:winnerTwo,JSON_GIVEUP:giveUp] //valid - checked by jsonlint
+        var json: JSON = [JSON_NEWLOCKEDDOT:lockedDots,JSON_AVATARID:myavatar,JSON_WINNERTWO:winnerTwo,JSON_GIVEUP:giveUp,JSON_GAMEID:gameID] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
         
         var error:NSError?
@@ -625,7 +648,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func sendCancelGame(){
-        let messageDict = [JSON_CANCELGAME:"cancel"]
+        let messageDict = [JSON_CANCELGAME:"cancel",JSON_GAMEID:gameID]
         let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
         
         var error:NSError?
