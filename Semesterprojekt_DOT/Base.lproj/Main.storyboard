@@ -38,21 +38,21 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="0I8-Xy-hob">
-                                <rect key="frame" x="150" y="15" width="300" height="100"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="0I8-Xy-hob">
+                                <rect key="frame" x="150" y="35" width="300" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="74M-yP-yUy"/>
                                     <constraint firstAttribute="height" constant="100" id="DGS-W6-pPx"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="You are not paired!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSl-KV-Tcz">
-                                <rect key="frame" x="16" y="135" width="568" height="29"/>
-                                <fontDescription key="fontDescription" name="Avenir-HeavyOblique" family="Avenir" pointSize="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are not paired!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSl-KV-Tcz">
+                                <rect key="frame" x="16" y="155" width="568" height="25"/>
+                                <fontDescription key="fontDescription" name="Avenir-HeavyOblique" family="Avenir" pointSize="18"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-Ut-XRr">
-                                <rect key="frame" x="26" y="169" width="548" height="267"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-Ut-XRr">
+                                <rect key="frame" x="26" y="185" width="548" height="315"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njy-TG-AWt" userLabel="Start Game">
                                         <rect key="frame" x="8" y="20" width="532" height="40"/>
@@ -151,20 +151,34 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot_line" translatesAutoresizingMaskIntoConstraints="NO" id="0nc-7e-GSx">
                                 <rect key="frame" x="182" y="559" width="236" height="26"/>
                             </imageView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pmQ-3x-KQ2">
+                                <rect key="frame" x="316" y="520" width="51" height="31"/>
+                                <color key="onTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Extreme Mode" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NlQ-mu-7Wh">
+                                <rect key="frame" x="184" y="524" width="124" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="0nc-7e-GSx" secondAttribute="centerX" id="50I-7d-UNg"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="4aU-Ut-XRr" secondAttribute="bottom" constant="100" id="EAz-XR-Cj3"/>
                             <constraint firstItem="4aU-Ut-XRr" firstAttribute="top" secondItem="QSl-KV-Tcz" secondAttribute="bottom" constant="5" id="FpU-0V-6c5"/>
+                            <constraint firstItem="pmQ-3x-KQ2" firstAttribute="centerY" secondItem="NlQ-mu-7Wh" secondAttribute="centerY" id="GLp-Yi-7xv"/>
                             <constraint firstItem="4aU-Ut-XRr" firstAttribute="top" secondItem="QSl-KV-Tcz" secondAttribute="bottom" constant="30" id="IJW-MD-gw7"/>
                             <constraint firstItem="4aU-Ut-XRr" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="OGy-p2-DSS"/>
+                            <constraint firstItem="0nc-7e-GSx" firstAttribute="top" secondItem="pmQ-3x-KQ2" secondAttribute="bottom" constant="8" id="Sz3-Cn-dWf"/>
                             <constraint firstItem="0I8-Xy-hob" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="Vs7-s1-DNq"/>
+                            <constraint firstAttribute="centerX" secondItem="pmQ-3x-KQ2" secondAttribute="centerX" constant="-40" id="XPG-Zl-0OG"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="0nc-7e-GSx" secondAttribute="bottom" constant="15" id="Yhn-FZ-RQ0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4aU-Ut-XRr" secondAttribute="trailing" constant="10" id="deZ-Xw-Qk0"/>
                             <constraint firstAttribute="centerX" secondItem="0I8-Xy-hob" secondAttribute="centerX" id="frQ-m7-G0r"/>
                             <constraint firstItem="QSl-KV-Tcz" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="fyH-GA-cYl"/>
                             <constraint firstItem="QSl-KV-Tcz" firstAttribute="top" secondItem="0I8-Xy-hob" secondAttribute="bottom" constant="20" id="hfg-Jj-Kuk"/>
+                            <constraint firstItem="pmQ-3x-KQ2" firstAttribute="leading" secondItem="NlQ-mu-7Wh" secondAttribute="trailing" constant="8" id="nc2-f4-86Y"/>
                             <constraint firstAttribute="centerX" secondItem="4aU-Ut-XRr" secondAttribute="centerX" id="ugg-pJ-XTO"/>
                             <constraint firstItem="QSl-KV-Tcz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="yVP-oy-Wj0"/>
                         </constraints>
@@ -176,6 +190,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="KBk-qo-iF4"/>
                     <connections>
+                        <outlet property="extremeModeSwitch" destination="pmQ-3x-KQ2" id="IpE-K9-eXU"/>
                         <outlet property="label_pairedpartner" destination="QSl-KV-Tcz" id="fk5-qf-c6A"/>
                     </connections>
                 </viewController>
@@ -328,29 +343,16 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="nUB-xV-aRH">
-                                <rect key="frame" x="185" y="30" width="230" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="We1-be-QkL"/>
-                                    <constraint firstAttribute="width" constant="230" id="erM-63-To3"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Opponent:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HsH-WC-xVa">
-                                <rect key="frame" x="16" y="140" width="568" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pli-27-Mte">
+                                <rect key="frame" x="16" y="188" width="568" height="24"/>
                                 <fontDescription key="fontDescription" name="Avenir-HeavyOblique" family="Avenir" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Steps:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pli-27-Mte">
-                                <rect key="frame" x="16" y="167" width="568" height="24"/>
-                                <fontDescription key="fontDescription" name="Avenir-HeavyOblique" family="Avenir" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view tag="1" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="31O-PF-4SY" userLabel="line8">
-                                <rect key="frame" x="148" y="468" width="287" height="35"/>
+                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="31O-PF-4SY" userLabel="line8">
+                                <rect key="frame" x="148" y="459" width="287" height="35"/>
                                 <subviews>
-                                    <button opaque="NO" tag="57" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHf-XK-ZiT" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="57" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHf-XK-ZiT" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -359,7 +361,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="cYs-No-bxb"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="59" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GuM-rU-MYd" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="59" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GuM-rU-MYd" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="72" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -368,7 +370,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="Kxm-mX-ZlB"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="61" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ud-ws-doE" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="61" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ud-ws-doE" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="144" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -377,7 +379,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="gpL-Fk-9Ml"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="60" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pYX-Kh-r8l" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="60" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pYX-Kh-r8l" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="108" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -386,7 +388,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="7DM-sa-qEe"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="63" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tv1-wa-OBk" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="63" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tv1-wa-OBk" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="216" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -395,7 +397,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="y39-mX-fKR"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="62" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uT3-uc-OYQ" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="62" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uT3-uc-OYQ" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="180" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -404,7 +406,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="MXf-dH-IYV"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="64" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ikE-ff-Pdj" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="64" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ikE-ff-Pdj" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="252" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -413,7 +415,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="xwf-S8-dXG"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="58" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Zf-zM-y5Z" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="58" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Zf-zM-y5Z" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="36" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -476,10 +478,10 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vTh-Zj-YZl" userLabel="line7">
-                                <rect key="frame" x="166" y="437" width="287" height="35"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vTh-Zj-YZl" userLabel="line7">
+                                <rect key="frame" x="166" y="428" width="287" height="35"/>
                                 <subviews>
-                                    <button opaque="NO" tag="49" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZOm-Yg-fUM" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="49" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZOm-Yg-fUM" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -488,7 +490,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="PoA-CO-o2j"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="51" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kv-8C-PtI" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="51" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kv-8C-PtI" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="72" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -497,7 +499,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="X2W-r4-YRJ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="53" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HaX-EH-VQn" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="53" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HaX-EH-VQn" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="144" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -506,7 +508,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="bKm-Tp-jPy"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="52" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w3a-bZ-GBP" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="52" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w3a-bZ-GBP" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="108" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -515,7 +517,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="uni-dm-faw"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="55" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5T-SH-usL" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="55" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5T-SH-usL" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="216" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -524,7 +526,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="cR7-bB-YRZ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="54" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YTN-gk-ZX6" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="54" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YTN-gk-ZX6" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="180" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -533,7 +535,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="h6I-12-VHF"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="50" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M87-bQ-RDj" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="50" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M87-bQ-RDj" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="36" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -542,7 +544,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="ETf-cr-JsX"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="56" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8N-VH-mrh" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="56" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8N-VH-mrh" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="252" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -605,10 +607,10 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view tag="1" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cp8-hp-RgJ" userLabel="line6">
-                                <rect key="frame" x="148" y="406" width="287" height="35"/>
+                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cp8-hp-RgJ" userLabel="line6">
+                                <rect key="frame" x="148" y="397" width="287" height="35"/>
                                 <subviews>
-                                    <button opaque="NO" tag="41" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uCA-vh-QOt" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="41" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uCA-vh-QOt" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -617,7 +619,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="avS-MS-trM"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="43" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="naA-xY-q6f" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="43" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="naA-xY-q6f" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="72" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -626,7 +628,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="8ce-lu-1hm"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="45" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDq-Ag-1ve" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="45" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDq-Ag-1ve" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="144" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -635,7 +637,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="VeL-nv-DZH"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="44" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7T7-Lt-wnq" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="44" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7T7-Lt-wnq" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="108" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -644,7 +646,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="Oib-eF-liG"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="47" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RwG-Yz-Kdo" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="47" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RwG-Yz-Kdo" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="216" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -653,7 +655,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="2Wb-W7-nZd"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="46" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AG0-Uq-THe" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="46" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AG0-Uq-THe" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="180" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -662,7 +664,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="YKl-cI-Nps"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="48" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cvh-Mq-UJn" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="48" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cvh-Mq-UJn" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="252" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -671,7 +673,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="Qhp-Xy-mtX"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="42" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbg-Wq-W1b" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="42" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbg-Wq-W1b" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="36" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -734,10 +736,10 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GEg-9T-8VC" userLabel="line5">
-                                <rect key="frame" x="166" y="375" width="287" height="35"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GEg-9T-8VC" userLabel="line5">
+                                <rect key="frame" x="166" y="366" width="287" height="35"/>
                                 <subviews>
-                                    <button opaque="NO" tag="33" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aBZ-Qi-rdb" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="33" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aBZ-Qi-rdb" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -746,7 +748,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="DYm-6v-1AB"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="35" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TtH-P2-fBB" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="35" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TtH-P2-fBB" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="72" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -755,7 +757,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="k9L-NI-Mkg"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="37" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQJ-tn-DXs" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="37" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQJ-tn-DXs" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="144" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -764,7 +766,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="5ks-of-bw2"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="36" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l9Y-XK-QxZ" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="36" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l9Y-XK-QxZ" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="108" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -773,7 +775,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="a0P-4C-CBG"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="39" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uIz-Ou-kNu" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="39" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uIz-Ou-kNu" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="216" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -782,7 +784,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="4fw-kN-Vex"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="38" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y7Q-Lg-xnR" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="38" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y7Q-Lg-xnR" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="180" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -791,7 +793,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="HDD-8t-ie2"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="34" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iEQ-Kr-ceE" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="34" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iEQ-Kr-ceE" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="36" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -800,7 +802,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="OyY-IO-vND"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="40" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYX-wc-H2m" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="40" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYX-wc-H2m" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="252" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -863,10 +865,10 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view tag="1" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gH8-Ea-Ifm" userLabel="line4">
-                                <rect key="frame" x="148" y="344" width="287" height="35"/>
+                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gH8-Ea-Ifm" userLabel="line4">
+                                <rect key="frame" x="148" y="335" width="287" height="35"/>
                                 <subviews>
-                                    <button opaque="NO" tag="25" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUR-B4-jb8" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="25" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUR-B4-jb8" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -875,7 +877,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="D95-LZ-5tk"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="27" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2Y-UD-yR6" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="27" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2Y-UD-yR6" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="72" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -884,7 +886,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="Eat-fF-guK"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="29" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Qn-Ah-tsA" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="29" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Qn-Ah-tsA" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="144" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -893,7 +895,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="kRN-lV-zpf"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="28" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-o9-BhP" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="28" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BhM-o9-BhP" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="108" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -902,7 +904,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="yc6-zY-hDv"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="31" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VnX-Uy-hDh" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="31" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VnX-Uy-hDh" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="216" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -911,7 +913,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="EzW-Dd-naV"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="30" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A08-d4-2NP" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="30" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A08-d4-2NP" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="180" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -920,7 +922,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="40M-Rh-qV1"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="32" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2d5-9n-7vE" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="32" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2d5-9n-7vE" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="252" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -929,7 +931,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="nBw-pu-Wwg"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="26" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bd9-m5-9SB" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="26" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bd9-m5-9SB" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="36" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -992,10 +994,10 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AOH-R1-7NV" userLabel="line3">
-                                <rect key="frame" x="166" y="313" width="287" height="35"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AOH-R1-7NV" userLabel="line3">
+                                <rect key="frame" x="166" y="304" width="287" height="35"/>
                                 <subviews>
-                                    <button opaque="NO" tag="17" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ni-Mm-fV6" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="17" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ni-Mm-fV6" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1004,7 +1006,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="w8b-hu-wS3"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="19" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkL-49-LNt" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="19" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkL-49-LNt" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="72" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1013,7 +1015,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="HUc-21-fBj"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="21" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aT2-ue-knI" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="21" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aT2-ue-knI" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="144" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1022,7 +1024,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="7cw-HK-4Pb"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="20" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Fa-Sp-c29" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="20" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Fa-Sp-c29" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="108" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1031,7 +1033,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="J4m-sl-XFi"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="23" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="36G-Kg-auq" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="23" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="36G-Kg-auq" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="216" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1040,7 +1042,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="2yV-Jb-YY3"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="18" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6SC-Ct-Ckf" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="18" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6SC-Ct-Ckf" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="36" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1049,7 +1051,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="eTz-vr-vkJ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="24" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yq1-hr-QiL" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="24" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yq1-hr-QiL" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="252" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1058,7 +1060,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="tfR-iX-ofh"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="22" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAs-Qw-FVj" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="22" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAs-Qw-FVj" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="180" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1121,10 +1123,10 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view tag="1" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UG2-GK-JoG" userLabel="line2">
-                                <rect key="frame" x="148" y="282" width="287" height="35"/>
+                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UG2-GK-JoG" userLabel="line2">
+                                <rect key="frame" x="148" y="273" width="287" height="35"/>
                                 <subviews>
-                                    <button opaque="NO" tag="9" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YVs-TT-W6P" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="9" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YVs-TT-W6P" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1133,7 +1135,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="uE7-1Q-oZg"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="11" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCA-Rz-HQs" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="11" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCA-Rz-HQs" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="72" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1142,7 +1144,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="yey-hC-SEd"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="13" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkA-13-7MZ" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="13" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkA-13-7MZ" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="144" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1151,7 +1153,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="jBr-Sb-gBz"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="12" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N2B-M8-wwU" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="12" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N2B-M8-wwU" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="108" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1160,7 +1162,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="jre-sg-Sw5"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="15" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L13-bw-Lak" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="15" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L13-bw-Lak" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="216" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1169,7 +1171,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="LbE-MF-YGc"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="14" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htz-Me-YDB" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="14" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htz-Me-YDB" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="180" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1178,7 +1180,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="T9z-G7-Tal"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="16" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EH1-lA-YSl" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="16" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EH1-lA-YSl" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="252" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1187,7 +1189,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="x4Q-Ue-npg"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="10" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1D-xk-rga" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="10" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1D-xk-rga" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="36" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1251,10 +1253,10 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32X-tc-QJo" userLabel="line1">
-                                <rect key="frame" x="166" y="251" width="287" height="35"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32X-tc-QJo" userLabel="line1">
+                                <rect key="frame" x="166" y="242" width="287" height="35"/>
                                 <subviews>
-                                    <button opaque="NO" tag="1" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4f-rk-R6G" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4f-rk-R6G" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1263,7 +1265,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="Anh-fj-ooL"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="3" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qk6-GL-Bhr" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="3" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qk6-GL-Bhr" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="72" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1272,7 +1274,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="uki-Nc-XxJ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="5" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L20-fN-omh" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="5" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L20-fN-omh" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="144" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1281,7 +1283,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="ylU-OA-7rW"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="4" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pNE-Gq-p91" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="4" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pNE-Gq-p91" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="108" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1290,7 +1292,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="2il-qd-omh"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="7" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sqI-Fa-Qc2" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="7" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sqI-Fa-Qc2" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="216" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1299,7 +1301,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="AZd-XP-aiN"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="6" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="557-jU-hVe" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="6" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="557-jU-hVe" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="180" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1308,7 +1310,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="lpZ-PV-XFq"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="2" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEu-HB-Pn2" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="2" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEu-HB-Pn2" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="36" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1317,7 +1319,7 @@
                                             <action selector="onButtonPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="0zS-Oe-1Z5"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="8" contentMode="scaleAspectFit" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLK-sh-z3c" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
+                                    <button opaque="NO" tag="8" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLK-sh-z3c" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
                                         <rect key="frame" x="252" y="1" width="35" height="34"/>
                                         <state key="normal" image="dot_standard">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1327,7 +1329,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="99" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bat-IR-sUI" userLabel="movingdot" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
-                                        <rect key="frame" x="-166" y="-251" width="35" height="34"/>
+                                        <rect key="frame" x="-166" y="-242" width="35" height="34"/>
                                         <state key="normal" image="dot_move">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1389,21 +1391,15 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="It's your turn!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18t-y9-NfT">
-                                <rect key="frame" x="16" y="197" width="568" height="24"/>
-                                <fontDescription key="fontDescription" name="Avenir-HeavyOblique" family="Avenir" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K2H-ym-xAF">
-                                <rect key="frame" x="36" y="236" width="528" height="5"/>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K2H-ym-xAF">
+                                <rect key="frame" x="36" y="227" width="528" height="5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="5" id="Wds-qa-wRs"/>
                                 </constraints>
                                 <color key="progressTintColor" red="0.12549019610000001" green="0.4941176471" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                             </progressView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g1h-Nj-dPX">
-                                <rect key="frame" x="16" y="0.0" width="60" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g1h-Nj-dPX">
+                                <rect key="frame" x="16" y="20" width="568" height="30"/>
                                 <state key="normal" title="Give Up!">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1412,67 +1408,109 @@
                                     <segue destination="BYZ-38-t0r" kind="show" id="Yyg-zM-BHZ"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ce6-8h-SV0">
+                                <rect key="frame" x="16" y="30" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="WSy-tV-fGS"/>
+                                    <constraint firstAttribute="height" constant="100" id="kn5-5i-l58"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6V6-O9-oSX">
+                                <rect key="frame" x="281" y="62" width="38" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ksG-QZ-eLY">
+                                <rect key="frame" x="484" y="30" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="QFZ-Uz-U0k"/>
+                                    <constraint firstAttribute="width" constant="100" id="Zhz-QO-hsU"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="You" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thM-e8-5Ca">
+                                <rect key="frame" x="59" y="138" width="29" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot_move" translatesAutoresizingMaskIntoConstraints="NO" id="P9l-Pu-0Zh">
+                                <rect key="frame" x="16" y="131" width="35" height="34"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot_locked" translatesAutoresizingMaskIntoConstraints="NO" id="mxS-aV-dIt">
+                                <rect key="frame" x="549" y="131" width="35" height="34"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Opponent" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDc-Oe-MOq">
+                                <rect key="frame" x="464" y="138" width="77" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="AOH-R1-7NV" firstAttribute="top" secondItem="UG2-GK-JoG" secondAttribute="bottom" constant="-4" id="0Y0-Hy-8Om"/>
                             <constraint firstItem="Pli-27-Mte" firstAttribute="trailing" secondItem="qZo-zy-QGk" secondAttribute="trailingMargin" id="1Wa-5V-UaC"/>
-                            <constraint firstItem="gH8-Ea-Ifm" firstAttribute="top" secondItem="18t-y9-NfT" secondAttribute="bottom" constant="145" id="1t8-Yc-LV6"/>
                             <constraint firstItem="K2H-ym-xAF" firstAttribute="leading" secondItem="UG2-GK-JoG" secondAttribute="leading" id="4le-fg-agH"/>
+                            <constraint firstItem="UDc-Oe-MOq" firstAttribute="top" secondItem="ksG-QZ-eLY" secondAttribute="bottom" constant="8" id="4xQ-oR-a63"/>
                             <constraint firstAttribute="centerX" secondItem="Pli-27-Mte" secondAttribute="centerX" id="54I-LB-k56"/>
+                            <constraint firstItem="UDc-Oe-MOq" firstAttribute="trailing" secondItem="qZo-zy-QGk" secondAttribute="trailingMargin" id="8tk-68-yRX"/>
                             <constraint firstItem="32X-tc-QJo" firstAttribute="top" secondItem="K2H-ym-xAF" secondAttribute="bottom" constant="10" id="9ef-dL-3Nq"/>
-                            <constraint firstAttribute="centerX" secondItem="18t-y9-NfT" secondAttribute="centerX" id="BC4-Um-fGM"/>
-                            <constraint firstItem="18t-y9-NfT" firstAttribute="leading" secondItem="qZo-zy-QGk" secondAttribute="leadingMargin" id="CaR-SB-tDT"/>
-                            <constraint firstItem="Pli-27-Mte" firstAttribute="top" secondItem="HsH-WC-xVa" secondAttribute="bottom" constant="3" id="Dky-Lw-1PB"/>
                             <constraint firstItem="K2H-ym-xAF" firstAttribute="top" secondItem="qZo-zy-QGk" secondAttribute="top" constant="238" id="EIT-Tm-hts"/>
                             <constraint firstItem="g1h-Nj-dPX" firstAttribute="leading" secondItem="qZo-zy-QGk" secondAttribute="leadingMargin" id="GZ9-sP-Zc8"/>
                             <constraint firstAttribute="centerX" secondItem="32X-tc-QJo" secondAttribute="centerX" constant="-9" id="Ga7-eZ-OFJ"/>
                             <constraint firstItem="Cp8-hp-RgJ" firstAttribute="top" secondItem="GEg-9T-8VC" secondAttribute="bottom" constant="-4" id="Gb4-BE-ImZ"/>
                             <constraint firstItem="GEg-9T-8VC" firstAttribute="top" secondItem="gH8-Ea-Ifm" secondAttribute="bottom" constant="-4" id="HFt-ku-okm"/>
                             <constraint firstAttribute="centerX" secondItem="Cp8-hp-RgJ" secondAttribute="centerX" constant="9" id="HUW-6S-Gyk"/>
+                            <constraint firstItem="Ce6-8h-SV0" firstAttribute="leading" secondItem="qZo-zy-QGk" secondAttribute="leadingMargin" id="HWe-gt-O3k"/>
                             <constraint firstAttribute="centerX" secondItem="AOH-R1-7NV" secondAttribute="centerX" constant="-9" id="HeY-yn-bun"/>
+                            <constraint firstAttribute="centerX" secondItem="6V6-O9-oSX" secondAttribute="centerX" id="Hfz-4d-Cea"/>
                             <constraint firstAttribute="centerX" secondItem="K2H-ym-xAF" secondAttribute="centerX" id="Hgo-T7-WV7"/>
-                            <constraint firstItem="HsH-WC-xVa" firstAttribute="trailing" secondItem="qZo-zy-QGk" secondAttribute="trailingMargin" id="JEK-q3-bVk"/>
-                            <constraint firstAttribute="centerX" secondItem="nUB-xV-aRH" secondAttribute="centerX" id="LaL-kW-5sh"/>
-                            <constraint firstItem="18t-y9-NfT" firstAttribute="height" secondItem="Pli-27-Mte" secondAttribute="height" id="NiM-lG-mcY"/>
-                            <constraint firstItem="32X-tc-QJo" firstAttribute="top" secondItem="18t-y9-NfT" secondAttribute="bottom" constant="30" id="Nwk-nd-WnJ"/>
+                            <constraint firstItem="thM-e8-5Ca" firstAttribute="leading" secondItem="P9l-Pu-0Zh" secondAttribute="trailing" constant="8" id="MV3-6p-CgA"/>
+                            <constraint firstItem="ksG-QZ-eLY" firstAttribute="trailing" secondItem="qZo-zy-QGk" secondAttribute="trailingMargin" id="N8F-lm-Gb3"/>
+                            <constraint firstItem="6V6-O9-oSX" firstAttribute="centerY" secondItem="Ce6-8h-SV0" secondAttribute="centerY" id="NAH-S5-JHE"/>
+                            <constraint firstItem="mxS-aV-dIt" firstAttribute="top" secondItem="ksG-QZ-eLY" secondAttribute="bottom" constant="1" id="NYz-E7-UTD"/>
                             <constraint firstAttribute="centerX" secondItem="gH8-Ea-Ifm" secondAttribute="centerX" constant="9" id="OWg-jL-cqa"/>
-                            <constraint firstItem="nUB-xV-aRH" firstAttribute="top" relation="lessThanOrEqual" secondItem="HtM-qM-MW2" secondAttribute="bottom" constant="30" id="Pm1-z4-lzu"/>
                             <constraint firstItem="K2H-ym-xAF" firstAttribute="leading" secondItem="qZo-zy-QGk" secondAttribute="leadingMargin" constant="20" id="Sw4-cB-JKy"/>
                             <constraint firstAttribute="centerX" secondItem="31O-PF-4SY" secondAttribute="centerX" constant="9" id="T23-M4-axF"/>
                             <constraint firstItem="31O-PF-4SY" firstAttribute="top" secondItem="vTh-Zj-YZl" secondAttribute="bottom" constant="-4" id="T2z-E8-EPX"/>
+                            <constraint firstItem="P9l-Pu-0Zh" firstAttribute="top" secondItem="Ce6-8h-SV0" secondAttribute="bottom" constant="1" id="UUX-42-FZC"/>
                             <constraint firstAttribute="centerX" secondItem="GEg-9T-8VC" secondAttribute="centerX" constant="-9" id="VUE-rl-LcD"/>
-                            <constraint firstItem="HsH-WC-xVa" firstAttribute="top" relation="lessThanOrEqual" secondItem="nUB-xV-aRH" secondAttribute="bottom" priority="750" constant="30" id="W0b-Uz-PKV"/>
                             <constraint firstAttribute="centerX" secondItem="vTh-Zj-YZl" secondAttribute="centerX" constant="-9" id="WIK-fG-aSk"/>
                             <constraint firstAttribute="centerX" secondItem="UG2-GK-JoG" secondAttribute="centerX" constant="9" id="Wu5-NP-OH8"/>
                             <constraint firstItem="gH8-Ea-Ifm" firstAttribute="top" secondItem="AOH-R1-7NV" secondAttribute="bottom" constant="-4" id="X0e-UN-AFx"/>
-                            <constraint firstItem="K2H-ym-xAF" firstAttribute="top" secondItem="18t-y9-NfT" secondAttribute="bottom" constant="8" symbolic="YES" id="ZIM-WJ-vJ4"/>
+                            <constraint firstItem="thM-e8-5Ca" firstAttribute="leading" secondItem="qZo-zy-QGk" secondAttribute="leadingMargin" id="XxP-nv-7Sz"/>
                             <constraint firstItem="g1h-Nj-dPX" firstAttribute="top" secondItem="HtM-qM-MW2" secondAttribute="bottom" id="cEn-ub-j6j"/>
+                            <constraint firstItem="thM-e8-5Ca" firstAttribute="top" secondItem="Ce6-8h-SV0" secondAttribute="bottom" constant="8" id="fYs-b1-HFg"/>
                             <constraint firstItem="vTh-Zj-YZl" firstAttribute="top" secondItem="Cp8-hp-RgJ" secondAttribute="bottom" constant="-4" id="gmv-GG-lB2"/>
                             <constraint firstItem="Pli-27-Mte" firstAttribute="leading" secondItem="qZo-zy-QGk" secondAttribute="leadingMargin" id="h6B-1u-dnx"/>
                             <constraint firstItem="UG2-GK-JoG" firstAttribute="top" secondItem="32X-tc-QJo" secondAttribute="bottom" constant="-4" id="hKt-ah-7Bl"/>
+                            <constraint firstItem="mxS-aV-dIt" firstAttribute="leading" secondItem="UDc-Oe-MOq" secondAttribute="trailing" constant="8" id="hcW-TO-541"/>
                             <constraint firstAttribute="centerX" secondItem="31O-PF-4SY" secondAttribute="centerX" id="hl4-dw-UAB"/>
-                            <constraint firstItem="18t-y9-NfT" firstAttribute="trailing" secondItem="qZo-zy-QGk" secondAttribute="trailingMargin" id="ifp-kP-2JJ"/>
+                            <constraint firstItem="Ce6-8h-SV0" firstAttribute="top" secondItem="HtM-qM-MW2" secondAttribute="bottom" constant="10" id="hoX-3j-OlQ"/>
+                            <constraint firstItem="Pli-27-Mte" firstAttribute="top" relation="lessThanOrEqual" secondItem="6V6-O9-oSX" secondAttribute="bottom" constant="90" id="jTO-dX-JQT"/>
                             <constraint firstItem="X2Y-Ra-Iph" firstAttribute="top" relation="greaterThanOrEqual" secondItem="31O-PF-4SY" secondAttribute="bottom" priority="999" constant="10" id="k5k-U9-GcF"/>
                             <constraint firstItem="31O-PF-4SY" firstAttribute="leading" secondItem="qZo-zy-QGk" secondAttribute="leadingMargin" id="llf-hx-pxC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="K2H-ym-xAF" secondAttribute="trailing" constant="20" id="mG8-Dl-xhL"/>
-                            <constraint firstAttribute="centerX" secondItem="HsH-WC-xVa" secondAttribute="centerX" id="nYG-QS-LEy"/>
-                            <constraint firstItem="HsH-WC-xVa" firstAttribute="leading" secondItem="qZo-zy-QGk" secondAttribute="leadingMargin" id="nZ0-XK-WMf"/>
+                            <constraint firstItem="32X-tc-QJo" firstAttribute="top" secondItem="Pli-27-Mte" secondAttribute="bottom" constant="30" id="nZL-5W-35V"/>
+                            <constraint firstItem="ksG-QZ-eLY" firstAttribute="top" secondItem="HtM-qM-MW2" secondAttribute="bottom" constant="10" id="oIc-Bk-hhh"/>
                             <constraint firstItem="32X-tc-QJo" firstAttribute="top" secondItem="K2H-ym-xAF" secondAttribute="bottom" constant="10" id="oYp-Qr-gRk"/>
                             <constraint firstItem="K2H-ym-xAF" firstAttribute="leading" secondItem="qZo-zy-QGk" secondAttribute="leadingMargin" constant="20" id="pCM-RP-Nm1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="K2H-ym-xAF" secondAttribute="trailing" constant="20" id="pJU-xr-dO9"/>
+                            <constraint firstItem="P9l-Pu-0Zh" firstAttribute="leading" secondItem="qZo-zy-QGk" secondAttribute="leadingMargin" id="qyO-b1-tp6"/>
                             <constraint firstItem="31O-PF-4SY" firstAttribute="trailing" secondItem="qZo-zy-QGk" secondAttribute="trailingMargin" id="s4X-GG-0aK"/>
-                            <constraint firstItem="18t-y9-NfT" firstAttribute="top" secondItem="Pli-27-Mte" secondAttribute="bottom" constant="6" id="y6U-4e-MP6"/>
+                            <constraint firstAttribute="centerX" secondItem="g1h-Nj-dPX" secondAttribute="centerX" id="vTU-fc-XqX"/>
+                            <constraint firstItem="mxS-aV-dIt" firstAttribute="trailing" secondItem="qZo-zy-QGk" secondAttribute="trailingMargin" id="zUW-Wz-uhw"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="XxP-nv-7Sz"/>
                                 <exclude reference="4le-fg-agH"/>
                                 <exclude reference="EIT-Tm-hts"/>
                                 <exclude reference="Sw4-cB-JKy"/>
-                                <exclude reference="ZIM-WJ-vJ4"/>
                                 <exclude reference="mG8-Dl-xhL"/>
                                 <exclude reference="oYp-Qr-gRk"/>
-                                <exclude reference="1t8-Yc-LV6"/>
+                                <exclude reference="8tk-68-yRX"/>
                                 <exclude reference="hl4-dw-UAB"/>
                                 <exclude reference="llf-hx-pxC"/>
                                 <exclude reference="s4X-GG-0aK"/>
@@ -1480,10 +1518,13 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="mOpponent" destination="HsH-WC-xVa" id="OSq-TW-R1k"/>
+                        <outlet property="avatar1" destination="Ce6-8h-SV0" id="7FE-oc-Zty"/>
+                        <outlet property="avatar2" destination="ksG-QZ-eLY" id="MLD-gW-7HL"/>
+                        <outlet property="mOpponent" destination="UDc-Oe-MOq" id="vGd-mQ-yLz"/>
                         <outlet property="mSteps" destination="Pli-27-Mte" id="Whx-Bv-G7v"/>
-                        <outlet property="mTurn" destination="18t-y9-NfT" id="dFb-4v-I3u"/>
                         <outlet property="movingPoint" destination="bat-IR-sUI" id="o5k-Nd-kfO"/>
+                        <outlet property="playerIndicatorOpponent" destination="mxS-aV-dIt" id="i2x-fV-fWD"/>
+                        <outlet property="playerIndicatorYou" destination="P9l-Pu-0Zh" id="wvv-Gh-fgn"/>
                         <outlet property="progressView" destination="K2H-ym-xAF" id="DNn-Nc-BAK"/>
                         <outlet property="startingPoint" destination="l9Y-XK-QxZ" id="dTX-6e-cm7"/>
                         <outletCollection property="mGameButtons" destination="e4f-rk-R6G" collectionClass="NSMutableArray" id="5MT-uF-Kdj"/>
@@ -1554,12 +1595,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X2W-wb-liK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1356" y="-406"/>
+            <point key="canvasLocation" x="1346" y="-364"/>
         </scene>
     </scenes>
     <resources>
         <image name="black" width="1920" height="1200"/>
         <image name="dot_line" width="236" height="26"/>
+        <image name="dot_locked" width="35" height="34"/>
         <image name="dot_move" width="35" height="34"/>
         <image name="dot_standard" width="35" height="34"/>
         <image name="grey" width="1024" height="768"/>

@@ -14,6 +14,7 @@ public class LoadingOverlay{
     
     var overlayView = UIView()
     var activityIndicator = UIActivityIndicatorView()
+    var overlayShown = false
     
     class var shared: LoadingOverlay {
         struct Static {
@@ -22,7 +23,12 @@ public class LoadingOverlay{
         return Static.instance
     }
     
+    public func isOverlayShown() -> Bool {
+        return overlayShown
+    }
+    
     public func showOverlay(view: UIView!) {
+        overlayShown = true
         overlayView = UIView(frame: UIScreen.mainScreen().bounds)
         overlayView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
@@ -55,6 +61,7 @@ public class LoadingOverlay{
     }
     
     public func hideOverlayView() {
+        overlayShown = false
         activityIndicator.stopAnimating()
         overlayView.removeFromSuperview()
     }
