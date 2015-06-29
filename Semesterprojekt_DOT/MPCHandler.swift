@@ -21,7 +21,7 @@ class MPCHandler: NSObject, MCSessionDelegate, CBPeripheralManagerDelegate {
     var advertiser:MCAdvertiserAssistant? = nil
     
     func setupPeriphial(){
-        myBTManager = CBPeripheralManager(delegate: self, queue: nil)
+        //myBTManager = CBPeripheralManager(delegate: self, queue: nil)
     }
     //BT Manager
     func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager!) {

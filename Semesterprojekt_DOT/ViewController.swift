@@ -26,12 +26,13 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = true
+        player = 1
+        println("Anzahl viewcontroller home: \(self.navigationController?.viewControllers.count)");
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController!.navigationBar.hidden = true
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.mpcHandler.setupPeerWithDisplayName(UIDevice.currentDevice().name)
         appDelegate.mpcHandler.setupSession()
@@ -40,9 +41,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "peerChangedStateWithNotification:", name: "MPC_DidChangeStateNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReceivedDataWithNotification:", name: "MPC_DidReceiveDataNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "bluetoothStateDidChange:", name: "MPC_BluetoothStateChanged", object: nil)
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appwillterminate:", name: "APP_WILL_TERMINATE", object: nil)
-
         
         var id = defaults.integerForKey(avatarKey)
         if id == 0 {
@@ -84,7 +83,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         
         switch(state){
         case 0:
-            appDelegate.mpcHandler.session.disconnect()
+            //appDelegate.mpcHandler.session.disconnect()
             break
         default:
             break
@@ -94,30 +93,19 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     func handleReceivedDataWithNotification(notification:NSNotification){
         let userInfo = notification.userInfo! as Dictionary
         let receivedData:NSData = userInfo["data"] as! NSData
-        if newGame == false {
-            newGame = true
-            let message = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
-            let senderPeerId:MCPeerID = userInfo["peerID"] as! MCPeerID
-            oppenentname = senderPeerId.displayName
-            
-            if message.objectForKey("string")?.isEqualToString("New Game") == true{
-                player = 2;
-                self.performSegueWithIdentifier(segueStartGame, sender: nil)
-            }
-
-        }
+        let message = NSJSONSerialization.JSONObjectWithData(receivedData, options: NSJSONReadingOptions.AllowFragments, error: nil) as! NSDictionary
         
+        if message.objectForKey("string")?.isEqualToString("StartNewGameFromHome") == true{
+            player = 2;
+            self.performSegueWithIdentifier(segueStartGame, sender: nil)
+        }
     }
 
     @IBAction func startNewGame(sender: AnyObject) {
-        println("Message has been sent");
-        
-        let messageDict = ["string":"New Game"]
-        
+        let messageDict = ["string":"StartNewGameFromHome"]
         let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
         
         var error:NSError?
-        
         appDelegate.mpcHandler.session.sendData(messageData, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error)
         
         if error != nil{
@@ -160,10 +148,11 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
         var shouldperform = true;
         
+        //check if there is any connected device
         if identifier == segueStartGame{
             if oppenentname.isEmpty{
-                //shouldperform = false
-                //startConnectionBrowser()
+                shouldperform = false
+                startConnectionBrowser()
             }
         }
         return shouldperform

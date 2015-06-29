@@ -29,29 +29,29 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Semesterprojekt_DOT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="viewcontroller" id="BYZ-38-t0r" customClass="ViewController" customModule="Semesterprojekt_DOT" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="0I8-Xy-hob">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="0I8-Xy-hob">
                                 <rect key="frame" x="150" y="35" width="300" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="74M-yP-yUy"/>
                                     <constraint firstAttribute="height" constant="100" id="DGS-W6-pPx"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are not paired!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSl-KV-Tcz">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="You are not paired!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSl-KV-Tcz">
                                 <rect key="frame" x="16" y="155" width="568" height="25"/>
                                 <fontDescription key="fontDescription" name="Avenir-HeavyOblique" family="Avenir" pointSize="18"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-Ut-XRr">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4aU-Ut-XRr">
                                 <rect key="frame" x="26" y="185" width="548" height="315"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njy-TG-AWt" userLabel="Start Game">
@@ -149,14 +149,14 @@
                                 </variation>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot_line" translatesAutoresizingMaskIntoConstraints="NO" id="0nc-7e-GSx">
-                                <rect key="frame" x="182" y="559" width="236" height="26"/>
+                                <rect key="frame" x="182" y="495" width="236" height="26"/>
                             </imageView>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pmQ-3x-KQ2">
-                                <rect key="frame" x="316" y="520" width="51" height="31"/>
+                                <rect key="frame" x="316" y="456" width="51" height="31"/>
                                 <color key="onTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Extreme Mode" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NlQ-mu-7Wh">
-                                <rect key="frame" x="184" y="524" width="124" height="23"/>
+                                <rect key="frame" x="184" y="460" width="123.5" height="23"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -207,10 +207,10 @@
                         <viewControllerLayoutGuide type="bottom" id="ztf-Pu-dGV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2oB-dP-EdM">
-                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="black" translatesAutoresizingMaskIntoConstraints="NO" id="BGd-aG-ik5">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black" translatesAutoresizingMaskIntoConstraints="NO" id="BGd-aG-ik5">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="DG4-6I-A0C"/>
@@ -234,7 +234,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CrX-KZ-hUG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1356" y="317"/>
+            <point key="canvasLocation" x="1356" y="435"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="Hh5-Dp-mG0">
@@ -340,16 +340,16 @@
                         <viewControllerLayoutGuide type="bottom" id="X2Y-Ra-Iph"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qZo-zy-QGk">
-                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pli-27-Mte">
-                                <rect key="frame" x="16" y="188" width="568" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Steps:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pli-27-Mte">
+                                <rect key="frame" x="16" y="188" width="568" height="23.5"/>
                                 <fontDescription key="fontDescription" name="Avenir-HeavyOblique" family="Avenir" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="31O-PF-4SY" userLabel="line8">
+                            <view tag="1" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="31O-PF-4SY" userLabel="line8">
                                 <rect key="frame" x="148" y="459" width="287" height="35"/>
                                 <subviews>
                                     <button opaque="NO" tag="57" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHf-XK-ZiT" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
@@ -478,7 +478,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vTh-Zj-YZl" userLabel="line7">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vTh-Zj-YZl" userLabel="line7">
                                 <rect key="frame" x="166" y="428" width="287" height="35"/>
                                 <subviews>
                                     <button opaque="NO" tag="49" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZOm-Yg-fUM" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
@@ -607,7 +607,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cp8-hp-RgJ" userLabel="line6">
+                            <view tag="1" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cp8-hp-RgJ" userLabel="line6">
                                 <rect key="frame" x="148" y="397" width="287" height="35"/>
                                 <subviews>
                                     <button opaque="NO" tag="41" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uCA-vh-QOt" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
@@ -736,7 +736,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GEg-9T-8VC" userLabel="line5">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GEg-9T-8VC" userLabel="line5">
                                 <rect key="frame" x="166" y="366" width="287" height="35"/>
                                 <subviews>
                                     <button opaque="NO" tag="33" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aBZ-Qi-rdb" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
@@ -865,7 +865,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gH8-Ea-Ifm" userLabel="line4">
+                            <view tag="1" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gH8-Ea-Ifm" userLabel="line4">
                                 <rect key="frame" x="148" y="335" width="287" height="35"/>
                                 <subviews>
                                     <button opaque="NO" tag="25" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUR-B4-jb8" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
@@ -994,7 +994,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AOH-R1-7NV" userLabel="line3">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AOH-R1-7NV" userLabel="line3">
                                 <rect key="frame" x="166" y="304" width="287" height="35"/>
                                 <subviews>
                                     <button opaque="NO" tag="17" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ni-Mm-fV6" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
@@ -1123,7 +1123,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UG2-GK-JoG" userLabel="line2">
+                            <view tag="1" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UG2-GK-JoG" userLabel="line2">
                                 <rect key="frame" x="148" y="273" width="287" height="35"/>
                                 <subviews>
                                     <button opaque="NO" tag="9" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YVs-TT-W6P" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
@@ -1253,7 +1253,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32X-tc-QJo" userLabel="line1">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32X-tc-QJo" userLabel="line1">
                                 <rect key="frame" x="166" y="242" width="287" height="35"/>
                                 <subviews>
                                     <button opaque="NO" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4f-rk-R6G" customClass="GameButton" customModule="Semesterprojekt_DOT" customModuleProvider="target">
@@ -1398,30 +1398,29 @@
                                 </constraints>
                                 <color key="progressTintColor" red="0.12549019610000001" green="0.4941176471" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                             </progressView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g1h-Nj-dPX">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g1h-Nj-dPX">
                                 <rect key="frame" x="16" y="20" width="568" height="30"/>
                                 <state key="normal" title="Give Up!">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="giveUpPressed:" destination="MTd-r9-Feh" eventType="touchUpInside" id="dnu-cA-be1"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="Yyg-zM-BHZ"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ce6-8h-SV0">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ce6-8h-SV0">
                                 <rect key="frame" x="16" y="30" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="WSy-tV-fGS"/>
                                     <constraint firstAttribute="height" constant="100" id="kn5-5i-l58"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6V6-O9-oSX">
-                                <rect key="frame" x="281" y="62" width="38" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="vs." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6V6-O9-oSX">
+                                <rect key="frame" x="281" y="62" width="37.5" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ksG-QZ-eLY">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ksG-QZ-eLY">
                                 <rect key="frame" x="484" y="30" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="QFZ-Uz-U0k"/>
@@ -1434,10 +1433,10 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot_move" translatesAutoresizingMaskIntoConstraints="NO" id="P9l-Pu-0Zh">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="dot_move" translatesAutoresizingMaskIntoConstraints="NO" id="P9l-Pu-0Zh">
                                 <rect key="frame" x="16" y="131" width="35" height="34"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot_locked" translatesAutoresizingMaskIntoConstraints="NO" id="mxS-aV-dIt">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="dot_locked" translatesAutoresizingMaskIntoConstraints="NO" id="mxS-aV-dIt">
                                 <rect key="frame" x="549" y="131" width="35" height="34"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Opponent" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UDc-Oe-MOq">
@@ -1510,10 +1509,10 @@
                                 <exclude reference="Sw4-cB-JKy"/>
                                 <exclude reference="mG8-Dl-xhL"/>
                                 <exclude reference="oYp-Qr-gRk"/>
-                                <exclude reference="8tk-68-yRX"/>
                                 <exclude reference="hl4-dw-UAB"/>
                                 <exclude reference="llf-hx-pxC"/>
                                 <exclude reference="s4X-GG-0aK"/>
+                                <exclude reference="8tk-68-yRX"/>
                             </mask>
                         </variation>
                     </view>
@@ -1595,7 +1594,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X2W-wb-liK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1346" y="-364"/>
+            <point key="canvasLocation" x="1344" y="-358"/>
         </scene>
     </scenes>
     <resources>
@@ -1611,8 +1610,5 @@
         <image name="rate_and_admire" width="239" height="29"/>
         <image name="start_game" width="239" height="29"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Yyg-zM-BHZ"/>
-    </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
 </document>

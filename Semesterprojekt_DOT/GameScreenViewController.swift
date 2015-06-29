@@ -28,10 +28,10 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var mGameButtons: [UIButton]!
     @IBOutlet weak var playerIndicatorYou: UIImageView!
     @IBOutlet weak var playerIndicatorOpponent: UIImageView!
-    
     @IBOutlet weak var avatar1: UIImageView!
-    
     @IBOutlet weak var avatar2: UIImageView!
+    @IBOutlet weak var progressView: UIProgressView!
+    
     
     var lockedDotsTags = [Int]()
     var actionDotsTags = [Int]()
@@ -50,12 +50,13 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     var players = [Player]()
     var playerId: Int = 0
     let defaults = NSUserDefaults.standardUserDefaults()
-    let avatarKey = "avatarId"
+    var avatarKey = "avatarId"
     var opponentsAvatar = 0
     var myavatar = 0
     
     var winnerTwo = false
     var giveUp = false
+    var iAmTheWinner = false
     
     let JSON_LOCKEDDOTS = "lockeddots"
     let JSON_MOVINGDOT = "movingdot"
@@ -68,7 +69,6 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     let JSON_ACTIONDOTS = "actiondots"
     let JSON_ISACTION = "isAction"
     
-    @IBOutlet weak var progressView: UIProgressView!
     var time = 0
     var timer = NSTimer()
     var TIMEOUT = 10
@@ -77,12 +77,91 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         self.navigationController!.navigationBar.hidden = true
         self.navigationController!.interactivePopGestureRecognizer.delegate = self
         
+        println("Anzahl viewcontroller gamescreen: \(self.navigationController?.viewControllers.count)");
+        
         if isExtremeMode {
             numberOfActionFields = 6
             TIMEOUT = 3
         }
         initGameScreen()
     }
+    override func viewDidDisappear(animated: Bool) {
+        setUpSettings()
+    }
+    
+    func initGameScreen() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReceivedDataWithNotification:", name: "MPC_DidReceiveDataNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "peerChangedStateWithNotification:", name: "MPC_DidChangeStateNotification", object: nil)
+        
+        mOpponent.text = "\(opponentname)"
+        mSteps.text = "Steps: \(stepcounter)"
+        myavatar = defaults.integerForKey(avatarKey)
+        avatar1.image = UIImage(named: "avatar\(myavatar)")
+        
+        for b in mGameButtons { // hide all buttons because of the animation
+            b.hidden = true
+        }
+        
+        if playernr == 1{
+            //mTurn.text = "It's your turn";
+            playerIndicatorYou.image = UIImage(named: "dot_move")
+            playerIndicatorOpponent.image = UIImage(named: "dot_locked")
+            var rand = arc4random_uniform(UInt32(4))
+            if rand == 0 {
+                posofmoving = 28
+            } else if rand == 1 {
+                posofmoving = 27
+            } else if rand == 2 {
+                posofmoving = 35
+            } else if rand == 3 {
+                posofmoving = 36
+            }
+            (mGameButtons[posofmoving] as! GameButton).setImageMove()
+            generateLockedDots()
+            generateActionDots()
+            sendGameSetup()
+        } else {
+            playerIndicatorOpponent.image = UIImage(named: "dot_move")
+            playerIndicatorYou.image = UIImage(named: "dot_locked")
+            LoadingOverlay.shared.showOverlay(self.view)
+        }
+    }
+    
+    func setUpSettings(){
+        lockedDotsTags = [Int]()
+        actionDotsTags = [Int]()
+        numberOfActionFields = 4
+        opponentname = ""           // name of the opponent
+        playernr = 0                // you are player 1 for standard
+        stepcounter = 0             // counts the steps made by gamer 1
+        firstMoveDot = true
+        isExtremeMode = false
+        
+        posofmoving = 0
+        winnerAnimationIndex = 0    // should the dot move up, down, left, right?
+        
+        players = [Player]()
+        playerId = 0
+        avatarKey = "avatarId"
+        opponentsAvatar = 0
+        myavatar = 0
+        
+        winnerTwo = false
+        giveUp = false
+    }
+    
+    func peerChangedStateWithNotification(notification:NSNotification){
+        let userInfo = NSDictionary(dictionary: notification.userInfo!)
+        
+        let state = userInfo.objectForKey("state") as! Int
+        let peerid = userInfo.objectForKey("peerID") as! MCPeerID
+        
+        
+        if state == MCSessionState.NotConnected.rawValue{
+            showEndAlert(winning: false, gaveUp: false, draw: true)
+        }
+    }
+
     
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
@@ -94,7 +173,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func giveUpPressed(sender: AnyObject) {
         giveUp = true
-        showEndAlert(winning: false, gaveUp: true)
+        showEndAlert(winning: false, gaveUp: true, draw: false)
         if playernr == 1 {
             gameOverWithWinner(winnerPlayer1: false)
             sendMovingButton()
@@ -174,7 +253,6 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func loadFromCoreData() {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext!
         
         let fetchRequest = NSFetchRequest(entityName: "Player")
@@ -190,44 +268,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    func initGameScreen() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReceivedDataWithNotification:", name: "MPC_DidReceiveDataNotification", object: nil)
-        
-        mOpponent.text = "\(opponentname)"
-        mSteps.text = "Steps: \(stepcounter)"
-        myavatar = defaults.integerForKey(avatarKey)
-        avatar1.image = UIImage(named: "avatar\(myavatar)")
-        
-        for b in mGameButtons { // hide all buttons because of the animation
-            b.hidden = true
-        }
-        
-        if playernr == 1{
-            //mTurn.text = "It's your turn";
-            playerIndicatorYou.image = UIImage(named: "dot_move")
-            playerIndicatorOpponent.image = UIImage(named: "dot_locked")
-            var rand = arc4random_uniform(UInt32(4))
-            if rand == 0 {
-                posofmoving = 28
-            } else if rand == 1 {
-                posofmoving = 27
-            } else if rand == 2 {
-                posofmoving = 35
-            } else if rand == 3 {
-                posofmoving = 36
-            }
-            (mGameButtons[posofmoving] as! GameButton).setImageMove()
-            generateLockedDots()
-            generateActionDots()
-            sendGameSetup()
-        } else {
-            playerIndicatorOpponent.image = UIImage(named: "dot_move")
-            playerIndicatorYou.image = UIImage(named: "dot_locked")
-            sendGameSetup()
-            //mTurn.text = "Wait until your opponent has done his turn"
-            LoadingOverlay.shared.showOverlay(self.view)
-        }
-    }
+
     
     func generateActionDots() {
         for i in 0...numberOfActionFields - 1 {
@@ -241,25 +282,6 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             actionDotsTags.append(Int(randomNumber))
         }
     }
-    
-    func clearGameSettings() {
-        playernr = 0
-        posofmoving = 0
-        winnerAnimationIndex = 0
-        /*
-        lockedDotsTags = [Int]()
-        opponentname = ""   // name of the opponent
-        stepcounter = 0     // counts the steps made by gamer 1
-        
-        posofmoving = 0
-        winnerAnimationIndex = 0    // should the dot move up, down, left, right?
-        firstConnection = true
-        firstMoveDot = true
-        
-        initGameScreen()
-        */
-    }
-    
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         if !LoadingOverlay.shared.isOverlayShown() {
@@ -293,60 +315,60 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 }
                 
                 if isWinner {
+                    iAmTheWinner = true
                     sendMovingButton()
                     UIView.animateWithDuration(1.0, animations:{
                         self.movingPoint.frame = CGRectMake(x, y, self.movingPoint.frame.size.width, self.movingPoint.frame.size.height)
                     })
                     UIView.commitAnimations()
                     gameOverWithWinner(winnerPlayer1: true)
-                    showEndAlert(winning: true, gaveUp: false)
+                    showEndAlert(winning: true, gaveUp: false,draw: false)
                 }
             }
             
         }
     }
     
-    func showEndAlert(#winning: Bool, gaveUp: Bool) {
+    func showEndAlert(#winning: Bool, gaveUp: Bool, draw: Bool) {
         timer.invalidate()
         progressView.setProgress(1.0, animated: false)
-        
+        var message=""
         var title = ""
-        if winning {
+        
+        if draw {
+            title = "Bad News 😟"
+            message = "You have lost the connection to your opponent, it counts as a draw 🙌"
+        }else if winning {
             if gaveUp {
-                title = "\(opponentname) gave up! You win!"
+                title = "Congratulation 🍻🎉"
+                message = "\(opponentname) gave up! He is such a loser! 😂😂"
             } else {
-                title = "Congratulations! You win!"
+                title = "Congratulation 🍻🎉"
+                message = "You have won the game 😏😎"
             }
         } else {
-            title = "You lost!"
+            title = "Bad News Bro 😟"
+            message = "You have lost the game 😞. Challenge your buddy in a rematch 😼😼"
         }
-        var message = "Do you want to play again?"
+        
         let alertCotroller = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         
         // Create the actions.
-        let yesAction = UIAlertAction(title: "Yes", style: .Default) { action in
-            //self.cancelGame()
-        }
-        
-        let noAction = UIAlertAction(title: "No", style: .Default) { action in
-            //self.cancelGame()
+        let okAction = UIAlertAction(title: "Ok", style: .Default) { action in
+            self.cancelGame()
         }
         
         // Add the actions.
-        alertCotroller.addAction(yesAction)
-        //alertCotroller.addAction(noAction)
+        alertCotroller.addAction(okAction)
         
         presentViewController(alertCotroller, animated: true, completion: nil)
     }
     
     func cancelGame(){
-        //sendCancelGame()
-        self.navigationController!.popToRootViewControllerAnimated(true)
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     func setUpMovingDot(){
-        //set up the button where player 1 starts -- should happen randomly
-        
         if winnerAnimationIndex > 0 { // there is a winner
             var x: CGFloat = 0
             var y: CGFloat = 0
@@ -364,7 +386,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 y = movingPoint.frame.origin.y
             }
             gameOverWithWinner(winnerPlayer1: true)
-            showEndAlert(winning: false, gaveUp: false)
+            if !iAmTheWinner{
+                showEndAlert(winning: false, gaveUp: false, draw: false)
+            }
             UIView.animateWithDuration(1.0, animations:{
                 self.movingPoint.frame = CGRectMake(x, y, self.movingPoint.frame.size.width, self.movingPoint.frame.size.height)
             })
@@ -391,10 +415,8 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         var json: JSON = [JSON_MOVINGDOT:posofmoving,JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_LOCKEDDOTS:lockedDotsTags,JSON_AVATARID:myavatar,JSON_ACTIONDOTS:actionDotsTags] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
         
-        var stringjson = json.description
-        
-        //sendjson
-        println("sendjson: \(stringjson)")
+//        var stringjson = json.description
+//        println("sendjson: \(stringjson)")
         
         var error:NSError?
         appDelegate.mpcHandler.session.sendData(jsonrawdata, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error:&error)
@@ -435,7 +457,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         opponentname = senderPeerId.displayName
         
         let json = JSON(data: receivedData)
-        //println("ReceivedJson: \(json.description)")
+        
         
         winnerAnimationIndex = json[JSON_WINNINGANIMATION].intValue
         
@@ -447,14 +469,14 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         
         if playernr == 1 { //handle new locked dot
             var pos = json[JSON_MOVINGDOT].intValue
-            if pos != 0 {
+            if pos != 0 && iAmTheWinner == false{
                 posofmoving = pos
                 setUpMovingDot()
             }
             var button: GameButton
             var gaveUp = json[JSON_GIVEUP].boolValue
             if gaveUp {     // player 2 gave up
-                showEndAlert(winning: true, gaveUp: true)
+                showEndAlert(winning: true, gaveUp: true, draw: false)
                 gameOverWithWinner(winnerPlayer1: true)
             }
             //var newpos = json[JSON_NEWLOCKEDDOT].intValue
@@ -507,7 +529,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             var winnerPTwo = json[JSON_WINNERTWO].boolValue
             if winnerPTwo {
                 self.gameOverWithWinner(winnerPlayer1: false)
-                showEndAlert(winning: false, gaveUp: true)
+                showEndAlert(winning: false, gaveUp: true, draw: false)
             }
         }
         
@@ -515,7 +537,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             posofmoving = json[JSON_MOVINGDOT].intValue
             var gaveUp = json[JSON_GIVEUP].boolValue
             if gaveUp { // player 1 gave up
-                showEndAlert(winning: true, gaveUp: true)
+                showEndAlert(winning: true, gaveUp: true, draw: false)
                 gameOverWithWinner(winnerPlayer1: false)
             }
             
@@ -609,21 +631,6 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         var error:NSError?
         appDelegate.mpcHandler.session.sendData(messageData, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error)
     }
-    
-    /*
-    func sendNewGameRequest(playAgain: Bool){
-    let messageDict = ["newGame":"\(playAgain)"]
-    let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
-    
-    var error:NSError?
-    
-    appDelegate.mpcHandler.session.sendData(messageData, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error)
-    
-    if error != nil{
-    println("error: \(error?.localizedDescription)")
-    }
-    }
-    */
     
     func generateLockedDots(){
         for i in 0...numberOfDefaultLockedDots - 1 {
@@ -755,7 +762,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 if isDotCaged() {
                     winnerTwo = true
                     gameOverWithWinner(winnerPlayer1: false)
-                    showEndAlert(winning: true, gaveUp: false)
+                    showEndAlert(winning: true, gaveUp: false, draw: false)
                 }
                 
                 if button.isAction {
@@ -819,6 +826,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         return isValid
     }
     
+    /*
+    If there is a winner write the win/lose to core data
+    */
     func gameOverWithWinner(#winnerPlayer1: Bool) {
         loadFromCoreData()
         var alreadyInCoreData = false
