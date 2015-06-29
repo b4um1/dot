@@ -86,7 +86,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         initGameScreen()
     }
     override func viewDidDisappear(animated: Bool) {
-        setUpSettings()
+        //setUpSettings()
     }
     
     func initGameScreen() {
@@ -121,6 +121,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             generateActionDots()
             sendGameSetup()
         } else {
+            sendGameSetup()
             playerIndicatorOpponent.image = UIImage(named: "dot_move")
             playerIndicatorYou.image = UIImage(named: "dot_locked")
             LoadingOverlay.shared.showOverlay(self.view)
@@ -415,8 +416,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         var json: JSON = [JSON_MOVINGDOT:posofmoving,JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_LOCKEDDOTS:lockedDotsTags,JSON_AVATARID:myavatar,JSON_ACTIONDOTS:actionDotsTags] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
         
-//        var stringjson = json.description
-//        println("sendjson: \(stringjson)")
+
         
         var error:NSError?
         appDelegate.mpcHandler.session.sendData(jsonrawdata, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error:&error)
