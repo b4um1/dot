@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		348E73A95E87F71778A5E238 /* Pods_Semesterprojekt_DOT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A7B94F45523BAF42EF8B94 /* Pods_Semesterprojekt_DOT.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		CE685E701B21E2320030C23D /* GameScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE685E6F1B21E2320030C23D /* GameScreenViewController.swift */; };
 		CE7E988E1B1B2D220081F77D /* GlobalFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7E988D1B1B2D220081F77D /* GlobalFonts.swift */; };
 		CE94C1641B19CB6000B2CBB6 /* HallOfFameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94C1631B19CB6000B2CBB6 /* HallOfFameViewController.swift */; };
 		CE94C1661B19D15700B2CBB6 /* PageItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE94C1651B19D15700B2CBB6 /* PageItemController.swift */; };
@@ -17,6 +16,7 @@
 		CEEA1C0D1B19E18D007B0320 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = CEEA1C0C1B19E18D007B0320 /* Podfile */; };
 		E8462A9C1B19AA2F00C31878 /* MPCHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8462A9B1B19AA2F00C31878 /* MPCHandler.swift */; };
 		E8462A9E1B19AAF300C31878 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8462A9D1B19AAF300C31878 /* MultipeerConnectivity.framework */; };
+		E84FDEB11B40FDF700E7F565 /* GameScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84FDEB01B40FDF700E7F565 /* GameScreenViewController.swift */; };
 		E8638C281B19965300CC74E2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8638C271B19965300CC74E2 /* AppDelegate.swift */; };
 		E8638C2B1B19965300CC74E2 /* Semesterprojekt_DOT.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E8638C291B19965300CC74E2 /* Semesterprojekt_DOT.xcdatamodeld */; };
 		E8638C2D1B19965300CC74E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8638C2C1B19965300CC74E2 /* ViewController.swift */; };
@@ -43,7 +43,6 @@
 		07A7B94F45523BAF42EF8B94 /* Pods_Semesterprojekt_DOT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Semesterprojekt_DOT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23DC3A169E02A79BAF7F5324 /* Pods-Semesterprojekt_DOT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Semesterprojekt_DOT.release.xcconfig"; path = "Pods/Target Support Files/Pods-Semesterprojekt_DOT/Pods-Semesterprojekt_DOT.release.xcconfig"; sourceTree = "<group>"; };
 		2DD9B393BCB40EB391A1CBDA /* Pods-Semesterprojekt_DOT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Semesterprojekt_DOT.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Semesterprojekt_DOT/Pods-Semesterprojekt_DOT.debug.xcconfig"; sourceTree = "<group>"; };
-		CE685E6F1B21E2320030C23D /* GameScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScreenViewController.swift; sourceTree = "<group>"; };
 		CE7E988D1B1B2D220081F77D /* GlobalFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFonts.swift; sourceTree = "<group>"; };
 		CE94C1631B19CB6000B2CBB6 /* HallOfFameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HallOfFameViewController.swift; sourceTree = "<group>"; };
 		CE94C1651B19D15700B2CBB6 /* PageItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageItemController.swift; sourceTree = "<group>"; };
@@ -52,6 +51,7 @@
 		CEEA1C0C1B19E18D007B0320 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		E8462A9B1B19AA2F00C31878 /* MPCHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCHandler.swift; sourceTree = "<group>"; };
 		E8462A9D1B19AAF300C31878 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
+		E84FDEB01B40FDF700E7F565 /* GameScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScreenViewController.swift; sourceTree = "<group>"; };
 		E8638C221B19965300CC74E2 /* Semesterprojekt_DOT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Semesterprojekt_DOT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8638C261B19965300CC74E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8638C271B19965300CC74E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 				E8E7111E1B274DD600051EF4 /* Overlay.swift */,
 				CE94C1651B19D15700B2CBB6 /* PageItemController.swift */,
 				CE94C1631B19CB6000B2CBB6 /* HallOfFameViewController.swift */,
-				CE685E6F1B21E2320030C23D /* GameScreenViewController.swift */,
+				E84FDEB01B40FDF700E7F565 /* GameScreenViewController.swift */,
 			);
 			name = VController;
 			sourceTree = "<group>";
@@ -356,12 +356,12 @@
 				CE7E988E1B1B2D220081F77D /* GlobalFonts.swift in Sources */,
 				E8462A9C1B19AA2F00C31878 /* MPCHandler.swift in Sources */,
 				E8E7111D1B27408000051EF4 /* Swiftyjson.swift in Sources */,
+				E84FDEB11B40FDF700E7F565 /* GameScreenViewController.swift in Sources */,
 				CE94C1641B19CB6000B2CBB6 /* HallOfFameViewController.swift in Sources */,
 				CE94C1661B19D15700B2CBB6 /* PageItemController.swift in Sources */,
 				CEEA1C0B1B19D7C4007B0320 /* Player.swift in Sources */,
 				CEEA1C071B19D68D007B0320 /* PlayerModel.xcdatamodeld in Sources */,
 				E8638C2B1B19965300CC74E2 /* Semesterprojekt_DOT.xcdatamodeld in Sources */,
-				CE685E701B21E2320030C23D /* GameScreenViewController.swift in Sources */,
 				E8F0C87A1B24A5F600750941 /* GameButton.swift in Sources */,
 				E8E7111F1B274DD600051EF4 /* Overlay.swift in Sources */,
 				E8638C281B19965300CC74E2 /* AppDelegate.swift in Sources */,

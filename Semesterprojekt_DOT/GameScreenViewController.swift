@@ -19,7 +19,7 @@ extension Array {
 }
 
 class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
-
+    
     @IBOutlet weak var mOpponent: UILabel!
     @IBOutlet weak var mSteps: UILabel!
     //@IBOutlet weak var mTurn: UILabel!
@@ -87,7 +87,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
     }
-
+    
     override func viewDidAppear(animated: Bool) {
         animateDots()
     }
@@ -111,7 +111,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         progressView.progressTintColor = DotGreenColor
         progressView.trackTintColor = DotRedColor
         timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("subtractTime"), userInfo: nil, repeats: true)
-
+        
     }
     
     func subtractTime() {
@@ -203,8 +203,20 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         if playernr == 1{
-            mTurn.text = "Player 1 - It's your turn";
-            posofmoving = 27
+            //mTurn.text = "It's your turn";
+            playerIndicatorYou.image = UIImage(named: "dot_move")
+            playerIndicatorOpponent.image = UIImage(named: "dot_locked")
+            var rand = arc4random_uniform(UInt32(4))
+            if rand == 0 {
+                posofmoving = 28
+            } else if rand == 1 {
+                posofmoving = 27
+            } else if rand == 2 {
+                posofmoving = 35
+            } else if rand == 3 {
+                posofmoving = 36
+            }
+            (mGameButtons[posofmoving] as! GameButton).setImageMove()
             generateLockedDots()
             generateActionDots()
             sendGameSetup()
@@ -247,7 +259,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         initGameScreen()
         */
     }
-
+    
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         if !LoadingOverlay.shared.isOverlayShown() {
@@ -290,7 +302,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                     showEndAlert(winning: true, gaveUp: false)
                 }
             }
-
+            
         }
     }
     
@@ -413,7 +425,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 newLockedDotAnimation(b as! GameButton)
             }
         }
-
+        
     }
     
     func handleReceivedDataWithNotification(notification:NSNotification){
@@ -476,7 +488,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                     if arraylockedDots[index] != 100 && !gaveUp { // timeout
                         button = mGameButtons[arraylockedDots[index].intValue] as! GameButton
                         button.setImageLocked()     // set locked dots
-
+                        
                         if !lockedDotsTags.contains(arraylockedDots[index].intValue) {
                             amountOfNewLockedDots++     // new green dot
                             lockedDotsTags.append(arraylockedDots[index].intValue)
@@ -600,16 +612,16 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     
     /*
     func sendNewGameRequest(playAgain: Bool){
-        let messageDict = ["newGame":"\(playAgain)"]
-        let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
-        
-        var error:NSError?
-        
-        appDelegate.mpcHandler.session.sendData(messageData, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error)
-        
-        if error != nil{
-            println("error: \(error?.localizedDescription)")
-        }
+    let messageDict = ["newGame":"\(playAgain)"]
+    let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
+    
+    var error:NSError?
+    
+    appDelegate.mpcHandler.session.sendData(messageData, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error)
+    
+    if error != nil{
+    println("error: \(error?.localizedDescription)")
+    }
     }
     */
     
@@ -624,14 +636,14 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             button.setImageLocked()
             lockedDotsTags.append(Int(randomNumber))
         }
-
+        
     }
     
     func handleActionDots(button: GameButton) {
         
         var rand = arc4random_uniform(UInt32(4))
         if rand == 0 {
-
+            
             // grüne dots kommen hinzu
             for i in 0...3 {
                 var randomNumber: UInt32 = 0
@@ -646,9 +658,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 newLockedDotAnimation((mGameButtons[Int(randomNumber)] as! GameButton))
             }
             sendNewLockedDot(lockedDotsTags)
-        
+            
         } else if rand == 1 {
-
+            
             // grüne dots explodieren
             for i in 0...3 {
                 var randomNumber = arc4random_uniform(UInt32(lockedDotsTags.count - 1))
@@ -662,7 +674,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 lockedDotsTags.removeAtIndex(Int(randomNumber))
             }
             sendNewLockedDot(lockedDotsTags)
-        
+            
         } else if rand == 2 {
             // grüne dots werden anders angeordnet
             for b in mGameButtons {
@@ -682,7 +694,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 buttonAction.setImageLocked()
             }
             sendNewLockedDot(lockedDotsTags)
-        
+            
         } else if rand == 3 {
             // roter dot wird auf eine zufällige position gesetzt
             var randomNumber: UInt32 = 0
@@ -691,7 +703,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 randomNumber = arc4random_uniform(UInt32(mGameButtons.count - 1))
                 buttonAction = mGameButtons[Int(randomNumber)] as! GameButton
             } while buttonAction.isLocked || buttonAction.isMove || buttonAction.isAction || button.tag == buttonAction.tag
-
+            
             posofmoving = buttonAction.tag-1
             setUpMovingDot()
             if playernr == 2 {
@@ -701,7 +713,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         }
     }
-
+    
     @IBAction func onButtonPressed(sender: AnyObject) {
         var button = sender as! GameButton
         println("#:\(button.tag) origin: \(button.frame.origin)")
@@ -745,7 +757,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                     gameOverWithWinner(winnerPlayer1: false)
                     showEndAlert(winning: true, gaveUp: false)
                 }
-
+                
                 if button.isAction {
                     handleActionDots(button)
                     button.isAction = false
@@ -767,7 +779,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             }
             var x = button.frame.origin.x - offset
             var y = button.superview!.frame.origin.y - movingPoint.superview!.frame.origin.y
-
+            
             let dotSize = movingPoint.frame.width + 2
             if ((x - movingPoint.frame.origin.x) < dotSize) && ((x - movingPoint.frame.origin.x) > -dotSize) && ((y - movingPoint.frame.origin.y) < dotSize) && ((y - movingPoint.frame.origin.y) > -dotSize) && (button as! GameButton).isLocked {
                 counter++
