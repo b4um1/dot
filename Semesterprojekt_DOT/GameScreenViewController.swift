@@ -213,6 +213,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 lockedDotsTags.append(100)
                 sendNewLockedDot(lockedDotsTags)   // timeout
             }
+            stopAnimating()
             LoadingOverlay.shared.showOverlay(self.view)
         } else {
             var state: Float = Float(time) / Float(TIMEOUT * 100)
@@ -616,6 +617,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                     if amountOfNewLockedDots <= 1 {
                         startTimer() // start timer after adding a new green dot, but not after handling some action fields
                         LoadingOverlay.shared.hideOverlayView()
+                        animateMyAvatar()
                     }
                 }
             }
@@ -801,7 +803,6 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 progressView.setProgress(1.0, animated: false)
                 
             }
-            stopAnimating()
         }else{
             if !button.isLocked && button.tag - 1 != posofmoving {
                 LoadingOverlay.shared.showOverlay(self.view)
@@ -825,6 +826,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 progressView.setProgress(1.0, animated: false)
             }
         }
+        stopAnimating()
     }
     
     func isDotCaged() -> Bool {
