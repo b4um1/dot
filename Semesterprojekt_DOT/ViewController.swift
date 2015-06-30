@@ -178,7 +178,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         
         //check if there is any connected device
         if identifier == segueStartGame{
-            if oppenentname.isEmpty{
+            if appDelegate.mpcHandler.session.connectedPeers.count > 0{
                 shouldperform = false
                 startConnectionBrowser()
             }
