@@ -82,7 +82,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "peerChangedStateWithNotification:", name: "MPC_DidChangeStateNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReceivedDataWithNotification:", name: "MPC_DidReceiveDataNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "bluetoothStateDidChange:", name: "MPC_BluetoothStateChanged", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appwillterminate:", name: "APP_WILL_TERMINATE", object: nil)
         
         var id = defaults.integerForKey(avatarKey)
         if id == 0 {
@@ -90,14 +89,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
             println("id: \(defaults.integerForKey(avatarKey))")
         }
     }
-    
-    /*
-    If the app terminates, close the actual session
-    */
-    func appwillterminate(){
-        appDelegate.mpcHandler.session.disconnect();
-    }
-    
     
     /**
     Function is called, if the state of the connection changes. Possible states: Unconnected, Connecting, Connected

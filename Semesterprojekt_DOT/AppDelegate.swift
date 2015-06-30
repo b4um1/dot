@@ -44,9 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-        
-        NSNotificationCenter.defaultCenter().postNotificationName("APP_WILL_TERMINATE", object: nil)
-        
+
+        println("Application was terminated")
+        mpcHandler.session.disconnect()
         self.saveContext()
     }
 
