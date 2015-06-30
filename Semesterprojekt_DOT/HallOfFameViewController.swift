@@ -34,13 +34,31 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
         //println(players)
         
         if players.count == 0 {
-            println("SHOW DIALOG")
+            showAlert()
+            
         }
         
         createPageViewController()
         setupPageControl()
         
     }
+    
+    func showAlert() {
+        let cancelButtonTitle = NSLocalizedString("OK", comment: "")
+        
+        let alertController = UIAlertController(title: "Oups", message: "you haven't played any games! please try again later", preferredStyle: .Alert)
+        
+        // Create the action.
+        let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .Cancel) { action in
+            //self.dismissViewControllerAnimated(true, completion: nil)
+            self.navigationController?.popToRootViewControllerAnimated(true)
+        }
+        
+        // Add the action.
+        alertController.addAction(cancelAction)
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+
     
     override func viewWillAppear(animated: Bool) {
         self.navigationController!.navigationBar.hidden = false
