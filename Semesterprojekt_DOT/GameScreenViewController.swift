@@ -19,7 +19,7 @@ extension Array {
 }
 
 /// Represents the Game Screen. It manages all the handling between the players. Is responsible of all the multipeerhandling during an active game.
-public class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
+class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var mOpponent: UILabel!
     @IBOutlet weak var mSteps: UILabel!

@@ -24,7 +24,7 @@ extension NSDate
 
 
 /// Represents the Homescreen of the game. It is the rootviewcontroller and manages the startscreen
-public class ViewController: UIViewController, MCBrowserViewControllerDelegate {
+class ViewController: UIViewController, MCBrowserViewControllerDelegate {
 
     @IBOutlet weak var label_pairedpartner: UILabel!
     @IBOutlet weak var extremeModeSwitch: UISwitch!

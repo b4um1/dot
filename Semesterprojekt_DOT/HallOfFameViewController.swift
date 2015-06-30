@@ -11,7 +11,7 @@ import CoreData
 
 
 /// Represents the Hall of Fame View. It contains several Pages of players, with detailed gamestatistics, with which you have played in the past
-public class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource, UIGestureRecognizerDelegate {
+class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource, UIGestureRecognizerDelegate {
     
     // MARK: - Variables
     private var pageViewController: UIPageViewController?
