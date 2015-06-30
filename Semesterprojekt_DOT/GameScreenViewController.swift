@@ -100,6 +100,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         mSteps.text = "Steps: \(stepcounter)"
         myavatar = defaults.integerForKey(avatarKey)
         avatar1.image = UIImage(named: "avatar\(myavatar)")
+        animateMyAvatar()
         
         for b in mGameButtons { // hide all buttons because of the animation
             b.hidden = true
