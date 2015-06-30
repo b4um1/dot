@@ -24,7 +24,7 @@
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="black" translatesAutoresizingMaskIntoConstraints="NO" id="Jeu-jJ-dfc">
                             <rect key="frame" x="0.0" y="0.0" width="464" height="464"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="header_icon" translatesAutoresizingMaskIntoConstraints="NO" id="sLx-QQ-zjz">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="header_dot" translatesAutoresizingMaskIntoConstraints="NO" id="sLx-QQ-zjz">
                             <rect key="frame" x="40" y="161" width="384" height="143"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="dot_line" translatesAutoresizingMaskIntoConstraints="NO" id="XTt-nn-jwv">
@@ -85,6 +85,6 @@
     <resources>
         <image name="black" width="1920" height="1200"/>
         <image name="dot_line" width="236" height="26"/>
-        <image name="header_icon" width="320" height="193"/>
+        <image name="header_dot" width="320" height="193"/>
     </resources>
 </document>

@@ -38,7 +38,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header_icon" translatesAutoresizingMaskIntoConstraints="NO" id="0I8-Xy-hob">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header_dot" translatesAutoresizingMaskIntoConstraints="NO" id="0I8-Xy-hob">
                                 <rect key="frame" x="150" y="15" width="300" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="74M-yP-yUy"/>
@@ -1623,7 +1623,7 @@
         <image name="dot_standard" width="35" height="34"/>
         <image name="grey" width="1024" height="768"/>
         <image name="hall_of_fame" width="239" height="29"/>
-        <image name="header_icon" width="320" height="193"/>
+        <image name="header_dot" width="320" height="193"/>
         <image name="pair_with_opponent" width="239" height="29"/>
         <image name="remove_ads" width="201" height="25"/>
         <image name="start_game" width="239" height="29"/>
