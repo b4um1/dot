@@ -163,9 +163,11 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         //let state = userInfo.objectForKey(test_state) as! Int
         //let peerid = userInfo.objectForKey(test_peerid) as! MCPeerID
         
+        /*
         if state == MCSessionState.NotConnected.rawValue{
             showEndAlert(winning: false, gaveUp: false, draw: true)
         }
+*/
     }
 
     
@@ -871,6 +873,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             
             appDelegate.managedObjectContext?.save(nil)
             loadFromCoreData()
+            playerId = players.count - 1
         }
         
         if winnerPlayer1 {
@@ -898,6 +901,8 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         fetchRequest.predicate = predicate
         
         let fetchedEntities = appDelegate.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as! [Player]
+        
+        println(fetchedEntities.first?.name)
         
         fetchedEntities.first?.wins = players[playerId].wins
         fetchedEntities.first?.amount = players[playerId].amount
