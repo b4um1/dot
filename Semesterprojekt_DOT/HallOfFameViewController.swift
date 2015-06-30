@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+
+/// Represents the Hall of Fame View. It contains several Pages of players, with detailed gamestatistics, with which you have played in the past
 class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource, UIGestureRecognizerDelegate {
     
     // MARK: - Variables
@@ -43,10 +45,13 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
         
     }
     
+    /**
+    Alert, which informs, when the hall of fame is empty
+    */
     func showAlert() {
         let cancelButtonTitle = NSLocalizedString("OK", comment: "")
         
-        let alertController = UIAlertController(title: "Oups", message: "you haven't played any games! please try again later", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: "Oups 😵", message: "You haven't played any games yet! 😉", preferredStyle: .Alert)
         
         // Create the action.
         let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .Cancel) { action in
@@ -75,6 +80,9 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
         return false
     }
     
+    /**
+    This functions loads the user data from core data
+    */
     func loadFromCoreData() {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext!
@@ -91,22 +99,9 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
         }
     }
     
-    func storeDummyData(name: String, wins: Int, amount: Int, date: NSDate, avatarId: Int) {
-        var player1: Player?
-        
-        var entity = NSEntityDescription.entityForName("Player", inManagedObjectContext:appDelegate.managedObjectContext!)
-        player1 = Player(entity: entity!, insertIntoManagedObjectContext: appDelegate.managedObjectContext!)
-        
-        player1!.name = name
-        player1!.amount = amount
-        player1!.lastGame = date
-        player1!.wins = wins
-        player1?.avatar = avatarId
-        
-        
-        appDelegate.managedObjectContext?.save(nil)
-    }
-    
+    /**
+    Creates several pages from the different amount of players. You can swipe through with swipe to the left or right
+    */
     private func createPageViewController() {
         
         let pageController = self.storyboard!.instantiateViewControllerWithIdentifier("PageController") as! UIPageViewController
@@ -124,6 +119,9 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
         pageViewController!.didMoveToParentViewController(self)
     }
     
+    /**
+    Sets up the UI of the Pagecontroller
+    */
     private func setupPageControl() {
         let appearance = UIPageControl.appearance()
         appearance.pageIndicatorTintColor = UIColor.grayColor()

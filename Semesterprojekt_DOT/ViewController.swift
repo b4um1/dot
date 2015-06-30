@@ -22,6 +22,8 @@ extension NSDate
     }
 }
 
+
+/// Represents the Homescreen of the game. It is the rootviewcontroller and manages the startscreen
 class ViewController: UIViewController, MCBrowserViewControllerDelegate {
 
     @IBOutlet weak var label_pairedpartner: UILabel!
@@ -49,6 +51,12 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
 //            animateText()
 //        }
     }
+    
+    /**
+    Disconnects all the peers which are connected to the device and restarts the current session, so that anybody can connect again
+    
+    :param: sender Button
+    */
     @IBAction func disconnectMe(sender: AnyObject) {
         var connectedPeers = appDelegate.mpcHandler.session.connectedPeers.count
         
@@ -91,7 +99,11 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     }
     
     
+    /**
+    Function is called, if the state of the connection changes. Possible states: Unconnected, Connecting, Connected
     
+    :param: notification NSNotification
+    */
     func peerChangedStateWithNotification(notification:NSNotification){
         //appDelegate.mpcHandler.session.connectedPeers[0].disconnect
         
@@ -127,6 +139,10 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         }
     }
     
+    
+    /**
+    Animates the label, which displays the current connected device
+    */
     func animateText() {
         let duration = 2.0
         let options = UIViewKeyframeAnimationOptions.Autoreverse | UIViewKeyframeAnimationOptions.Repeat
@@ -170,6 +186,9 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         
     }
     
+    /**
+    Animates the lightbulb which displays the connectionstate
+    */
     func animateBulb() {
         let duration = 0.3
         let options = UIViewKeyframeAnimationOptions.Autoreverse | UIViewKeyframeAnimationOptions.Repeat
@@ -208,6 +227,11 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         }
     }
     
+    /**
+    This method is called, if something is received from the MP-Framework. The data is encoded with json
+    
+    :param: notification NSNotification
+    */
     func handleReceivedDataWithNotification(notification:NSNotification){
         let userInfo = notification.userInfo! as Dictionary
         let receivedData:NSData = userInfo["data"] as! NSData
@@ -227,6 +251,9 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         startConnectionBrowser()
     }
     
+    /**
+    Starts the connectionbrowser from the MPF where you can connect to other devices
+    */
     func startConnectionBrowser(){
         if appDelegate.mpcHandler.session != nil{
             appDelegate.mpcHandler.setupBrowser()
@@ -243,6 +270,9 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         appDelegate.mpcHandler.browser.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    /**
+    Sends the JSON which initiates the start of the game on the other device
+    */
     func sendGameStartJson(){
         let messageDict = ["string":"StartNewGameFromHome"]
         let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)

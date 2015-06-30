@@ -9,6 +9,7 @@
 import UIKit
 import PNChartSwift
 
+/// Represents a Gamerpage in the Hall of Fame. There you can see how often you played, how often you won/lost against somebody else
 class PageItemController: UIViewController {
 
     var itemIndex: Int = 0
@@ -58,6 +59,10 @@ class PageItemController: UIViewController {
         wiggle()
     }
     
+    
+    /**
+    This functions animates the avatar icon of the gamer. It "wiggles".
+    */
     func wiggle() {
         let duration = 0.3
         let options = UIViewKeyframeAnimationOptions.Autoreverse | UIViewKeyframeAnimationOptions.Repeat
@@ -77,7 +82,9 @@ class PageItemController: UIViewController {
         
     }
 
-    
+    /**
+    Set up the UI of the Page
+    */
     func drawView() {
         setChartData()
         
@@ -112,6 +119,13 @@ class PageItemController: UIViewController {
         self.view.addSubview(barChart)
     }
     
+    /**
+    Formats a date to dd.MM.yyyy and returns it as NSString
+    
+    :param: date NSDate
+    
+    :returns: Formated NSString
+    */
     func dateformatterDate(date: NSDate) -> NSString
     {
         var dateFormatter: NSDateFormatter = NSDateFormatter()
@@ -119,6 +133,9 @@ class PageItemController: UIViewController {
         return dateFormatter.stringFromDate(date)
     }
     
+    /**
+    Set up chart data. Set wins/loses.
+    */
     func setChartData() {
         var barChart = PNBarChart(frame: CGRectMake(0, 200, self.view.frame.size.width / 3, height! / 2.2))
         

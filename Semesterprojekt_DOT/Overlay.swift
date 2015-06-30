@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-
+/// Represents a View, with whom you can lock the current screen until you unlock it
 public class LoadingOverlay{
     
     var overlayView = UIView()
@@ -23,10 +23,20 @@ public class LoadingOverlay{
         return Static.instance
     }
     
+    /**
+    Returns whether the overlay is shown at the moment
+    
+    :returns: bool, true or false
+    */
     public func isOverlayShown() -> Bool {
         return overlayShown
     }
     
+    /**
+    Adds the overlay to the current view
+    
+    :param: view UIView
+    */
     public func showOverlay(view: UIView!) {
         overlayShown = true
         overlayView = UIView(frame: UIScreen.mainScreen().bounds)
@@ -60,6 +70,9 @@ public class LoadingOverlay{
         view.addSubview(overlayView)
     }
     
+    /**
+    Hides the overlay, if it is shown
+    */
     public func hideOverlayView() {
         overlayShown = false
         activityIndicator.stopAnimating()

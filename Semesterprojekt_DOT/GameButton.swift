@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+/// Is the instance of one single Game Button
 class GameButton: UIButton {
     
     var image_standard = UIImage(named:"dot_standard")
