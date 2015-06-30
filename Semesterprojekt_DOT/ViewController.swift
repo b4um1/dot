@@ -25,6 +25,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
 
     @IBOutlet weak var label_pairedpartner: UILabel!
     @IBOutlet weak var extremeModeSwitch: UISwitch!
+    @IBOutlet var connectionLight: UIButton!
     
     let segueStartGame = "startGameScreen"
     var player = 1; //Testvariable
@@ -41,6 +42,14 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         self.navigationController!.navigationBar.hidden = true
         player = 1
         println("Anzahl viewcontroller home: \(self.navigationController?.viewControllers.count)");
+    }
+    @IBAction func disconnectMe(sender: AnyObject) {
+        var connectedPeers = appDelegate.mpcHandler.session.connectedPeers.count
+        if connectedPeers > 0 {
+            for var i=0; i < connectedPeers; i++ {
+                appDelegate.mpcHandler.session.connectedPeers[i].disconnect()
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -70,6 +79,8 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         appDelegate.mpcHandler.session.disconnect();
     }
     
+    
+    
     func peerChangedStateWithNotification(notification:NSNotification){
         //appDelegate.mpcHandler.session.connectedPeers[0].disconnect
         
@@ -85,9 +96,12 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         }
         if state == MCSessionState.Connected.rawValue{ //toRaw was replaced with rawValue
             self.label_pairedpartner.text = "Connected with \(oppenentname)"
+            self.connectionLight.setImage(UIImage(named:"Lighting_Bulb_connected"), forState: .Normal)
+            
         }else{
             oppenentname = ""
             self.label_pairedpartner.text = "Disconnected"
+            self.connectionLight.setImage(UIImage(named:"Lighting_Bulb_disconnected"), forState: .Normal)
         }
     }
     
