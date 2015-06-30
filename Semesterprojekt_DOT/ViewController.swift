@@ -44,25 +44,28 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         player = 1
         println("Anzahl viewcontroller home: \(self.navigationController?.viewControllers.count)");
         
-        
-        if !oppenentname.isEmpty {
-            animateBulb()
-            animateText()
-        }
+//        if !oppenentname.isEmpty {
+//            animateBulb()
+//            animateText()
+//        }
     }
     @IBAction func disconnectMe(sender: AnyObject) {
         var connectedPeers = appDelegate.mpcHandler.session.connectedPeers.count
+        
+        println("Disconnect me! \(connectedPeers)")
         if connectedPeers > 0 {
             appDelegate.mpcHandler.session.disconnect()
             appDelegate.mpcHandler.setupPeerWithDisplayName(UIDevice.currentDevice().name)
             appDelegate.mpcHandler.setupSession()
             appDelegate.mpcHandler.advertiseSelf(true)
         }
+        
+        println("peers: \(appDelegate.mpcHandler.session.connectedPeers.count)")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.canDisplayBannerAds = true
+        //self.canDisplayBannerAds = true
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.mpcHandler.setupPeerWithDisplayName(UIDevice.currentDevice().name)
         appDelegate.mpcHandler.setupSession()
@@ -175,6 +178,9 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         
         connectionLight.transform = CGAffineTransformMakeRotation(-CGFloat(rotationValue/2))
         connectionLight.transform = CGAffineTransformMakeScale(1.2, 1.2)
+        
+        self.connectionLight.clipsToBounds = true
+        self.connectionLight.enabled = true
         
         UIView.animateKeyframesWithDuration(duration, delay: 0.0, options: options, animations: { () -> Void in
             UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.5, animations: { () -> Void in
