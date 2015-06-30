@@ -46,9 +46,10 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     @IBAction func disconnectMe(sender: AnyObject) {
         var connectedPeers = appDelegate.mpcHandler.session.connectedPeers.count
         if connectedPeers > 0 {
-            for var i=0; i < connectedPeers; i++ {
-                appDelegate.mpcHandler.session.connectedPeers[i].disconnect()
-            }
+            appDelegate.mpcHandler.session.disconnect()
+            appDelegate.mpcHandler.setupPeerWithDisplayName(UIDevice.currentDevice().name)
+            appDelegate.mpcHandler.setupSession()
+            appDelegate.mpcHandler.advertiseSelf(true)
         }
     }
     
@@ -94,15 +95,85 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         if state == MCSessionState.Connecting.rawValue{
             self.label_pairedpartner.text = "Connecting with \(oppenentname)..."
         }
+        var frame = CGRect()
         if state == MCSessionState.Connected.rawValue{ //toRaw was replaced with rawValue
             self.label_pairedpartner.text = "Connected with \(oppenentname)"
             self.connectionLight.setImage(UIImage(named:"Lighting_Bulb_connected"), forState: .Normal)
+            
+            frame = connectionLight.layer.frame
+            
+            animateText()
+            animateBulb()
             
         }else{
             oppenentname = ""
             self.label_pairedpartner.text = "Disconnected"
             self.connectionLight.setImage(UIImage(named:"Lighting_Bulb_disconnected"), forState: .Normal)
+            self.connectionLight.layer.removeAllAnimations()
+            self.connectionLight.layer.frame = frame
         }
+    }
+    
+    func animateText() {
+        let duration = 2.0
+        let options = UIViewKeyframeAnimationOptions.Autoreverse | UIViewKeyframeAnimationOptions.Repeat
+        let rotationValue = 0.07
+        let rotation = CGFloat(rotationValue)
+        
+        label_pairedpartner.transform = CGAffineTransformMakeTranslation(-10, 0)
+        
+        UIView.animateKeyframesWithDuration(duration, delay: 0.0, options: options, animations: { () -> Void in
+            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.5, animations: { () -> Void in
+
+                self.label_pairedpartner.transform = CGAffineTransformMakeTranslation(-10, 0)
+
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: { () -> Void in
+                self.label_pairedpartner.transform = CGAffineTransformMakeTranslation(0, 0)
+            })
+            }, completion: nil)
+
+        
+        label_pairedpartner.transform = CGAffineTransformMakeTranslation(0, 5)
+        
+        UIView.animateKeyframesWithDuration(4.0, delay: 0.0, options: options, animations: { () -> Void in
+            UIView.addKeyframeWithRelativeStartTime(0.6, relativeDuration: 0.01, animations: { () -> Void in
+                self.label_pairedpartner.transform = CGAffineTransformMakeTranslation(0, 5)
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.7, relativeDuration: 0.01, animations: { () -> Void in
+                self.label_pairedpartner.transform = CGAffineTransformMakeTranslation(0, -5)
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.8, relativeDuration: 0.01, animations: { () -> Void in
+                self.label_pairedpartner.transform = CGAffineTransformMakeTranslation(0, 5)
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.9, relativeDuration: 0.01, animations: { () -> Void in
+                self.label_pairedpartner.transform = CGAffineTransformMakeTranslation(0, -5)
+            })
+            }, completion: nil)
+
+        
+    }
+    
+    func animateBulb() {
+        let duration = 0.3
+        let options = UIViewKeyframeAnimationOptions.Autoreverse | UIViewKeyframeAnimationOptions.Repeat
+        let rotationValue = 0.07
+        let rotation = CGFloat(rotationValue)
+        
+        connectionLight.transform = CGAffineTransformMakeRotation(-CGFloat(rotationValue/2))
+        connectionLight.transform = CGAffineTransformMakeScale(1.2, 1.2)
+        
+        UIView.animateKeyframesWithDuration(duration, delay: 0.0, options: options, animations: { () -> Void in
+            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.5, animations: { () -> Void in
+                self.connectionLight.transform = CGAffineTransformMakeScale(1.2, 1.2)
+                self.connectionLight.transform = CGAffineTransformMakeRotation(rotation)
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: { () -> Void in
+                self.connectionLight.transform = CGAffineTransformMakeScale(1, 1)
+                self.connectionLight.transform = CGAffineTransformMakeRotation(-rotation)
+            })
+            }, completion: nil)
+        
     }
     
     func bluetoothStateDidChange(notification: NSNotification){ //1 on 0 off
