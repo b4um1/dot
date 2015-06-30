@@ -33,6 +33,10 @@ class HallOfFameViewController: UIViewController, UIPageViewControllerDataSource
         loadFromCoreData()
         //println(players)
         
+        if players.count == 0 {
+            println("SHOW DIALOG")
+        }
+        
         createPageViewController()
         setupPageControl()
         
