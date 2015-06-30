@@ -8,6 +8,7 @@
 
 import UIKit
 import MultipeerConnectivity
+import iAd
 
 extension NSDate
 {
@@ -42,6 +43,8 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         self.navigationController!.navigationBar.hidden = true
         player = 1
         println("Anzahl viewcontroller home: \(self.navigationController?.viewControllers.count)");
+        
+        
     }
     @IBAction func disconnectMe(sender: AnyObject) {
         var connectedPeers = appDelegate.mpcHandler.session.connectedPeers.count
@@ -55,7 +58,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.canDisplayBannerAds = true
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.mpcHandler.setupPeerWithDisplayName(UIDevice.currentDevice().name)
         appDelegate.mpcHandler.setupSession()
@@ -245,8 +248,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == segueStartGame{
-            
-            
             let controller = segue.destinationViewController as! GameScreenViewController
             controller.opponentname = self.oppenentname
             controller.stepcounter = 0
@@ -262,7 +263,9 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
             println("Seconds: \(seconds)")
             
             controller.gameID = seconds
-            
+        }else if segue.identifier == "showHallOfFame" {
+            let destination = segue.destinationViewController as! HallOfFameViewController
+            destination.interstitialPresentationPolicy = ADInterstitialPresentationPolicy.Automatic
         }
     }
 

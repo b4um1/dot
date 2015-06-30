@@ -24,6 +24,7 @@
 		E8638C351B19965300CC74E2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8638C331B19965300CC74E2 /* LaunchScreen.xib */; };
 		E8638C411B19965300CC74E2 /* Semesterprojekt_DOTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8638C401B19965300CC74E2 /* Semesterprojekt_DOTTests.swift */; };
 		E8A0F2931B3AF422006C53C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8A0F2911B3AF422006C53C0 /* Main.storyboard */; };
+		E8D12F431B42947A002C15EE /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8D12F421B42947A002C15EE /* iAd.framework */; };
 		E8E7111D1B27408000051EF4 /* Swiftyjson.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E7111C1B27408000051EF4 /* Swiftyjson.swift */; };
 		E8E7111F1B274DD600051EF4 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E7111E1B274DD600051EF4 /* Overlay.swift */; };
 		E8F0C87A1B24A5F600750941 /* GameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F0C8791B24A5F600750941 /* GameButton.swift */; };
@@ -63,6 +64,7 @@
 		E8638C3F1B19965300CC74E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8638C401B19965300CC74E2 /* Semesterprojekt_DOTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Semesterprojekt_DOTTests.swift; sourceTree = "<group>"; };
 		E8A0F2921B3AF422006C53C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E8D12F421B42947A002C15EE /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		E8E7111C1B27408000051EF4 /* Swiftyjson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swiftyjson.swift; sourceTree = "<group>"; };
 		E8E7111E1B274DD600051EF4 /* Overlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		E8F0C8791B24A5F600750941 /* GameButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameButton.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8D12F431B42947A002C15EE /* iAd.framework in Frameworks */,
 				E8462A9E1B19AAF300C31878 /* MultipeerConnectivity.framework in Frameworks */,
 				348E73A95E87F71778A5E238 /* Pods_Semesterprojekt_DOT.framework in Frameworks */,
 			);
@@ -100,6 +103,7 @@
 		68D4A38B1C18A3C28FAE53D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E8D12F421B42947A002C15EE /* iAd.framework */,
 				07A7B94F45523BAF42EF8B94 /* Pods_Semesterprojekt_DOT.framework */,
 			);
 			name = Frameworks;
