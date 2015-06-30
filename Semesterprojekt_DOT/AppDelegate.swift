@@ -47,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         println("Application was terminated")
         mpcHandler.session.disconnect()
+       // mpcHandler = nil
         self.saveContext()
     }
 
