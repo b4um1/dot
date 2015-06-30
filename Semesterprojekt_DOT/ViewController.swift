@@ -45,6 +45,10 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         println("Anzahl viewcontroller home: \(self.navigationController?.viewControllers.count)");
         
         
+        if !oppenentname.isEmpty {
+            animateBulb()
+            animateText()
+        }
     }
     @IBAction func disconnectMe(sender: AnyObject) {
         var connectedPeers = appDelegate.mpcHandler.session.connectedPeers.count
