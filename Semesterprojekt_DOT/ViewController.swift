@@ -95,12 +95,14 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         if state == MCSessionState.Connecting.rawValue{
             self.label_pairedpartner.text = "Connecting with \(oppenentname)..."
         }
-        var frame = CGRect()
+        var frameConnectionLight = CGRect()
+        var frameLabel = CGRect()
         if state == MCSessionState.Connected.rawValue{ //toRaw was replaced with rawValue
             self.label_pairedpartner.text = "Connected with \(oppenentname)"
             self.connectionLight.setImage(UIImage(named:"Lighting_Bulb_connected"), forState: .Normal)
             
-            frame = connectionLight.layer.frame
+            frameConnectionLight = connectionLight.layer.frame
+            frameLabel = label_pairedpartner.layer.frame
             
             animateText()
             animateBulb()
@@ -110,7 +112,8 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
             self.label_pairedpartner.text = "Disconnected"
             self.connectionLight.setImage(UIImage(named:"Lighting_Bulb_disconnected"), forState: .Normal)
             self.connectionLight.layer.removeAllAnimations()
-            self.connectionLight.layer.frame = frame
+            self.connectionLight.layer.frame = frameConnectionLight
+            self.label_pairedpartner.layer.frame = frameLabel
         }
     }
     
@@ -134,20 +137,23 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
             }, completion: nil)
 
         
-        label_pairedpartner.transform = CGAffineTransformMakeTranslation(0, 5)
+        label_pairedpartner.transform = CGAffineTransformMakeTranslation(0, 0)
         
         UIView.animateKeyframesWithDuration(4.0, delay: 0.0, options: options, animations: { () -> Void in
             UIView.addKeyframeWithRelativeStartTime(0.6, relativeDuration: 0.01, animations: { () -> Void in
-                self.label_pairedpartner.transform = CGAffineTransformMakeTranslation(0, 5)
+                self.label_pairedpartner.transform = CGAffineTransformMakeTranslation(3, 0)
             })
             UIView.addKeyframeWithRelativeStartTime(0.7, relativeDuration: 0.01, animations: { () -> Void in
-                self.label_pairedpartner.transform = CGAffineTransformMakeTranslation(0, -5)
+                self.label_pairedpartner.transform = CGAffineTransformMakeTranslation(-3, 0)
             })
             UIView.addKeyframeWithRelativeStartTime(0.8, relativeDuration: 0.01, animations: { () -> Void in
-                self.label_pairedpartner.transform = CGAffineTransformMakeTranslation(0, 5)
+                self.label_pairedpartner.transform = CGAffineTransformMakeTranslation(3, 0)
             })
             UIView.addKeyframeWithRelativeStartTime(0.9, relativeDuration: 0.01, animations: { () -> Void in
-                self.label_pairedpartner.transform = CGAffineTransformMakeTranslation(0, -5)
+                self.label_pairedpartner.transform = CGAffineTransformMakeTranslation(-3, 0)
+            })
+            UIView.addKeyframeWithRelativeStartTime(1.0, relativeDuration: 0.01, animations: { () -> Void in
+                self.label_pairedpartner.transform = CGAffineTransformMakeTranslation(0, 0)
             })
             }, completion: nil)
 
@@ -239,7 +245,7 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == segueStartGame{
-            sendGameStartJson()
+            
             
             let controller = segue.destinationViewController as! GameScreenViewController
             controller.opponentname = self.oppenentname
@@ -247,11 +253,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
             controller.playernr = self.player
             controller.appDelegate = self.appDelegate
             controller.isExtremeMode = extremeModeSwitch.on
-            
-            var comps = NSDateComponents()
-            comps.day = 01
-            comps.month = 01
-            comps.year = 2015
            
             let start = NSDate(dateString:"2015-01-01")
             let enddt = NSDate()
@@ -276,6 +277,8 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
             if appDelegate.mpcHandler.session.connectedPeers.count == 0{
                 shouldperform = false
                 startConnectionBrowser()
+            } else {
+                sendGameStartJson()
             }
         }
         return shouldperform
