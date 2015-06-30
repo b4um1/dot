@@ -71,6 +71,8 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     }
     
     func peerChangedStateWithNotification(notification:NSNotification){
+        //appDelegate.mpcHandler.session.connectedPeers[0].disconnect
+        
         let userInfo = NSDictionary(dictionary: notification.userInfo!)
         
         let state = userInfo.objectForKey("state") as! Int
@@ -115,15 +117,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     }
 
     @IBAction func startNewGame(sender: AnyObject) {
-        let messageDict = ["string":"StartNewGameFromHome"]
-        let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
-        
-        var error:NSError?
-        appDelegate.mpcHandler.session.sendData(messageData, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error)
-        
-        if error != nil{
-            println("error: \(error?.localizedDescription)")
-        }
     }
     
     @IBAction func connectWithOpponentPlayer(sender: AnyObject) {
@@ -134,7 +127,6 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         if appDelegate.mpcHandler.session != nil{
             appDelegate.mpcHandler.setupBrowser()
             appDelegate.mpcHandler.browser.delegate = self
-            
             self.presentViewController(appDelegate.mpcHandler.browser, animated: true, completion: nil)
         }
     }
@@ -147,8 +139,23 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
         appDelegate.mpcHandler.browser.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func sendGameStartJson(){
+        let messageDict = ["string":"StartNewGameFromHome"]
+        let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
+        
+        var error:NSError?
+        appDelegate.mpcHandler.session.sendData(messageData, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error)
+        
+        if error != nil{
+            println("error: \(error?.localizedDescription)")
+        }
+
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == segueStartGame{
+            sendGameStartJson()
+            
             let controller = segue.destinationViewController as! GameScreenViewController
             controller.opponentname = self.oppenentname
             controller.stepcounter = 0
@@ -176,9 +183,12 @@ class ViewController: UIViewController, MCBrowserViewControllerDelegate {
     override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
         var shouldperform = true;
         
+        println("Connected peers: \(appDelegate.mpcHandler.session.connectedPeers.count)")
+        
+        
         //check if there is any connected device
         if identifier == segueStartGame{
-            if appDelegate.mpcHandler.session.connectedPeers.count > 0{
+            if appDelegate.mpcHandler.session.connectedPeers.count == 0{
                 shouldperform = false
                 startConnectionBrowser()
             }
