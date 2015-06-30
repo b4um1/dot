@@ -543,6 +543,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                     if newpos != -1 && amountOfNewLockedDots <= 1 && reAllocationOfDots == false {
                         startTimer()    // start timer after adding a new green dot, but not after handling some action fields
                         LoadingOverlay.shared.hideOverlayView()
+                        animateMyAvatar()
                     }
                 }
                 
@@ -671,6 +672,29 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
+    func stopAnimating(){
+        self.avatar1.layer.removeAllAnimations()
+    }
+    
+    func animateMyAvatar() {
+        let duration = 0.3
+        let options = UIViewKeyframeAnimationOptions.Autoreverse | UIViewKeyframeAnimationOptions.Repeat
+        let rotationValue = 0.07
+        let rotation = CGFloat(rotationValue)
+        
+        self.avatar1.transform = CGAffineTransformMakeRotation(-CGFloat(rotationValue/2))
+        
+        UIView.animateKeyframesWithDuration(duration, delay: 0.0, options: options, animations: { () -> Void in
+            UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.5, animations: { () -> Void in
+                self.avatar1.transform = CGAffineTransformMakeRotation(rotation)
+            })
+            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.5, animations: { () -> Void in
+                self.avatar1.transform = CGAffineTransformMakeRotation(-rotation)
+            })
+            }, completion: nil)
+    }
+
+    
     func handleActionDots(button: GameButton) {
         
         var rand = arc4random_uniform(UInt32(4))
@@ -777,6 +801,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 progressView.setProgress(1.0, animated: false)
                 
             }
+            stopAnimating()
         }else{
             if !button.isLocked && button.tag - 1 != posofmoving {
                 LoadingOverlay.shared.showOverlay(self.view)
