@@ -93,6 +93,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         //setUpSettings()
     }
     
+    /**
+    Generates the initiate Gamescreen of Player 1. Set's up the game screen and the avatar of p1. The first move is made by p1. Afterwards the loadingoverlay appears
+    */
     func initGameScreen() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleReceivedDataWithNotification:", name: "MPC_DidReceiveDataNotification", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "peerChangedStateWithNotification:", name: "MPC_DidChangeStateNotification", object: nil)
@@ -133,6 +136,10 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    
+    /**
+    Change the settings to standard
+    */
     func setUpSettings(){
         lockedDotsTags = [Int]()
         actionDotsTags = [Int]()
@@ -156,6 +163,11 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         giveUp = false
     }
     
+    /**
+    Multipeerconnectivity function, if the state of the connections changes.
+    
+    :param: notification NSNotification
+    */
     func peerChangedStateWithNotification(notification:NSNotification){
         let userInfo = NSDictionary(dictionary: notification.userInfo!)
         
@@ -165,11 +177,13 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         //let state = userInfo.objectForKey(test_state) as! Int
         //let peerid = userInfo.objectForKey(test_peerid) as! MCPeerID
         
+        //there should be a handling or timer for timeout ...
+        
         /*
         if state == MCSessionState.NotConnected.rawValue{
             showEndAlert(winning: false, gaveUp: false, draw: true)
         }
-*/
+        */
     }
 
     
@@ -181,6 +195,11 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         animateDots()
     }
     
+    /**
+    Function where a player can give up. It is saved as defeat if somebody gives up. The opponent gets notified.
+    
+    :param: sender UIButton
+    */
     @IBAction func giveUpPressed(sender: AnyObject) {
         giveUp = true
         showEndAlert(winning: false, gaveUp: true, draw: false)
@@ -194,6 +213,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    /**
+    Start the timer of your turn. Standard are 10 Seconds
+    */
     func startTimer() {
         time = TIMEOUT * 100
         progressView.setProgress(1, animated: false)
@@ -203,6 +225,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
+    /**
+    Subtracts the time and manages the handling when there is a timeout
+    */
     func subtractTime() {
         time--
         if(time == 0)  {
@@ -229,6 +254,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    /**
+    Animates the locked Dots. Scaleeffect
+    */
     func animateDots(){
         for b in mGameButtons {
             b.hidden = false
@@ -263,6 +291,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    /**
+    Loads the players from core data, to check if you have played against this guy or not
+    */
     func loadFromCoreData() {
         let managedContext = appDelegate.managedObjectContext!
         
@@ -280,7 +311,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
 
-    
+    /**
+    Generate the fields where actions are hidden. The fields are randomly generated between 0 and 64.
+    */
     func generateActionDots() {
         for i in 0...numberOfActionFields - 1 {
             var button: GameButton
@@ -340,6 +373,13 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    /**
+    Displays an alert, whether you have won/lost or there is a draw, if the connection has been lost.
+    
+    :param: winning Bool
+    :param: gaveUp  Bool
+    :param: draw    Bool
+    */
     func showEndAlert(#winning: Bool, gaveUp: Bool, draw: Bool) {
         timer.invalidate()
         progressView.setProgress(1.0, animated: false)
@@ -375,11 +415,17 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         presentViewController(alertCotroller, animated: true, completion: nil)
     }
     
+    /**
+    Stops the game and jumps back to Rootviewcontroller which is the Homescreen
+    */
     func cancelGame(){
         timer.invalidate()
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
+    /**
+    Sets up the red, moving dot, of the player one.
+    */
     func setUpMovingDot(){
         if winnerAnimationIndex > 0 { // there is a winner
             var x: CGFloat = 0
@@ -432,6 +478,10 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    
+    /**
+    Sends the setup of the game. It contains the position of the moving dot, both all the locked dots, the id of the avatar and all the action dots
+    */
     func sendGameSetup(){ //movingdot and locked dots and avatarID
         var json: JSON = [JSON_MOVINGDOT:posofmoving,JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_LOCKEDDOTS:lockedDotsTags,JSON_AVATARID:myavatar,JSON_ACTIONDOTS:actionDotsTags,JSON_GAMEID:gameID] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
@@ -446,6 +496,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    /**
+    Set all dots to standard
+    */
     func resetAllLockedDots() {
         for b in mGameButtons { // reset all locked dots
             var gameButton = b as! GameButton
@@ -455,6 +508,11 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    /**
+    If a player moves on a action dot, randomly choosen dots gets animated
+    
+    :param: array of id's of old locked dots
+    */
     func animateNewGreyDots(#old: [Int]) {
         var animationDisappear = [Int]()
         for t in old {
@@ -470,6 +528,12 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
+    /**
+    This method is called, if you receive something through MPC-Framework. This function can decide, whether you're player 1 or 2 and handles so the right actions.
+    The data is received in a json.
+    
+    :param: notification NSNotification
+    */
     func handleReceivedDataWithNotification(notification:NSNotification){
         let userInfo = notification.userInfo! as Dictionary
         let receivedData:NSData = userInfo["data"] as! NSData
@@ -630,6 +694,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
+    /**
+    Sends the json with the position of the moving dot. It also sends whether there is a winning index, which means the red dot is moving out of the field. The json also contains whether somebody of the gamer gave up. A game id for synchronisation is also sent.
+    */
     func sendMovingButton(){
         var json: JSON = [JSON_MOVINGDOT:posofmoving, JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_GIVEUP:giveUp,JSON_GAMEID:gameID] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
@@ -642,6 +709,11 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    /**
+    Sends the new locked dots.
+    
+    :param: lockedDots <#lockedDots description#>
+    */
     func sendNewLockedDot(lockedDots: [Int]){
         var json: JSON = [JSON_NEWLOCKEDDOT:lockedDots,JSON_AVATARID:myavatar,JSON_WINNERTWO:winnerTwo,JSON_GIVEUP:giveUp,JSON_GAMEID:gameID] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
@@ -654,6 +726,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    /**
+    Sends the cancel the game message.
+    */
     func sendCancelGame(){
         let messageDict = [JSON_CANCELGAME:"cancel",JSON_GAMEID:gameID]
         let messageData = NSJSONSerialization.dataWithJSONObject(messageDict, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
@@ -662,6 +737,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         appDelegate.mpcHandler.session.sendData(messageData, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error: &error)
     }
     
+    /**
+    Generates the locked dots. It depends on how much locked dots you want, but they can be on position 0-64.
+    */
     func generateLockedDots(){
         for i in 0...numberOfDefaultLockedDots - 1 {
             var button: GameButton
@@ -676,10 +754,16 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
+    /**
+    Stops the animation of the Player 1 avatar
+    */
     func stopAnimating(){
         self.avatar1.layer.removeAllAnimations()
     }
     
+    /**
+    Starts to animate the avatar of the current player. "wiggle"-Effect.
+    */
     func animateMyAvatar() {
         let duration = 0.3
         let options = UIViewKeyframeAnimationOptions.Autoreverse | UIViewKeyframeAnimationOptions.Repeat
@@ -698,7 +782,11 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             }, completion: nil)
     }
 
+    /**
+    Handles the action dots. Randomly actions can make a advantage or disadvantage and makes the game more attractive
     
+    :param: actionButton GameButton
+    */
     func handleActionDots(button: GameButton) {
         
         var rand = arc4random_uniform(UInt32(4))
@@ -774,6 +862,11 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    /**
+    Moves the moving dot to another button, if he is an neighbor
+    
+    :param: sender UIButton
+    */
     @IBAction func onButtonPressed(sender: AnyObject) {
         var button = sender as! GameButton
         println("#:\(button.tag) origin: \(button.frame.origin)")
@@ -853,6 +946,11 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    /**
+    Animates the new locked dot with an scaleeffect
+    
+    :param: pressed_button GameButton
+    */
     func newLockedDotAnimation(button: GameButton) {
         button.transform = CGAffineTransformMakeScale(10, 10)
         UIView.beginAnimations("scale", context: nil)
@@ -861,6 +959,15 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         UIView.commitAnimations()
     }
     
+    /**
+    Checks if the new position of the movingdot is a valid one
+    
+    :param: x      x position
+    :param: y      y position
+    :param: button Gamebutton
+    
+    :returns: bool Yes,No
+    */
     func isValidPosition(x: CGFloat, y: CGFloat, button: GameButton) -> Bool {
         var isValid = false
         
@@ -880,9 +987,12 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         return isValid
     }
     
-    /*
+    /**
     If there is a winner write the win/lose to core data
+    
+    :param: winnerPlayer1 Bool, Yes/No
     */
+    
     func gameOverWithWinner(#winnerPlayer1: Bool) {
         loadFromCoreData()
         var alreadyInCoreData = false
@@ -923,6 +1033,9 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         saveToCoreData()
     }
     
+    /**
+    Saves the game result into core data.
+    */
     func saveToCoreData() {
         let predicate = NSPredicate(format: "name == %@", opponentname)
         
