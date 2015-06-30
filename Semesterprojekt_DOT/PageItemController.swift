@@ -10,7 +10,7 @@ import UIKit
 import PNChartSwift
 
 /// Represents a Gamerpage in the Hall of Fame. There you can see how often you played, how often you won/lost against somebody else
-class PageItemController: UIViewController {
+public class PageItemController: UIViewController {
 
     var itemIndex: Int = 0
     var name: String = ""

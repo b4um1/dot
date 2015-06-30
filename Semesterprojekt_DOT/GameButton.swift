@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 /// Is the instance of one single Game Button
-class GameButton: UIButton {
+public class GameButton: UIButton {
     
     var image_standard = UIImage(named:"dot_standard")
     var image_move = UIImage(named:"dot_move")
