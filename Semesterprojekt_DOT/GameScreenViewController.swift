@@ -130,6 +130,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             sendGameSetup()
         } else {
             sendGameSetup()
+            sendAvatar()
             playerIndicatorOpponent.image = UIImage(named: "dot_move")
             playerIndicatorYou.image = UIImage(named: "dot_locked")
             LoadingOverlay.shared.showOverlay(self.view)
@@ -462,6 +463,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             UIView.commitAnimations()
             
         } else {
+            //if posofmoving != 0 {
             (mGameButtons[posofmoving] as! GameButton).setImageStandard()
             (mGameButtons[posofmoving] as! GameButton).isMove = true
             var button = mGameButtons[posofmoving]
@@ -475,9 +477,24 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 self.movingPoint.frame = CGRectMake(x, y, button.frame.size.width, button.frame.size.height)
             })
             self.movingPoint.setImageMove()
+            //}
+
         }
     }
     
+    
+    func sendAvatar() {
+        var json: JSON = [JSON_AVATARID:myavatar,JSON_GAMEID:gameID] //valid - checked by jsonlint
+        var jsonrawdata = json.rawData(options: nil, error: nil)
+        
+        
+        var error:NSError?
+        appDelegate.mpcHandler.session.sendData(jsonrawdata, toPeers: appDelegate.mpcHandler.session.connectedPeers, withMode: MCSessionSendDataMode.Reliable, error:&error)
+        
+        if error != nil{
+            println("Couldn't send message: \(error?.localizedDescription)")
+        }
+    }
     
     /**
     Sends the setup of the game. It contains the position of the moving dot, both all the locked dots, the id of the avatar and all the action dots
@@ -485,7 +502,6 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     func sendGameSetup(){ //movingdot and locked dots and avatarID
         var json: JSON = [JSON_MOVINGDOT:posofmoving,JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_LOCKEDDOTS:lockedDotsTags,JSON_AVATARID:myavatar,JSON_ACTIONDOTS:actionDotsTags,JSON_GAMEID:gameID] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
-        
 
         
         var error:NSError?
@@ -504,6 +520,19 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             var gameButton = b as! GameButton
             if !gameButton.isMove && !gameButton.isAction {
                 gameButton.setImageStandard()
+            }
+        }
+    }
+    
+    /**
+    Set all action dots to standard
+    */
+    func resetAllActionDots() {
+        for b in mGameButtons { // reset all locked dots
+            var gameButton = b as! GameButton
+            if gameButton.isAction {
+                gameButton.setImageStandard()
+                gameButton.isAction = false
             }
         }
     }
@@ -544,7 +573,6 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         let json = JSON(data: receivedData)
         
         var gid = json[JSON_GAMEID].intValue
-        println("\(gid) vs. \(gameID)")
         if (gid >= gameID - 2) && (gid <= gameID + 2) {
             
             winnerAnimationIndex = json[JSON_WINNINGANIMATION].intValue
@@ -556,7 +584,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             
             if playernr == 1 { //handle new locked dot
                 var pos = json[JSON_MOVINGDOT].intValue
-                if pos != 0 && iAmTheWinner == false{
+                if pos != 0 && iAmTheWinner == false {
                     posofmoving = pos
                     setUpMovingDot()
                 }
@@ -566,6 +594,27 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                     showEndAlert(winning: true, gaveUp: true, draw: false)
                     gameOverWithWinner(winnerPlayer1: true)
                 }
+                
+                if let arrayActionDots = json[JSON_ACTIONDOTS].array {
+                    // set action dots
+                    if arrayActionDots.count != 0 {
+                        resetAllActionDots()
+                        actionDotsTags.removeAll(keepCapacity: false)
+                        for index in 0...arrayActionDots.count-1 {
+                            actionDotsTags.append(arrayActionDots[index].intValue)
+                            var button: GameButton
+                            button = mGameButtons[arrayActionDots[index].intValue] as! GameButton
+                            button.setImageAction()
+                        }
+                    } else {
+                        if actionDotsTags.count == 1 {
+                            resetAllActionDots()
+                            actionDotsTags.removeAll(keepCapacity: false)
+                        }
+
+                    }
+                }
+                
                 //var newpos = json[JSON_NEWLOCKEDDOT].intValue
                 var newpos = -1
                 if let arraylockedDots = json[JSON_NEWLOCKEDDOT].array {
@@ -642,11 +691,17 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 
                 if let arrayActionDots = json[JSON_ACTIONDOTS].array {
                     // set action dots
-                    for index in 0...arrayActionDots.count-1 {
-                        var button: GameButton
-                        button = mGameButtons[arrayActionDots[index].intValue] as! GameButton
-                        button.setImageAction()
+                    resetAllActionDots()
+                    actionDotsTags.removeAll(keepCapacity: false)
+                    if arrayActionDots.count-1 >= 0 {
+                        for index in 0...arrayActionDots.count-1 {
+                            actionDotsTags.append(arrayActionDots[index].intValue)
+                            var button: GameButton
+                            button = mGameButtons[arrayActionDots[index].intValue] as! GameButton
+                            button.setImageAction()
+                        }
                     }
+
                 }
                 
                 var amountOfNewLockedDots = 0
@@ -673,8 +728,10 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                         }
                     }
                 }
+                //if posofmoving != 0 {
+                    setUpMovingDot()
+                //}
                 
-                setUpMovingDot()
                 
                 if firstMoveDot{
                     firstMoveDot = false
@@ -698,7 +755,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     Sends the json with the position of the moving dot. It also sends whether there is a winning index, which means the red dot is moving out of the field. The json also contains whether somebody of the gamer gave up. A game id for synchronisation is also sent.
     */
     func sendMovingButton(){
-        var json: JSON = [JSON_MOVINGDOT:posofmoving, JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_GIVEUP:giveUp,JSON_GAMEID:gameID] //valid - checked by jsonlint
+        var json: JSON = [JSON_MOVINGDOT:posofmoving, JSON_WINNINGANIMATION:winnerAnimationIndex,JSON_GIVEUP:giveUp,JSON_GAMEID:gameID,JSON_ACTIONDOTS:actionDotsTags] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
         
         var error:NSError?
@@ -712,10 +769,10 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     /**
     Sends the new locked dots.
     
-    :param: lockedDots <#lockedDots description#>
+    :param: lockedDots description
     */
     func sendNewLockedDot(lockedDots: [Int]){
-        var json: JSON = [JSON_NEWLOCKEDDOT:lockedDots,JSON_AVATARID:myavatar,JSON_WINNERTWO:winnerTwo,JSON_GIVEUP:giveUp,JSON_GAMEID:gameID] //valid - checked by jsonlint
+        var json: JSON = [JSON_NEWLOCKEDDOT:lockedDots,JSON_AVATARID:myavatar,JSON_WINNERTWO:winnerTwo,JSON_GIVEUP:giveUp,JSON_GAMEID:gameID,JSON_ACTIONDOTS:actionDotsTags] //valid - checked by jsonlint
         var jsonrawdata = json.rawData(options: nil, error: nil)
         
         var error:NSError?
@@ -790,6 +847,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     func handleActionDots(button: GameButton) {
         
         var rand = arc4random_uniform(UInt32(4))
+        
         if rand == 0 {
             
             // grüne dots kommen hinzu
@@ -799,7 +857,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 do {
                     randomNumber = arc4random_uniform(UInt32(mGameButtons.count - 1))
                     buttonAction = mGameButtons[Int(randomNumber)] as! GameButton
-                } while buttonAction.isLocked || buttonAction.isMove
+                } while buttonAction.isLocked || buttonAction.isMove || buttonAction.isAction
                 var buttonTag = (mGameButtons[Int(randomNumber)] as! GameButton).tag
                 lockedDotsTags.append(buttonTag-1)
                 (mGameButtons[Int(randomNumber)] as! GameButton).setImageLocked()
@@ -892,6 +950,11 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                     handleActionDots(button)
                     button.setImageStandard()
                     button.isAction = false
+                    for (index, t) in enumerate(actionDotsTags) {
+                        if t == button.tag-1 {
+                            actionDotsTags.removeAtIndex(index)
+                        }
+                    }
                 }
                 sendMovingButton()
                 timer.invalidate()
@@ -903,6 +966,16 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                 LoadingOverlay.shared.showOverlay(self.view)
                 stepcounter++
                 mSteps.text = "Steps: \(stepcounter)"
+                
+                if button.isAction {
+                    handleActionDots(button)
+                    button.isAction = false
+                    for (index, t) in enumerate(actionDotsTags) {
+                        if t == button.tag-1 {
+                            actionDotsTags.removeAtIndex(index)
+                        }
+                    }
+                }
                 button.setImageLocked()
                 newLockedDotAnimation(button)
                 if isDotCaged() {
@@ -910,12 +983,7 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
                     gameOverWithWinner(winnerPlayer1: false)
                     showEndAlert(winning: true, gaveUp: false, draw: false)
                 }
-                
-                if button.isAction {
-                    handleActionDots(button)
-                    button.isAction = false
-                }
-                lockedDotsTags.append(button.tag-1)
+                                lockedDotsTags.append(button.tag-1)
                 sendNewLockedDot(lockedDotsTags)
                 timer.invalidate()
                 progressView.setProgress(1.0, animated: false)
@@ -923,7 +991,6 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         stopAnimating()
     }
-    
     func isDotCaged() -> Bool {
         var counter = 0
         for button in mGameButtons {
@@ -1012,7 +1079,6 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
             
             appDelegate.managedObjectContext?.save(nil)
             loadFromCoreData()
-            playerId = players.count - 1
         }
         
         if winnerPlayer1 {
@@ -1033,9 +1099,6 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         saveToCoreData()
     }
     
-    /**
-    Saves the game result into core data.
-    */
     func saveToCoreData() {
         let predicate = NSPredicate(format: "name == %@", opponentname)
         
@@ -1043,8 +1106,6 @@ class GameScreenViewController: UIViewController, UIGestureRecognizerDelegate {
         fetchRequest.predicate = predicate
         
         let fetchedEntities = appDelegate.managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as! [Player]
-        
-        println(fetchedEntities.first?.name)
         
         fetchedEntities.first?.wins = players[playerId].wins
         fetchedEntities.first?.amount = players[playerId].amount
